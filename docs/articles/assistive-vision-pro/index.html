@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
-<meta name="dcterms.date" content="2024-10-04">
+<meta name="author" content="Maxine Collard">
+<meta name="dcterms.date" content="2024-04-23">
 
-<title>Post With Code – Maxine Levesque</title>
+<title>I’m visually impaired. Apple Vision Pro is an amazing assistive device. – Maxine’s dream machine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,15 +37,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
+  "panel-placement": "start",
   "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
@@ -53,7 +53,6 @@ ul.task-list li input[type="checkbox"] {
     "/",
     "s"
   ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -69,75 +68,79 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Maxine Levesque</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/maxinelevesque"> <i class="bi bi-github" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
-</i> 
-<span class="menu-text"></span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs">I’m visually impaired. Apple Vision Pro is an amazing assistive device.</h1>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
-                                <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
-              </div>
-                  </div>
+      <h1 class="title d-none d-lg-block">I’m visually impaired. Apple Vision Pro is an amazing assistive device.</h1>
+                      </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
       <div>
-      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-heading">By</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Maxine Collard </p>
             </div>
     </div>
       
       <div>
-      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-heading">First Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 4, 2024</p>
+        <p class="date">April 23, 2024</p>
       </div>
     </div>
     
@@ -145,18 +148,193 @@ ul.task-list li input[type="checkbox"] {
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Maxine’s dream machine</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/maxinelevesque" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://twitter.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+    <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Talks</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../talks/astrocyte-knows/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>MOC 2024</strong>: How would we kknow what an astrocyte knows?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../talks/hw-phylogenetic-fantasy/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>RIPS 2023</strong>: Equilibrium in Freud’s “phylogenetic fantasy”</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Teaching</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://maxine.science/nso-24-stats/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neuroscience Orientation: Statistics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Articles</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/assistive-vision-pro/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Apple Vision Pro, assistive device</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><em>Archived</em></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/jade-fortress/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Jade Fortress</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/bend-in-reality/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A bend in reality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/substance-between/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About <em>The Substance Between</em></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Stories</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../stories/trauma-junkie/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Trauma Junkie</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/trauma-junkie/1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1.</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/walk-on-grass/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Don’t walk on the grass</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
 
 
-<p>This is a post with executable code.</p>
+<div class="page-columns page-full"><p>I’m albino. My eyes are … different.  </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Originally published in <a href="https://synapse.ucsf.edu/articles/2024/04/23/im-visually-impaired-apple-vision-pro-amazing-assistive-device">UCSF Synapse</a>.</span><span class="margin-aside">See the follow-up article from <a href="https://nymag.com/intelligencer/article/apple-vision-pro-disabled-users.html">The Intelligencer</a>.</span></div></div>
+<p>In many ways, the world is not built for me. Every time I open Outlook on my iPhone and FaceID pops up, I have to pull the phone far away from its usual position — an inch and a half from my face — because the LIDAR sensors on the front that identify me were not designed to work at a distance that makes sense for my eyes.</p>
+<p>My Photos app is mostly filled with pictures I’ve taken of menus at fast-food restaurants, or the occasional row of beer taps at a bar — I have no chance at knowing what’s there unless I can zoom in.</p>
+<p>I can’t legally drive without crazy-expensive bioptic telescopes that take months of training. I stopped biking to work after realizing that the spatial awareness needed to not get mowed down by lawless SF drivers was not something my depth-perception-less eyes could pull off.</p>
+<p>For the most part, this didn’t cause too much of an issue for me in med school. As it turns out, most of the tasks that you need eyes for are amenable to assistive devices — for example, an iPhone-connected digital otoscope — that I could take along with me when I needed them. I could always do what I had to do.</p>
+<p>But now I’m in grad school, working on a data science–heavy PhD, and I’m face-to-face with a nemesis that only lightly taunted me before: my computer.</p>
+<p>Oh! — the fits of jealousy I have let out, watching people casually use their laptops at a reasonable, comfortable reading distance. If ever I am away from a 24-inch-plus monitor, my only hopes for being able to see my screen are to (A) contort myself so my face embedded in the display, (B) deal with the puny field of view of loupes, or (C) crank up the full-screen zoom feature built into macOS — a godsend, yes, but also a bit awkward when I have to blow up my Slack messages to 80 point font in the office to read them.</p>
+<p>Yikes. Been burned by that one.</p>
+<p>And so, I pre-ordered Apple Vision Pro, even on my meager grad student stipend.</p>
+<p>Now, I’m not a newbie to working in a VR workstation; I spent my tech years doing computational work inside an Oculus Rift, despite the screen-door effect and the stream of ginger chews for the nausea. But Ooh! — the power of being surrounded on all sides by Jupyter notebooks!</p>
+<p>The Vision Pro, though, is something to behold. If you want to know how good it is, just watch Apple’s ads. Or Minority Report. It really does just work as advertised. The inside-out tracking is so good that I can open a web browser in my office on the 6th floor of the Weill building, walk down the stairs to the kitchen on the 5th floor and check my email, and then walk back up the stairs to the 6th floor to find the browser exactly where I left it. It’s bananas.</p>
+<p>But for me, the most amazing part is the attention to detail Apple has given to differences in vision.</p>
+<p>Wear prescription glasses? Click in a pair of magnetic lens inserts from Zeiss — the headset registers your prescription when they’re attached and uses it to correct screen rendering and eye tracking artifacts.</p>
+<p>Have strabismus? No problem: the Accessibility menu lets you turn off foveated rendering (tough to do right for eyes that don’t come together) and switch the eye-tracked navigation to your dominant eye (or even to hand gestures only).</p>
+<p>Even my nystagmus and my lack of retinal melanin to absorb IR backscattering — both of which have befuddled research-grade eye tracking systems in the past — pose no issues for the Vision Pro, as long as I blow up the user interface a little bigger to account for the eye wiggles.</p>
+<p>Which — I mean, why not? When your monitor is space, it’s not like you’re going to run out of room.</p>
+<p>You may yuk it up as you’re taking candids of me out working on the quad. (Yes, I can see you.) But as a disabled person, the ability to finally sit back with my feet up on a bench out in the sun while working on my laptop — or more accurately, while working on a 30-foot-wide 4K screen floating in exactly the perfect ergonomic position, one that I can reposition anywhere I want it to be in any moment — is the answer to decades of prayers to the accessibility gods.</p>
+<p>Can’t read my text messages? Why don’t I just pull them right next to my face?</p>
+<p>Not enough room on my 13-inch laptop screen for the four code windows I’m looking at to be visible at the 20 point font I need to read? What if I just made the screen 15 feet tall?</p>
+<p>For me, the extra bit of weight from strapping an iPad to my face is worth it. Because now I get to feel, for the first time, like I can use a computer the way I want to — and not the way I have to, because it’s designed for other people’s eyes.</p>
+<p>So, if you see me with my Vision Pro on, don’t mind me — I’m just over here living in the 24th century like Geordi La Forge. <span class="math inline">\(\,\blacksquare\)</span></p>
 
 
 
@@ -253,7 +431,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/maxine\.science");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -582,6 +760,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2024, Maxine Collard</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 
