@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Max Collard">
+<meta name="dcterms.date" content="2023-08-24">
 
-<title>About – Maxine's dream machine</title>
+<title>To struggle against world-ending time – Maxine’s dream machine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/quarto-contrib/bootstrap-icons-1.11.1/all.css" rel="stylesheet">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -66,20 +68,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./about.html">About</a></li></ol></nav>
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs">To struggle against world-ending time</h1>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -89,15 +120,46 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title d-none d-lg-block">To struggle against world-ending time</h1>
+            <p class="subtitle lead">A review of <em>Oppenheimer</em> (2023)</p>
+                                <div class="quarto-categories">
+                <div class="quarto-category">archive</div>
+                <div class="quarto-category">movies</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">By</div>
+      <div class="quarto-title-meta-contents">
+               <p>Max Collard </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Watched on</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">August 24, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Maxine’s dream machine</a> 
-        <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/maxinelevesque" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+      <a href="../../">Maxine’s dream machine</a> 
+        <div class="sidebar-tools-main">
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
 </div>
     </div>
@@ -106,13 +168,24 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home</span></a>
+  <a href="https://bsky.app/profile/maxine.science" class="sidebar-item-text sidebar-link"><i class="bi bi-globe2" role="img">
+</i> 
+ <span class="menu-text"><span class="citation" data-cites="maxine.science">@maxine.science</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link active">
+  <a href="https://bsky.app/profile/maxine.science" class="sidebar-item-text sidebar-link"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">maxinelevesque</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">&nbsp;</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
 </li>
@@ -120,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Talks</strong></span></a>
+ <span class="menu-text"><strong>Articles</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -128,49 +201,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./talks/astrocyte-knows/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>MOC 2024</strong>: How would we kknow what an astrocyte knows?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./talks/hw-phylogenetic-fantasy/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>RIPS 2023</strong>: Equilibrium in Freud’s “phylogenetic fantasy”</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Teaching</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="https://maxine.science/nso-24-stats/" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Neuroscience Orientation: Statistics</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Articles</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./articles/assistive-vision-pro/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../articles/assistive-vision-pro/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Apple Vision Pro, assistive device</span></a>
   </div>
 </li>
@@ -178,28 +209,34 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text"><em>Archived</em></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./articles/jade-fortress/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../articles/oppenheimer-review/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">To struggle against world-ending time</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/jade-fortress/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Jade Fortress</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./articles/bend-in-reality/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../articles/bend-in-reality/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">A bend in reality</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./articles/substance-between/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../articles/substance-between/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About <em>The Substance Between</em></span></a>
   </div>
 </li>
@@ -208,34 +245,58 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text"><strong>Stories</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./stories/trauma-junkie/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../../stories/trauma-junkie/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trauma Junkie</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stories/trauma-junkie/1.html" class="sidebar-item-text sidebar-link">
+  <a href="../../stories/trauma-junkie/1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/trauma-junkie/2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.</span></a>
   </div>
 </li>
       </ul>
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stories/walk-on-grass/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../stories/dont-walk-on-grass/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Don’t walk on the grass</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Teaching</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://maxine.science/nso-24-stats/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neuroscience Orientation: Statistics</span></a>
   </div>
 </li>
       </ul>
@@ -245,29 +306,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-   
-  <ul>
-  <li><a href="#maxine-collard" id="toc-maxine-collard" class="nav-link active" data-scroll-target="#maxine-collard">Maxine Collard</a>
-  <ul class="collapse">
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
-  <li><a href="#research-experience" id="toc-research-experience" class="nav-link" data-scroll-target="#research-experience">Research experience</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
 
-<section id="maxine-collard" class="level1 page-columns page-full">
-<h1>Maxine Collard</h1>
-<p>is a <strong>physician-scientist in training</strong>. She uses math to study <strong>mind</strong>, in all its amazing forms.</p>
-<section id="section" class="level4 page-columns page-full">
-<h4 data-anchor-id="section"><a href="https://www.linkedin.com/in/maxinecollard"><i class="bi-linkedin " style="" role="img" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/maxinelevesque"><i class="bi-github " style="" role="img" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<i class="bi-mastodon " style="" role="img" aria-hidden="true"></i></h4>
+
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -278,160 +326,23 @@ Caution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>Under construction.</em></p>
+<p><em>Spoilers.</em></p>
 </div>
 </div>
-<div class="column-screen-inset-right">
-<p><img src="profile.jpg" class="img-fluid"></p>
-</div>
-</section>
-<section id="education" class="level2 page-columns page-full">
-<h2 data-anchor-id="education">Education</h2>
-<section id="mdphd-2027-expected-ms-2024" class="level4 page-columns page-full">
-<h4 data-anchor-id="mdphd-2027-expected-ms-2024">MD/PhD · 2027 (<em>expected</em>)<br>MS · 2024</h4>
-<div class="page-columns page-full"><p><strong>University of California, San Francisco</strong> · Focus in <strong>Neuroscience</strong> </p><div class="no-row-height column-margin column-container"><span class="margin-aside">&nbsp;</span></div></div>
-<p>Weill Fellowship&nbsp;· Trefethen Family Travel Award · Graduate Division Travel Award</p>
-</section>
-<section id="bs-2015" class="level4">
-<h4 data-anchor-id="bs-2015">BS · 2015</h4>
-<p><strong>Johns Hopkins University</strong> · Dual major in <strong>Biomedical Engineering</strong> and <strong>Mathematics</strong> · Minor in <strong>Applied Mathematics and Statistics</strong></p>
-<p>General Honors · Departmental Honors (BME, Math) · Richard J. Johns Award · Michael Bloomberg Scholarship · Elected to Tau Beta Pi</p>
-</section>
-</section>
-<section id="research-experience" class="level2 page-columns page-full">
-<h2 data-anchor-id="research-experience">Research experience</h2>
-<section id="independent-2021-present" class="level4 page-columns page-full">
-<h4 data-anchor-id="independent-2021-present">Independent&nbsp;&nbsp;·&nbsp;&nbsp;2021 – <em>present</em></h4>
-<p>University of California, San Francisco</p>
-<p>I study how to use <strong>relational theory</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> as a mathematical model of systems’ <strong>world-models</strong>, their interactions, and their dynamics.</p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Also known as <strong>category theory</strong> more widely, although this terminology creates a significant amount of confusion to not-specialists.</p></div></div><p><em>More soon.</em></p>
-</section>
-<section id="abbasi-lab-2023-present" class="level4">
-<h4 data-anchor-id="abbasi-lab-2023-present">Abbasi Lab&nbsp;&nbsp;·&nbsp;&nbsp;2023 – <em>present</em></h4>
-<p>University of California, San Francisco</p>
-<p>I study how <strong>large language models</strong> can be used to understand the <strong>diversity of human mental life</strong> and how <strong>individuals’ mental health changes</strong> over time.</p>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Language models infer changes in mental state from social media posts
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<!-- :::: {.columns} -->
-<!-- ::: {.column width="30%"}
-Image goes here.
-:::
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">&nbsp;</span></div></div>
+<p>Much can be said — <em>has</em> been said — about <em>Oppenheimer</em>.</p>
+<p>Of course, there are the <a href="https://www.theatlantic.com/ideas/archive/2023/07/oppenheimer-movie-moralizing-reviews-social-media/674823/">tired, moralizing critiques</a> that have become the impression-snagging, dopamine-bursting staples of our social-media-fuelled outrage machine. Yes, it is true: even in 2023, Christopher Nolan would certainly be <em>shocked</em> to learn that women are independent agents with their own thoughts and motivations. Similarly, there are those who variously lambast the film’s perceived glorification or vilification of J. Robert Oppenheimer (Cillian Murphy). (Though, make no mistake: to miss the profound ambivalence of the film, or its subject, is to admit one’s attention span sits at the Planck scale.) And, there are those who correctly point out the issues which Nolan’s movie omits or gives inadequate attention — in its <em>three hours</em> of content.</p>
+<p>That-all notwithstanding, I cannot recall a more powerful moment in contemporary cinema than the buildup to the detonation of Trinity. That utter silence — save for the clattering of the 70mm film reel — in which the sold-out audience witnessed physicists’ intellectual fantasy manifest in flames before their eyes, made real in the realm of the material. The universal forces of creation, and structure, and beauty — the spiritual monuments of a young theoretician — being harnessed, in the context of inescapable war, to rend the very fabric of matter asunder, engulfed in a power our Earth had never seen in its four-billion-year existence prior. In that silence, my body could yield only one response:</p>
+<p>I wept.</p>
+<p>When I walked out of an IMAX showing at the Metreon downtown — surrounded by jubilant dude-bros torn between fawning at Robert Downey, Jr.&nbsp;and explaining how the movie wasn’t as good as <em>Interstellar</em> — I walked to the curb, a dissociated husk, and collapsed in unmitigated horror.</p>
+<p>In the Bhagavad Gita, Arjuna is confronted with the inexorability and numinousness of his role as the carrier of the cosmic force of <em>time</em>, destroyer of the world — perhaps a better translation than “death”, as Oppenheimer famously took from Isherwood’s poetic license in translating from Sanskrit. Every physicist knew what splitting the uranium nucleus meant: “a bomb”. If Oppenheimer had refused to lead the project, a hundred others could have stood in his place — after all, it only took one to fill the post. And if, in the face of changing tides during the war, that leader decided to try and halt the enterprise? “We’ll have him killed,” we hear from Gen.&nbsp;Leslie Groves (Matt Damon), the personification of the bureaucratic government war machine — not so much a joke as a threat.</p>
+<p>And if that leader <em>had</em> succeeded in halting the U.S. development of nuclear arms after the fall of the Nazi regime? What would the world have looked like with the knowledge of fission and fusion devices, leaked by Klaus Fuchs, in the hands of an unopposed Stalin?</p>
+<p>Though <em>Oppenheimer</em> tells us the particularities of this man’s life, the story was not truly about him. He, too, was the vehicle of an inexorable and numinous cosmic force. If the film’s ending is to be believed, then the true blame lies in the tension between two fundamental facets of what it is to be human: on the one hand, our pursuit of <em>structure</em>, <em>meaning</em>, and <em>beauty</em> in the humbling vastness of the cosmos, as the younger Einstein and Oppenheimer sought in uncovering and developing quantum theory, respectively; and, on the other, our taste for wanton destruction in war. The former, in the presence of the latter, has an inevitable — and horrifying — conclusion.</p>
+<p>The world stands on the precipice. Perhaps the catalyst will be <a href="https://www.voanews.com/a/ecowas-military-chiefs-to-discuss-potential-intervention-in-niger-/7228677.html">a spark catching the tinderbox in Niger</a>, or Lukashenko making good on <a href="https://www.reuters.com/world/europe/lukashenko-taunts-poland-again-over-wagner-troops-near-border-2023-08-01/">his threats to have the now-headless Wagner forces stray from their training of Belarusian troops to march on Warsaw</a>. Perhaps it will be <a href="https://www.reuters.com/world/uk/britain-says-it-intercepted-two-russian-bomber-aircraft-north-scotland-2023-08-14/">Putin’s bombers making an incursion into UK airspace</a>, or Xi’s carriers <a href="https://www.theguardian.com/world/2023/apr/11/china-drills-taiwan-war-like-escalation">venturing into Taiwan’s air defense zone to launch hundreds of simulated direct strikes on the island</a>. But to sit in comfort is now an act of willful ignorance — not realism. World events have slid so far, bit by bit, just at the corner of our vision. My conversations about the news with friends no longer feel like me shouting warnings out into the void; instead, they feel like echoes, reflecting those worries back at me from each pair of eyes. This new feeling frightens me, far more than my own fantasies of destruction ever could.</p>
+<p>I fear that I am not prepared to make the choices that will be demanded of me in the coming years. I have not had to face that impossible decision, of whether to confront an enemy so vast — an enemy with the power to bring about genocide without bound, in the holocaust of the strong force — with a remedy that I know may summon global annihilation. I have not had to face a world where <a href="https://www.nationalww2museum.org/students-teachers/student-resources/research-starters/take-closer-look-ration-books">we count the stamps for this month’s eggs</a>. A world where <a href="https://veteran-voices.com/world-war-ii-selective-service-draft-registrations/">our numbers are seared into our memories</a>. A world in which we struggle for a human right that is different in kind from those we have become accustomed to fighting for: the right for human flesh not to be ripped from bone in the fire of a nuclear sun. A world for which we must serve as caretakers. A world where we must wholly will history away from cataclysm — so that our children may live to carry on our pursuit of justice.</p>
+<p>I learned in the pandemic the incredible measure of our collective resilience. We will adapt; we will, as we always do, use crisis to build something truly new and spectacular. But when I walk across campus to get a coffee or a sandwich — when I see friends gathering for lunch, or for Frisbee on the quad — I can’t help but mourn the loss that I know we will all feel when the world soon falls off that precipice and into darkness.</p>
+<p>The autumnal equinox approaches, when the lengthening nights accelerate. Though I cling to the hope of the day’s return, I also know that there is a brutal winter ahead. For now, I turn inward — and pray for the strength to make impossible choices. <span class="math inline">\(\,\blacksquare\)</span></p>
 
-::: {.column width="5%"}
-<!- empty column to create gap ->
-::: -->
-<!-- ::: {.column width="65%"} -->
-<p><em>Project lead: <strong>Maxine Collard</strong></em></p>
-<p>I developed methods for leveraging off-the-shelf and fine-tuned language models (LMs) to generate rich annotations estimating different facets of the internal mental state of individuals over time from naturalistic language. In particular, this project leverages large datasets of users’ interactions with mental health–related communities online.</p>
-<p>While diagnosis, clinical decision-making, and psychotherapeutic management based on artificial agents faces a number of technical and ethical challenges, treating LMs as queryable repositories of <em>weak</em> but <em>rich</em> language understanding helps reframe their clinical utility toward information extraction, helping humans digest impossible volumes of information to aid, nut supplant, informed decision-making.</p>
-<p><em>In preparation</em> <!-- ::: --></p>
-<!-- :::: -->
-</div>
-</div>
-<div class="callout callout-style-default callout-caution no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Multimodal+multilingual AI for quantitative and qualitative assessment of mental health in semi-structured electronic health records
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Project lead: Maxine Collard</em></p>
-<p>Using the methodology developed above, I am developing methods that leverage the rich understanding of language models to help sort through massive amounts of mental health–related electronic health records, to help inform new ways of thinking about nosology and measurement in psychiatry.</p>
-<p><em>In preparation</em></p>
-</div>
-</div>
-</section>
-<section id="poskanzer-lab-2020present" class="level4">
-<h4 data-anchor-id="poskanzer-lab-2020present">Poskanzer Lab · 2020–present</h4>
-<p>University of California, San Francisco</p>
-<p>I study how <strong>astrocytes and neurons co-regulate each other’s dynamics</strong>.</p>
-<div class="callout callout-style-default callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Astrocyte integraition of neuromodulatory input
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Project lead: Charlotte Taylor</em></p>
-<p>I consulted on analysis and interpretation of multimodal data to investigate the role of astrocytes’ histamine sensing on intracellular signaling, regulation of neuronal activity, and sleep behavior.</p>
-<p><em>In preparation</em></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Astrocyte network response to neurotransmitters
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Project lead: Dr.&nbsp;Michelle Cahill</em></p>
-<p>I developed computational methods to unravel how astrocyte networks differentially encode exposure to GABA and glutamate, revealing a new kind of astrocytic calcium excitation and giving a first hint at the conditional logic of astrocytes’ integration of neurotransmitters in space and time.</p>
-<p><a href="https://www.nature.com/articles/s41586-024-07311-5"><em>Nature</em></a> · <a href="https://www.biorxiv.org/content/10.1101/2023.12.01.568932v1"><em>bioRxiv</em></a></p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Astrocyte GPCR signaling and sleep
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><em>Project lead: Dr.&nbsp;Trisha Vaidyanathan</em></p>
-<p><em>More soon.</em></p>
-<p><a href="https://elifesciences.org/articles/63329"><em>eLife</em></a></p>
-</div>
-</div>
-</section>
-<section id="crone-lab-20122018" class="level4">
-<h4 data-anchor-id="crone-lab-20122018">Crone Lab · 2012–2018</h4>
-<p>Johns Hopkins University</p>
-<p>I studied how <strong>information flow</strong> in the human brain rapidly changes over the course of many activities.</p>
-<div class="callout callout-style-default callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<em>Project collage</em>
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Dynamic brain information flow in human intracranial EEG<br><a href="https://www.sciencedirect.com/science/article/pii/S1053811916300167"><em>Neuroimage</em></a> (<strong>as project lead</strong>) · <a href="https://academic.oup.com/cercor/article/29/2/777/4823221"><em>Cerebral Cortex</em></a> (<em>with Dr.&nbsp;Kiyohide Usami</em>)</p>
-<p>Networks for language and movement.<br><a href="https://www.sciencedirect.com/science/article/pii/S0301008220300435"><em>Progress in Neurobiology</em></a> (<em>with Dr.&nbsp;Anna Korzeniewska and many others</em>)</p>
-<p>Tools to connect brain activity to the web<br><a href="https://www.frontiersin.org/articles/10.3389/fnins.2018.01030/full"><em>Frontiers in Neuroscience</em></a> (<em>with Dr.&nbsp;Griffin Milsap</em>)</p>
-<p>Language brain-machine interfaces<br><a href="https://www.frontiersin.org/articles/10.3389/fnins.2019.00060/full"><em>Frontiers in Neuroscience</em></a> (<em>with Dr.&nbsp;Griffin Milsap</em>)</p>
-</div>
-</div>
-</section>
-<section id="hong-lab-2013" class="level4">
-<h4 data-anchor-id="hong-lab-2013">Hong Lab · 2013</h4>
-<p>Tsinghua University</p>
-<p>I built an international collaboration, as part of the Tsinghua–Johns Hopkins joint program for biomedical engineering research, to apply research methods I was developing on dynamic information flow at JHU to human intracranial data collected at Tsinghua.</p>
-
-
-</section>
-</section>
-</section>
 
 
 </main> <!-- /main -->
@@ -455,6 +366,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -855,7 +773,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2024, Maxine Collard</p>
+<p>Copyright 2025, Maxine Levesque</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

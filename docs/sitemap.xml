@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://maxine.science/stories/walk-on-grass/index.html</loc>
-    <lastmod>2024-10-09T21:18:20.034Z</lastmod>
+    <loc>https://maxine.science/stories/dont-walk-on-grass/index.html</loc>
+    <lastmod>2025-04-02T03:20:36.415Z</lastmod>
   </url>
   <url>
-    <loc>https://maxine.science/stories/trauma-junkie/index.html</loc>
-    <lastmod>2024-10-09T21:19:02.560Z</lastmod>
+    <loc>https://maxine.science/stories/trauma-junkie/1.html</loc>
+    <lastmod>2025-04-02T02:55:11.000Z</lastmod>
   </url>
   <url>
     <loc>https://maxine.science/index.html</loc>
-    <lastmod>2024-10-08T18:31:21.079Z</lastmod>
+    <lastmod>2025-04-02T00:33:23.933Z</lastmod>
+  </url>
+  <url>
+    <loc>https://maxine.science/talks/capitalism-prion/index.html</loc>
+    <lastmod>2024-10-30T18:10:12.711Z</lastmod>
   </url>
   <url>
     <loc>https://maxine.science/talks/hw-phylogenetic-fantasy/index.html</loc>
@@ -25,23 +29,31 @@
     <lastmod>2024-10-09T21:20:16.580Z</lastmod>
   </url>
   <url>
+    <loc>https://maxine.science/articles/oppenheimer-review/index.html</loc>
+    <lastmod>2025-04-02T01:08:15.394Z</lastmod>
+  </url>
+  <url>
     <loc>https://maxine.science/articles/substance-between/index.html</loc>
     <lastmod>2024-10-09T21:20:19.959Z</lastmod>
   </url>
   <url>
     <loc>https://maxine.science/articles/jade-fortress/index.html</loc>
-    <lastmod>2024-10-09T21:20:09.625Z</lastmod>
+    <lastmod>2025-04-02T02:42:23.621Z</lastmod>
   </url>
   <url>
     <loc>https://maxine.science/talks/astrocyte-knows/index.html</loc>
-    <lastmod>2024-10-30T17:59:02.337Z</lastmod>
+    <lastmod>2024-10-30T17:59:24.519Z</lastmod>
   </url>
   <url>
-    <loc>https://maxine.science/about.html</loc>
-    <lastmod>2024-10-30T17:58:02.780Z</lastmod>
+    <loc>https://maxine.science/about/index.html</loc>
+    <lastmod>2025-04-02T03:14:13.264Z</lastmod>
   </url>
   <url>
-    <loc>https://maxine.science/stories/trauma-junkie/1.html</loc>
-    <lastmod>2024-10-08T17:41:56.727Z</lastmod>
+    <loc>https://maxine.science/stories/trauma-junkie/index.html</loc>
+    <lastmod>2025-04-02T02:55:54.200Z</lastmod>
+  </url>
+  <url>
+    <loc>https://maxine.science/stories/trauma-junkie/2.html</loc>
+    <lastmod>2025-04-02T03:00:55.802Z</lastmod>
   </url>
 </urlset>

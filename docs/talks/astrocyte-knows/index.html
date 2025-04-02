@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -68,11 +88,40 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -125,9 +174,7 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Maxine’s dream machine</a> 
-        <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/maxinelevesque" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-twitter"></i></a>
+        <div class="sidebar-tools-main">
     <div id="quarto-search" class="quarto-navigation-tool px-1" title="Search"></div>
 </div>
     </div>
@@ -136,13 +183,24 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Home</span></a>
+  <a href="https://bsky.app/profile/maxine.science" class="sidebar-item-text sidebar-link"><i class="bi bi-globe2" role="img">
+</i> 
+ <span class="menu-text"><span class="citation" data-cites="maxine.science">(<a href="#ref-maxine.science" role="doc-biblioref"><strong>maxine.science?</strong></a>)</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../about.html" class="sidebar-item-text sidebar-link">
+  <a href="https://bsky.app/profile/maxine.science" class="sidebar-item-text sidebar-link"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">maxinelevesque</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">&nbsp;</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../about/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
 </li>
@@ -150,54 +208,12 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Talks</strong></span></a>
+ <span class="menu-text"><strong>Articles</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../talks/astrocyte-knows/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><strong>MOC 2024</strong>: How would we kknow what an astrocyte knows?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../talks/hw-phylogenetic-fantasy/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>RIPS 2023</strong>: Equilibrium in Freud’s “phylogenetic fantasy”</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Teaching</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="https://maxine.science/nso-24-stats/" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Neuroscience Orientation: Statistics</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Articles</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../articles/assistive-vision-pro/index.html" class="sidebar-item-text sidebar-link">
@@ -208,13 +224,19 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text"><em>Archived</em></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../articles/oppenheimer-review/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">To struggle against world-ending time</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../articles/jade-fortress/index.html" class="sidebar-item-text sidebar-link">
@@ -238,34 +260,58 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text"><strong>Stories</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../../stories/trauma-junkie/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Trauma Junkie</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../stories/trauma-junkie/1.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">1.</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../stories/trauma-junkie/2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2.</span></a>
+  </div>
+</li>
       </ul>
   </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../stories/walk-on-grass/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../stories/dont-walk-on-grass/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Don’t walk on the grass</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Teaching</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="https://maxine.science/nso-24-stats/" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neuroscience Orientation: Statistics</span></a>
   </div>
 </li>
       </ul>
@@ -275,11 +321,32 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+   
+  <ul>
+  <li><a href="#i.-astrocytes" id="toc-i.-astrocytes" class="nav-link active" data-scroll-target="#i.-astrocytes">I. Astrocytes</a>
+  <ul class="collapse">
+  <li><a href="#a.-morphology" id="toc-a.-morphology" class="nav-link" data-scroll-target="#a.-morphology">A. Morphology</a></li>
+  <li><a href="#b.-relationships-with-neurons" id="toc-b.-relationships-with-neurons" class="nav-link" data-scroll-target="#b.-relationships-with-neurons">B. Relationships with neurons</a></li>
+  <li><a href="#c.-calcium-excitations" id="toc-c.-calcium-excitations" class="nav-link" data-scroll-target="#c.-calcium-excitations">C. Calcium excitations</a></li>
+  </ul></li>
+  <li><a href="#ii.-logic" id="toc-ii.-logic" class="nav-link" data-scroll-target="#ii.-logic">II. Logic</a></li>
+  <li><a href="#iii.-encoding" id="toc-iii.-encoding" class="nav-link" data-scroll-target="#iii.-encoding">III. Encoding</a></li>
+  <li><a href="#iv.-representation" id="toc-iv.-representation" class="nav-link" data-scroll-target="#iv.-representation">IV. Representation</a>
+  <ul class="collapse">
+  <li><a href="#a.-one-facet-of-the-diamond" id="toc-a.-one-facet-of-the-diamond" class="nav-link" data-scroll-target="#a.-one-facet-of-the-diamond">A. One facet of the diamond</a></li>
+  <li><a href="#b.-coherently-translating-between-facets" id="toc-b.-coherently-translating-between-facets" class="nav-link" data-scroll-target="#b.-coherently-translating-between-facets">B. Coherently translating between facets</a></li>
+  <li><a href="#c.-a-complete-set-of-parts" id="toc-c.-a-complete-set-of-parts" class="nav-link" data-scroll-target="#c.-a-complete-set-of-parts">C. A complete set of parts</a></li>
+  </ul></li>
+  <li><a href="#v.-fruitful-generalizations" id="toc-v.-fruitful-generalizations" class="nav-link" data-scroll-target="#v.-fruitful-generalizations">V. Fruitful generalizations</a></li>
+  <li><a href="#vi.-conclusions" id="toc-vi.-conclusions" class="nav-link" data-scroll-target="#vi.-conclusions">VI. Conclusions</a></li>
+  <li><a href="#audience-questions" id="toc-audience-questions" class="nav-link" data-scroll-target="#audience-questions">Audience questions</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
@@ -298,8 +365,155 @@ Caution
 <p><em>Under construction.</em></p>
 </div>
 </div>
-<p><em>Transcipt coming soon.</em></p>
+<section id="abstract" class="level4">
+<h4 class="anchored" data-anchor-id="abstract">Abstract</h4>
+<p>The theory of brain computation heavily relies on foundational results from neurons. But neurons are idiosyncratic cells: for example, their energy expenditure means they likely originally evolved for specific demands, like fine timing and coordination. Many other substrates compute in biology; for example, immune cells compute using a specific calculus of state-dependent signal transduction, even exhibiting cognitive functions like memory. We show how astrocytes might compute using patterns of intracellular calcium release selectively recruited by different neurotransmitters, integrating information over hundreds of microns and several minutes.</p>
+<p>The wild form that “computation” takes in astrocytes suggests a dramatic change is needed to understand “cognition” in still-more distant systems, like aneural organisms, non-biological entities, or collectives. In pursuit of a framework for finding mind in an unbiased way, we draw on applied category theory to view a system’s understanding within of relational world-structure without through the category of functorial representations of the world-structure on the system’s dynamics. We propose that the representation-theoretic problem of reconstructing the underlying category of “world-symmetries” from this functor category—in particular, when the underlying world-symmetry category has interesting structure—may provide a valuable unifying lens.</p>
+<p>&nbsp;</p>
+</section>
+<section id="i.-astrocytes" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="i.-astrocytes">I. Astrocytes</h2>
+<div class="page-columns page-full"><p>I’m going to talk to you today about <strong>astrocytes</strong>: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Based on notes from presentations at <a href="https://www.neuromonster.org">the Fifth International Convention on the Mathematics of Neuroscience and AI</a> and <a href="https://amcs-community.org/events/moc5-2024/">Models of Consciousness 2024</a>.</span></div></div>
+<p>(Image.)</p>
+<p>We don’t tend to talk about astrocytes too much in brain-related spaces—after all, the field is called <strong>neuro</strong>science, from which one could infer an implied preference for a particular cell type. However, there are a few things you might be interested to hear about astrocytes.</p>
+<p>First: astrocytes make up about a third of the brain, by number of cells. Another third of the cells in the brain are our friends the neurons, and the last third is divided among a diversity of other kinds, like the myelinating oligodendroglia or the wandering debris-eating microglia hailing from our yolk sac. Second: without astrocytes, you die. This an experiment we actually can perform with our present genetic tools, and a number of things go horribly wrong without these cells, problems that are incompatible with life. Finally: we really have no idea what exactly these cells do—at least, not in the same detail, though incomplete, as we know for neurons. Which is a terrifying indictment for a cell type that is nearly equally as abundant in the human brain!</p>
+<section id="a.-morphology" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="a.-morphology">A. Morphology</h3>
+<p>There are a few things we do know, however. Astrocytes have a distinctive morphology, with a small number of larger branches coming off the central cell body—this is how they got their name, “star cells”, from this feature which has been evident since early histological examination of brain tissue in the 19th century from folks like Ramón y Cajal. However, modern advances in microsopy and dye chemistry have enabled us to look closer at astrocytes’ fine architecture. We now know that radiating out finer and finer from these large main branches in each astrocyte are tens of thousands of fine processes, and that these bush-like arborizations from each cell cover distinct, non-overlapping territories, much like a Voronoi tesselation.</p>
+<p>(Image.)</p>
+<p>Distinct from neurons, astrocytes for the most part do not connect with each other using chemical synapses. Instead, they form direct gap-junctional connections with each other, meaning that most astrocytes in the cortex actually have one single, contiguous compartment of cytoplasm. This network<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> architecture results in strong shunting of current that makes astrocytes in large part electrically non-excitable. But, the very same organization also means many chemical messages may pass directly between neighboring cells—after all, gap junction proteins like connexin-43 and connexin-30 create literal holes connecting the interiors of astrocytes together! Thought-provokingly, these connections don’t just let anything through: they filter by characteristics such as size and charge, and open and close dynaimcally according to rules we do not fully understand.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Some folks refer to this as the astrocytic <em>syncitium</em>, though this terminology continues to cause some debate among physiologists, for whom this term has a very specific resonance.</p></div></div><p>(Image.)</p>
+</section>
+<section id="b.-relationships-with-neurons" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="b.-relationships-with-neurons">B. Relationships with neurons</h3>
+<p>If you are focusing on how astrocytes might impact the activity of neurons, though, one of the most interesting things we are getting a clearer picture of now is that most chemical synapses in cortex (and many other regions) are <strong>tripartite</strong>: while classically we envision these connections as principally involving a pre- and post-synaptic <em>neuron</em>:</p>
+<p>(Image.)</p>
+<p>we now understand that what a good deal of those tens of thousands of processes on each astrocyte reach out toward are synapses, ensheathing them in their end-feet:</p>
+<p>(Image.)</p>
+<p>This astrocytic third partner in the synapse actively senses many of the canonical signals that neurons do, like neurotransmitters and neuromodulators. In response to these signals, the astrocyte can locally release messengers like ATP or adenosine, which in turn alter the key mechanisms of synaptic plasticity, including the major sources of activity-dependent strengthening (long term potentiation) and weakening (long term depression).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The evidence for specific molecular pathways of synapse regulation, and even specific mechanisms of astrocytes releasing individual messengers, have been difficult to untangle, and are an ongoing source of debate in the field; a reasonable take, given how biology seems to work, is that the specifics are likely heterogeneous, dynamic, and context-dependent, but the overall portrait of astrocytes impinging on synaptic dynamics through closed-loop feedback of some form is pervasive in the brain.</p></div><div id="ref-vaidyanathan2021cortical" class="csl-entry" role="listitem">
+Vaidyanathan, Trisha V, Max Collard, Sae Yokoyama, Michael E Reitman, and Kira E Poskanzer. 2021. <span>“Cortical Astrocytes Independently Regulate Sleep Depth and Duration via Separate GPCR Pathways.”</span> <em>Elife</em> 10: e63329. <a href="https://doi.org/10.7554/eLife.63329">https://doi.org/10.7554/eLife.63329</a>.
+</div></div><p>On a coarser level—and perhaps one with greater impact on brain function—astrocytes also have intricate machinery for tweaking the knob on nearby neurons’ excitability. The big levers they use to achieve this are transporters that actively regulate extracellular potassium and glutamate, each of which has its own distinctive way of altering the dynamical regime of exposed neurons. When astrocytes’ intracellular signaling is poked hard enough, these effects are large enough to manifest as gross changes in sleep behavior, and can even selectively change different parameters of sleep, depend on the particular way that astrocytes are messed with <span class="citation" data-cites="vaidyanathan2021cortical">(<a href="#ref-vaidyanathan2021cortical" role="doc-biblioref">Vaidyanathan et al. 2021</a>)</span>.</p>
+</section>
+<section id="c.-calcium-excitations" class="level3">
+<h3 class="anchored" data-anchor-id="c.-calcium-excitations">C. Calcium excitations</h3>
+<p>(Image.)</p>
+<ul>
+<li>Character</li>
+<li>Heterogeneity</li>
+<li>Unclear whether this is really the information unit of astrocytes: field has not yet had its Hodgkin-Huxley moment</li>
+</ul>
+</section>
+</section>
+<section id="ii.-logic" class="level2">
+<h2 class="anchored" data-anchor-id="ii.-logic">II. Logic</h2>
+<p>In our lab, under the lead of Dr.&nbsp;Michelle Cahill, we decided to look at the system identification problem</p>
+<ul>
+<li>Experimental setup</li>
+<li>GABA/Glu base results</li>
+<li>Distinct Ca excitation types</li>
+<li>Decoding</li>
+<li>Conditional gating by propagative events</li>
+</ul>
+</section>
+<section id="iii.-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="iii.-encoding">III. Encoding</h2>
+<ul>
+<li>Canonical experiment of systems neuroscience: hippocampal representations during environmental navigation:</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>Neuronal response patterns: <em>place cells</em> and <em>grid cells</em>, by measuring neuronal firing as a function of spatial location</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>Recent evidence shows astrocyte response patterns, including <em>place cells</em> (REF) and, because of the low SNR, more amorphous <em>distributed spatial representation</em></li>
+<li>Astrocytes in fact provide orthogonal spatial information to neurons in decoding</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>But this type of “basis decomposition” of some abstract aspect of task structure is completely ubiquitous within neuroscience:
+<ul>
+<li>Grid cells for place</li>
+<li>Gabor-like filters for visual scenes</li>
+<li>Frequency decomposition for audition</li>
+</ul></li>
+<li>In fact these type of decompositions generalize to AI models, too: for example, in hidden layers of networks trained for visual object recognition</li>
+<li>What is going on here?
+<ul>
+<li>Why do similar forms of decomposition seem to arise in so many places?</li>
+<li>How should we try and understand the empirical hints we’re seeing about how astrocytes “represent” neurotransmitter inputs?</li>
+<li>What new observables should we design to try to tease apart what exactly astrocytes understand about the world?</li>
+</ul></li>
+</ul>
+</section>
+<section id="iv.-representation" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="iv.-representation">IV. Representation</h2>
+<p>I would like to preface what follows by making it transparent that I do not have a theory of consciousness. I wouldn’t even say that I have a framework. Perhaps it’s closest to say that I have a “concept of a framework”. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;For a wonderful exposition in a related vein with some worked examples in special cases, see <span class="citation" data-cites="marchetti2024">Marchetti et al. (<a href="#ref-marchetti2024" role="doc-biblioref">2024</a>)</span> or the talk <a href="https://youtu.be/hgiONVnB3eQ?si=TtQKhPEHM9qH_RJf">here</a>. For a while I had been trying to wrestle with my thoughts about whether I loved “representations” in neuroscience for their structural illumination, or hated them for failing to acknowledge the deeper object of study; but, it was Dr.&nbsp;Sanborn’s talk in Rome that, in one hour, crystallized all the puzzle pieces floating around and the fact that they were not really in opposition.<br>&nbsp;</p><div id="ref-marchetti2024" class="csl-entry" role="listitem">
+Marchetti, Giovanni Luca, Christopher Hillar, Danica Kragic, and Sophia Sanborn. 2024. <span>“Harmonics of Learning: Universal Fourier Features Emerge in Invariant Networks.”</span> <a href="https://arxiv.org/abs/2312.08550">https://arxiv.org/abs/2312.08550</a>.
+</div></div></div><section id="a.-one-facet-of-the-diamond" class="level3">
+<h3 class="anchored" data-anchor-id="a.-one-facet-of-the-diamond">A. One facet of the diamond</h3>
+<p>Let’s consider the problem of understanding neuronal or astrocytic activity from a slightly different perspective. In fact, let’s start from the <em>end</em>: empirically, I know that I am able to perform object recognition, and in particular, that I am able to recognize objects in a way that is <strong>invariant</strong> to some particular change in the object. For example, if I show you this picture of a triangle:</p>
+<p>(Image.)</p>
+<p>I know that there are some actions I can do to the triangle that may physically alter it in some way, but which leave the triangle at the end still recognizably a triangle to me. For example, I could rotate the triangle’s image by 120<span class="math inline">\(^\circ\)</span>; or, I could flip the image of the triangle in a mirror plane:</p>
+<p>(Image.)</p>
+<ul>
+<li>Abstract characterization as group, one-object category</li>
+<li>What it is to be a symmetry implies we have an identity (do nothing) and also that if we chain two of these transformations in a row, that that combination is also a symmetry</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>Structure of triangle-ness given by the diagram of all the arrows above</li>
+<li>Representation mathematically as a systematic mapping of all of these arrows onto a more well-understood kind of mathematical object (usually a vector space)</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>Abstract jargon for this is a functor</li>
+</ul>
+</section>
+<section id="b.-coherently-translating-between-facets" class="level3">
+<h3 class="anchored" data-anchor-id="b.-coherently-translating-between-facets">B. Coherently translating between facets</h3>
+<ul>
+<li>If we can form more than one of these pictures, then in fact more is implied directly from the structure</li>
+<li>We can ask about all of the different ways of moving one picture into another</li>
+</ul>
+<p>(Image.)</p>
+<ul>
+<li>In fact, …</li>
+</ul>
+<p>…</p>
+</section>
+<section id="c.-a-complete-set-of-parts" class="level3">
+<h3 class="anchored" data-anchor-id="c.-a-complete-set-of-parts">C. A complete set of parts</h3>
+<p>…</p>
+</section>
+</section>
+<section id="v.-fruitful-generalizations" class="level2">
+<h2 class="anchored" data-anchor-id="v.-fruitful-generalizations">V. Fruitful generalizations</h2>
+<p>…</p>
+</section>
+<section id="vi.-conclusions" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="vi.-conclusions">VI. Conclusions</h2>
+<ul>
+<li>What we really care about is not our material observations themselves, but the overlying <strong>mental content</strong> of the things under observation, which we cannot</li>
+<li>Interesting content—<em>i.e.</em>, different from isotropic randomness—is evident through the <strong>invariances</strong> or <strong>symmetries</strong> which we feel going through the world, and which we observe in systems empirically.</li>
+<li>In this way, content can be understood through the architecture of its <strong>relational structure</strong>. </li>
+<li>What we really observe then are the <strong>representations</strong> of this overlying relational content on other, comprehensible kinds of things—and in particular, those representations that <strong>preserve the structure</strong> of the content. </li>
+<li>In fact, we have more: there is an entire web of interrelated representations which we might form of the overlying content, and this web is <em>itself</em> highly structured as a result of the content’s structure and the kind of thing we use as a representing object.</li>
+<li>In “nice” cases, we can <strong>recover</strong> the relational content from the representations.</li>
+</ul>
+<div class="no-row-height column-margin column-container"><span class="margin-aside">In fact, the direct axiomatization of what it is for content to be entirely determined by its relational structure is <strong>category theory</strong>.</span><span class="margin-aside">In category-theoretic terms, a representation is a <strong>functor</strong>.</span></div></section>
+<section id="audience-questions" class="level2">
+<h2 class="anchored" data-anchor-id="audience-questions">Audience questions</h2>
+<section id="what-do-you-think-then-is-in-the-world-knowledge-of-the-astrocyte-network" class="level4">
+<h4 class="anchored" data-anchor-id="what-do-you-think-then-is-in-the-world-knowledge-of-the-astrocyte-network">What do you think, then, is in the “world-knowledge” of the astrocyte network?</h4>
+<p>…</p>
 
+
+
+</section>
+</section>
 
 
 </main> <!-- /main -->
@@ -730,7 +944,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2024, Maxine Collard</p>
+<p>Copyright 2025, Maxine Levesque</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;
