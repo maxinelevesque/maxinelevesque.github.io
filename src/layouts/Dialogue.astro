@@ -20,7 +20,12 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
   <div class="page">
     <!-- Dynamical system background -->
     <div class="system-canvas">
-      <canvas id="system-canvas" style="width: 100%; height: 100%;"></canvas>
+      <canvas
+        id="system-canvas"
+        style="width: 100%; height: 100%;"
+        data-system-index={systemIndex}
+        data-system-color="#6b5fa0"
+      ></canvas>
     </div>
 
     <div class="content">
@@ -57,13 +62,16 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
     </div>
   </div>
 
-  <script define:vars={{ systemIndex }}>
-    import('/src/components/dynamical-systems.js').then(({ initSystem, SYSTEM_NAMES }) => {
-      const canvas = document.getElementById('system-canvas');
-      if (canvas) initSystem(canvas, systemIndex, '#6b5fa0');
+  <script>
+    import { initSystem, SYSTEM_NAMES } from '../components/dynamical-systems.js';
+    const canvas = document.getElementById('system-canvas');
+    if (canvas) {
+      const idx = Number(canvas.dataset.systemIndex ?? 2);
+      const color = canvas.dataset.systemColor ?? '#6b5fa0';
+      initSystem(canvas, idx, color);
       const label = document.getElementById('system-label');
-      if (label) label.textContent = 'Animation: ' + SYSTEM_NAMES[systemIndex % SYSTEM_NAMES.length];
-    });
+      if (label) label.textContent = 'Animation: ' + SYSTEM_NAMES[idx % SYSTEM_NAMES.length];
+    }
   </script>
 </Base>
 
