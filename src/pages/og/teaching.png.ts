@@ -5,8 +5,9 @@ export const GET: APIRoute = async () => {
   const png = await makeOG({
     title: 'Teaching',
     subtitle: 'Talks and notes on the mathematics of mind.',
-    tag: 'Teaching',
     theme: 'solo',
+    system: 5,
+    footer: 'compact',
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },

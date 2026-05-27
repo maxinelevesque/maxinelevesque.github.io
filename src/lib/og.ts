@@ -1,24 +1,35 @@
 /**
  * OG image generation. Renders an HTML-shaped tree through satori to SVG,
- * then through resvg to PNG. Invoked from build-time API routes in
- * src/pages/og/**.
+ * then through resvg to PNG. Each image includes a baked-in render of one
+ * of the 13 dynamical systems in the header. Invoked from build-time API
+ * routes in src/pages/og/**.
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
+import { renderSystemSVG } from './simulate-system';
 
-// Astro runs the build from the project root, so process.cwd() points
-// there reliably. Using import.meta.url breaks because the lib is
-// bundled into dist/chunks/* at build time.
 const FONTS = join(process.cwd(), 'src/fonts');
 const REGULAR = readFileSync(join(FONTS, 'EBGaramond-Regular.ttf'));
 const ITALIC = readFileSync(join(FONTS, 'EBGaramond-Italic.ttf'));
 const SEMIBOLD = readFileSync(join(FONTS, 'EBGaramond-SemiBold.ttf'));
 
 const THEMES = {
-  solo: { bg: '#2e1420', accent: '#dba0a0', text: '#e4dbd0', muted: '#9a8578', rule: '#4a2838' },
-  dial: { bg: '#0a0b12', accent: '#7ca0c8', text: '#ccc8c0', muted: '#5a5664', rule: '#1e1d28' },
+  solo: {
+    bg: '#2e1420',
+    accent: '#dba0a0',
+    text: '#e4dbd0',
+    muted: '#9a8578',
+    rule: '#4a2838',
+  },
+  dial: {
+    bg: '#0a0b12',
+    accent: '#7ca0c8',
+    text: '#ccc8c0',
+    muted: '#5a5664',
+    rule: '#1e1d28',
+  },
 } as const;
 
 export type OGTheme = keyof typeof THEMES;
@@ -28,24 +39,87 @@ export interface OGOptions {
   subtitle?: string;
   tag?: string;
   theme?: OGTheme;
+  /** Index into the dynamical-systems library (0-12). */
+  system?: number;
+  /** Footer style: `compact` shows "Name · @handle"; `handle` shows only @handle larger. */
+  footer?: 'compact' | 'handle';
 }
 
-// satori accepts React-element-shaped objects. We avoid JSX so this file
-// stays plain .ts.
 function el(type: string, style: Record<string, unknown>, children: unknown): unknown {
   return { type, props: { style, children } };
+}
+
+function renderSystemDataURL(
+  systemIndex: number,
+  w: number,
+  h: number,
+  color: string,
+): string {
+  const svg = renderSystemSVG(systemIndex, w, h, color, 0.55);
+  const png = new Resvg(svg, {
+    fitTo: { mode: 'width', value: w },
+    background: 'transparent',
+  })
+    .render()
+    .asPng();
+  return `data:image/png;base64,${Buffer.from(png).toString('base64')}`;
 }
 
 export async function makeOG({
   title,
   subtitle = '',
-  tag = "Maxine's dream machine",
+  tag = '',
   theme = 'solo',
+  system = 0,
+  footer = 'compact',
 }: OGOptions): Promise<Uint8Array> {
   const t = THEMES[theme];
 
-  // Scale title down for long ones so it fits the 1040px content width.
-  const titleSize = title.length > 60 ? 56 : title.length > 38 ? 72 : 88;
+  const titleSize = title.length > 60 ? 56 : title.length > 38 ? 72 : 90;
+
+  // Render the system to a transparent PNG and embed as a data URL.
+  // 1200×260 band that sits along the top of the OG image.
+  const SYS_W = 1200;
+  const SYS_H = 260;
+  const systemImg = renderSystemDataURL(system, SYS_W, SYS_H, t.accent);
+
+  // Footer variants
+  const footerChildren =
+    footer === 'handle'
+      ? [
+          el(
+            'span',
+            { color: t.accent, fontSize: 38, fontStyle: 'italic', display: 'flex' },
+            '@maxine.science',
+          ),
+        ]
+      : [
+          el('span', { color: t.accent, display: 'flex' }, 'Maxine Levesque'),
+          el('span', { opacity: 0.4, display: 'flex' }, '·'),
+          el('span', { display: 'flex' }, '@maxine.science'),
+        ];
+
+  const footerStyle =
+    footer === 'handle'
+      ? {
+          color: t.muted,
+          fontStyle: 'italic',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          borderTop: `1px solid ${t.rule}`,
+          paddingTop: 28,
+        }
+      : {
+          color: t.muted,
+          fontSize: 32,
+          fontStyle: 'italic',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 16,
+          borderTop: `1px solid ${t.rule}`,
+          paddingTop: 28,
+        };
 
   const tree = el(
     'div',
@@ -60,21 +134,47 @@ export async function makeOG({
       position: 'relative',
     },
     [
-      // Top wordmark / tag
+      // Top: system render fades behind the optional tag
       el(
         'div',
         {
-          color: t.muted,
-          fontSize: 22,
-          letterSpacing: '0.22em',
-          textTransform: 'uppercase',
-          fontStyle: 'italic',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: SYS_H,
           display: 'flex',
+          opacity: 0.65,
         },
-        tag,
+        {
+          type: 'img',
+          props: {
+            src: systemImg,
+            width: SYS_W,
+            height: SYS_H,
+            style: { width: SYS_W, height: SYS_H },
+          },
+        },
       ),
 
-      // Title block (centered vertically)
+      // Tag line (optional)
+      tag
+        ? el(
+            'div',
+            {
+              color: t.muted,
+              fontSize: 22,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              fontStyle: 'italic',
+              display: 'flex',
+              position: 'relative',
+            },
+            tag,
+          )
+        : el('div', { display: 'flex', height: 0 }, ''),
+
+      // Title block (centered)
       el(
         'div',
         {
@@ -83,6 +183,7 @@ export async function makeOG({
           flexDirection: 'column',
           justifyContent: 'center',
           gap: 28,
+          position: 'relative',
         },
         [
           el(
@@ -115,25 +216,7 @@ export async function makeOG({
         ].filter(Boolean),
       ),
 
-      // Bottom signature
-      el(
-        'div',
-        {
-          color: t.muted,
-          fontSize: 24,
-          fontStyle: 'italic',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 16,
-          borderTop: `1px solid ${t.rule}`,
-          paddingTop: 24,
-        },
-        [
-          el('span', { color: t.accent, display: 'flex' }, 'Maxine Levesque'),
-          el('span', { opacity: 0.4, display: 'flex' }, '·'),
-          el('span', { display: 'flex' }, '@maxine.science'),
-        ],
-      ),
+      el('div', footerStyle, footerChildren),
     ],
   );
 

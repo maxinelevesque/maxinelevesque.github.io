@@ -18,6 +18,8 @@ export const GET: APIRoute = async ({ props }) => {
     subtitle: entry.data.subtitle ?? '',
     tag: `Dialogue × ${coauthor} · ${entry.data.date}`,
     theme: 'dial',
+    system: entry.data.system ?? 2,
+    footer: 'compact',
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },

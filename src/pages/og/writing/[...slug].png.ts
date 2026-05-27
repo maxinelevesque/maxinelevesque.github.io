@@ -24,6 +24,8 @@ export const GET: APIRoute = async ({ props }) => {
     subtitle: entry.data.subtitle ?? '',
     tag,
     theme: 'solo',
+    system: entry.data.system ?? 0,
+    footer: 'compact',
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },
