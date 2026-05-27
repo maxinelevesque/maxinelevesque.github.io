@@ -112,7 +112,7 @@ function lorenz(w: number, h: number): SystemRender {
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy - s.z * sc + 20 * sc }),
     Math.min(w, h) * 0.011,
     0.38,
-    7200,
+    14000,
   );
 }
 
@@ -137,7 +137,7 @@ function rossler(w: number, h: number): SystemRender {
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy + s.y * sc }),
     Math.min(w, h) * 0.022,
     0.45,
-    24000,
+    40000,
   );
 }
 
@@ -217,7 +217,7 @@ function halvorsen(w: number, h: number): SystemRender {
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy + s.y * sc }),
     Math.min(w, h) * 0.023,
     0.45,
-    22000,
+    36000,
   );
 }
 
@@ -280,7 +280,7 @@ function duffing(w: number, h: number): SystemRender {
   const cx = w * 0.5,
     cy = h * 0.3;
   const pts: Point[] = [];
-  for (let i = 0; i < 24000; i++) {
+  for (let i = 0; i < 40000; i++) {
     const dx = v * dt;
     const dv =
       (-delta * v - alpha * x - beta * x * x * x + gamma * Math.cos(omega * t)) * dt;
@@ -360,7 +360,9 @@ function threeBody(w: number, h: number): SystemRender {
   // Shorter exposure than the home-page sim — the per-frame triangle
   // overlay accumulates quickly into a dense silhouette otherwise.
   for (let f = 0; f < 400; f++) {
-    for (let s = 0; s < 6; s++) {
+    // Larger inner step count gives a faster apparent motion between
+    // each per-frame triangle snapshot.
+    for (let s = 0; s < 14; s++) {
       for (let a = 0; a < 3; a++) {
         let ax = 0,
           ay = 0;

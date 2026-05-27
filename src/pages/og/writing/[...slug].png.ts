@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { makeOG } from '../../../lib/og';
+import { makeOG, type OGOptions } from '../../../lib/og';
 
 export async function getStaticPaths() {
   const entries = await getCollection('writing');
@@ -9,6 +9,11 @@ export async function getStaticPaths() {
     props: { entry },
   }));
 }
+
+// Per-slug overrides for the system-render panel.
+const OVERRIDES: Record<string, Partial<OGOptions>> = {
+  'trauma-junkie-2': { systemOpacity: 0.55 },
+};
 
 export const GET: APIRoute = async ({ props }) => {
   const entry = props.entry as CollectionEntry<'writing'>;
@@ -26,6 +31,7 @@ export const GET: APIRoute = async ({ props }) => {
     theme: 'solo',
     system: entry.data.system ?? 0,
     footer: 'compact',
+    ...OVERRIDES[entry.slug],
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },
