@@ -47,6 +47,10 @@ export interface OGOptions {
   systemSize?: number;
   /** Opacity of the system-render panel (default 0.3). */
   systemOpacity?: number;
+  /** Top offset of the system-render panel (default -40). */
+  systemTop?: number;
+  /** Right offset of the system-render panel (default -40). */
+  systemRight?: number;
 }
 
 function el(type: string, style: Record<string, unknown>, children: unknown): unknown {
@@ -78,6 +82,8 @@ export async function makeOG({
   footer = 'compact',
   systemSize = 760,
   systemOpacity = 0.3,
+  systemTop = -40,
+  systemRight = -40,
 }: OGOptions): Promise<Uint8Array> {
   const t = THEMES[theme];
 
@@ -147,8 +153,8 @@ export async function makeOG({
         'div',
         {
           position: 'absolute',
-          top: -40,
-          right: -40,
+          top: systemTop,
+          right: systemRight,
           width: SYS_W,
           height: SYS_H,
           display: 'flex',
