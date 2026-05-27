@@ -8,6 +8,8 @@ export const GET: APIRoute = async () => {
     theme: 'solo',
     system: 0,
     footer: 'compact',
+    systemSize: 620,
+    systemOpacity: 0.55,
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },

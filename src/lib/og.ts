@@ -43,6 +43,10 @@ export interface OGOptions {
   system?: number;
   /** Footer style: `compact` shows "Name · @handle"; `handle` shows only @handle larger. */
   footer?: 'compact' | 'handle';
+  /** Side length in px of the system-render panel (default 760). */
+  systemSize?: number;
+  /** Opacity of the system-render panel (default 0.3). */
+  systemOpacity?: number;
 }
 
 function el(type: string, style: Record<string, unknown>, children: unknown): unknown {
@@ -72,16 +76,17 @@ export async function makeOG({
   theme = 'solo',
   system = 0,
   footer = 'compact',
+  systemSize = 760,
+  systemOpacity = 0.3,
 }: OGOptions): Promise<Uint8Array> {
   const t = THEMES[theme];
 
   const titleSize = title.length > 60 ? 56 : title.length > 38 ? 72 : 90;
 
   // Render the system to a transparent PNG and embed as a data URL.
-  // Big square that sits on the right side, bleeding off the right edge.
-  // Lower opacity so the text reads cleanly over it.
-  const SYS_W = 760;
-  const SYS_H = 760;
+  // Square panel anchored top-right with a slight bleed.
+  const SYS_W = systemSize;
+  const SYS_H = systemSize;
   const systemImg = renderSystemDataURL(system, SYS_W, SYS_H, t.accent);
 
   // Footer variants
@@ -147,7 +152,7 @@ export async function makeOG({
           width: SYS_W,
           height: SYS_H,
           display: 'flex',
-          opacity: 0.3,
+          opacity: systemOpacity,
         },
         {
           type: 'img',

@@ -36,7 +36,10 @@ function doublePendulum(w: number, h: number): SystemRender {
   let w1 = 0,
     w2 = 0;
   const segs: Segment[] = [];
-  for (let frame = 0; frame < 4000; frame++) {
+  // Shorter sim than the live home-page draw loop — keeps the link
+  // cluster sparse enough that the internal structure stays visible
+  // when layered into a single still.
+  for (let frame = 0; frame < 1800; frame++) {
     const sd = Math.sin(th1 - th2),
       cd = Math.cos(th1 - th2);
     const den = 2 * m1 + m2 - m2 * Math.cos(2 * (th1 - th2));
