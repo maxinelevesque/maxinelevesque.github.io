@@ -111,7 +111,7 @@ function lorenz(w: number, h: number): SystemRender {
     },
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy - s.z * sc + 20 * sc }),
     Math.min(w, h) * 0.011,
-    0.55,
+    0.38,
     7200,
   );
 }
@@ -159,7 +159,7 @@ function thomas(w: number, h: number): SystemRender {
     },
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy + s.y * sc }),
     Math.min(w, h) * 0.09,
-    0.45,
+    0.3,
     28000,
   );
 }
@@ -241,7 +241,7 @@ function chen(w: number, h: number): SystemRender {
     },
     (s, cx, cy, sc) => ({ x: cx + s.x * sc, y: cy - s.z * sc + 25 * sc }),
     Math.min(w, h) * 0.008,
-    0.55,
+    0.38,
     12000,
   );
 }
@@ -278,7 +278,7 @@ function duffing(w: number, h: number): SystemRender {
     t = 0;
   const sc = Math.min(w, h) * 0.3;
   const cx = w * 0.5,
-    cy = h * 0.45;
+    cy = h * 0.3;
   const pts: Point[] = [];
   for (let i = 0; i < 24000; i++) {
     const dx = v * dt;
