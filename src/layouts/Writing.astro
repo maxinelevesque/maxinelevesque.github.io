@@ -17,7 +17,13 @@ const { frontmatter } = Astro.props;
 const systemIndex = frontmatter.system ?? 0;
 const categoryLabel = frontmatter.category.toUpperCase();
 ---
-<Base title={frontmatter.title} description={frontmatter.subtitle}>
+<Base
+  title={frontmatter.title}
+  description={frontmatter.subtitle}
+  ogType="article"
+  published={frontmatter.date}
+  author={frontmatter.formerName ? `Maxine Levesque (as ${frontmatter.formerName})` : 'Maxine Levesque'}
+>
   <div class="page">
     <!-- Dynamical system background -->
     <div class="system-canvas">
