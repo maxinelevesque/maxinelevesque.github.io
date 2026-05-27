@@ -1,0 +1,161 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    subtitle?: string;
+    date: string;
+    category: string;
+    readTime: string;
+    formerName?: string;
+    system?: number;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const systemIndex = frontmatter.system ?? 0;
+const categoryLabel = frontmatter.category.toUpperCase();
+---
+<Base title={frontmatter.title} description={frontmatter.subtitle}>
+  <div class="page">
+    <!-- Dynamical system background -->
+    <div class="system-canvas">
+      <canvas id="system-canvas" style="width: 100%; height: 100%;"></canvas>
+    </div>
+
+    <div class="content">
+      <!-- Breadcrumb -->
+      <div class="crumb"><a href="/">Maxine's dream machine</a></div>
+
+      <!-- Category -->
+      <div class="category">{categoryLabel}</div>
+
+      <!-- Title -->
+      <h1 class="title">{frontmatter.title}</h1>
+
+      {frontmatter.subtitle && (
+        <p class="subtitle">{frontmatter.subtitle}</p>
+      )}
+
+      <!-- Byline -->
+      <div class="byline">
+        <span class="author">Maxine Levesque</span>
+        {frontmatter.formerName && (
+          <span class="former">as {frontmatter.formerName}</span>
+        )}
+        <span class="sep">·</span>
+        <span>{frontmatter.date}</span>
+        <span class="sep">·</span>
+        <span>{frontmatter.readTime}</span>
+      </div>
+
+      <!-- Rule -->
+      <div class="rule"></div>
+
+      <!-- Body -->
+      <div class="article-body solo">
+        <slot />
+      </div>
+
+      <!-- Footer -->
+      <div class="page-footer">
+        <span>© 2026 Maxine Levesque</span>
+        <span class="system-label" id="system-label"></span>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ systemIndex }}>
+    import('/src/components/dynamical-systems.js').then(({ initSystem, SYSTEM_NAMES }) => {
+      const canvas = document.getElementById('system-canvas');
+      if (canvas) initSystem(canvas, systemIndex, '#dba0a0');
+      const label = document.getElementById('system-label');
+      if (label) label.textContent = 'Animation: ' + SYSTEM_NAMES[systemIndex % SYSTEM_NAMES.length];
+    });
+  </script>
+</Base>
+
+<style>
+  .page {
+    background: var(--solo-bg);
+    color: var(--solo-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2.8rem 1.5rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .crumb {
+    font-size: 0.72rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 3.5rem;
+    opacity: 0.5;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+  .crumb a { color: inherit; }
+  .category {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--solo-category);
+    margin-bottom: 1rem;
+  }
+  .title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    line-height: 1.15;
+    font-style: italic;
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+    color: var(--solo-accent);
+  }
+  .subtitle {
+    font-size: 0.95rem;
+    color: var(--solo-text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    max-width: 480px;
+  }
+  .byline {
+    font-size: 0.82rem;
+    color: var(--solo-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.8rem;
+    align-items: baseline;
+    margin-bottom: 2.2rem;
+    line-height: 1.9;
+  }
+  .author { color: var(--solo-text); font-style: italic; }
+  .former { font-size: 0.76rem; font-style: italic; opacity: 0.45; }
+  .sep { opacity: 0.2; }
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, rgba(219, 160, 160, 0.33), transparent 80%);
+    margin-bottom: 2.4rem;
+  }
+  .page-footer {
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--solo-rule);
+    font-size: 0.68rem;
+    color: var(--solo-text-muted);
+    opacity: 0.5;
+    font-style: italic;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .system-label {
+    text-align: right;
+  }
+</style>

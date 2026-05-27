@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const writing = await getCollection('writing');
+const dialogues = await getCollection('dialogues');
+
+// Combine and sort by date (newest first). Frontmatter dates are human strings
+// ("December 13, 2022", "May 2026"); Date.parse handles both reliably.
+const allPieces = [
+  ...writing.map(p => ({
+    title: p.data.title,
+    date: p.data.date,
+    tag: p.data.category === 'fiction' ? 'story' : p.data.category,
+    former: p.data.formerName,
+    slug: `/writing/${p.slug}`,
+  })),
+  ...dialogues.map(p => ({
+    title: p.data.title,
+    date: p.data.date,
+    tag: 'dialogue',
+    coauthor: p.data.coauthor,
+    slug: `/dialogues/${p.slug}`,
+  })),
+].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+---
+<Base title="Maxine's dream machine">
+  <div class="page">
+    <!-- Background system -->
+    <div class="index-system">
+      <canvas id="index-canvas" style="width: 100%; height: 100%;"></canvas>
+    </div>
+
+    <div class="content">
+      <h1 class="site-title">Maxine's dream machine</h1>
+      <p class="site-author">
+        Maxine Levesque, PhD ·
+        <a href="https://bsky.app/profile/maxine.science" class="handle">@maxine.science</a>
+      </p>
+
+      <nav class="site-nav">
+        <a href="/">Writing</a>
+        <a href="/teaching">Teaching</a>
+        <a href="/about">About</a>
+      </nav>
+
+      <p class="tagline">Live free. <span class="normal">Don't join.</span></p>
+
+      <!-- Index list -->
+      <div class="index-list">
+        {allPieces.map(item => (
+          <a href={item.slug} class="index-item">
+            <div class="item-left">
+              {item.tag === 'dialogue' && <span class="dot" />}
+              <span class="item-title">{item.title}</span>
+              {item.coauthor && (
+                <span class="item-coauthor">× {item.coauthor}</span>
+              )}
+              {item.former && (
+                <span class="item-former">as {item.former}</span>
+              )}
+            </div>
+            <span class="item-date">{item.date}</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="footer">
+        <span>© 2026 Maxine Levesque</span>
+        <span>@maxine.science</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    import { initSystem } from '../components/dynamical-systems.js';
+    const canvas = document.getElementById('index-canvas');
+    if (canvas) initSystem(canvas, 0, '#dba0a0');
+  </script>
+</Base>
+
+<style>
+  .page {
+    background: var(--solo-bg);
+    color: var(--solo-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Home-page only: shift the attractor leftward (article pages keep
+     the shared right-anchored position from global.css). */
+  .index-system {
+    right: 80px;
+  }
+  @media (max-width: 720px) {
+    .index-system {
+      right: -40px;
+    }
+  }
+  .content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3.2rem 1.5rem 5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .site-title {
+    font-size: 1.65rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--solo-accent);
+    margin-bottom: 0.15rem;
+  }
+  .site-author {
+    font-size: 0.78rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    margin-bottom: 1.8rem;
+  }
+  .site-author .handle {
+    color: var(--solo-accent);
+    font-style: italic;
+  }
+  .site-author .handle:hover {
+    border-bottom-color: var(--solo-accent);
+  }
+  .site-nav {
+    margin-bottom: 3rem;
+  }
+  .site-nav a {
+    color: var(--solo-text-muted);
+  }
+  .tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--solo-text-muted);
+    line-height: 1.6;
+    margin-bottom: 3rem;
+  }
+  .tagline .normal { font-style: normal; }
+  .index-list {
+    margin-bottom: 2rem;
+  }
+  .index-item {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--solo-rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.15s;
+  }
+  .index-item:hover {
+    padding-left: 0.3rem;
+  }
+  .item-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+  .dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--dial-accent);
+    flex-shrink: 0;
+    position: relative;
+    top: -1px;
+  }
+  .item-title {
+    font-size: 0.98rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .item-coauthor {
+    font-size: 0.68rem;
+    color: var(--dial-accent);
+    font-style: italic;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+  .item-former {
+    font-size: 0.68rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+  .item-date {
+    font-size: 0.7rem;
+    color: var(--solo-text-muted);
+    flex-shrink: 0;
+    font-style: italic;
+    opacity: 0.5;
+  }
+  .footer {
+    margin-top: 4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--solo-rule);
+    font-size: 0.68rem;
+    color: var(--solo-text-muted);
+    display: flex;
+    justify-content: space-between;
+    font-style: italic;
+    opacity: 0.5;
+  }
+</style>

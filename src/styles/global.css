@@ -1,0 +1,297 @@
+/* ─── Fonts ──────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
+
+/* ─── CSS Custom Properties ──────────────────────────────── */
+:root {
+  /* Solo / Writing theme — deep burgundy */
+  --solo-bg: #2e1420;
+  --solo-text: #e4dbd0;
+  --solo-text-muted: #9a8578;
+  --solo-accent: #dba0a0;
+  --solo-accent-blue: #8ba8d4;
+  --solo-rule: #4a2838;
+  --solo-category: #dba0a0;
+
+  /* Dialogue theme — cool midnight */
+  --dial-bg: #0a0b12;
+  --dial-text: #ccc8c0;
+  --dial-text-muted: #5a5664;
+  --dial-accent: #8b7cb8;
+  --dial-accent-blue: #7ca0c8;
+  --dial-rule: #1e1d28;
+  --dial-category: #8b7cb8;
+
+  /* Shared */
+  --font-body: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  --max-width: 600px;
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.58;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* ─── Article body — book typesetting ────────────────────── */
+.article-body p {
+  font-size: 1.24rem;
+  line-height: 1.58;
+  margin: 0;
+  text-indent: 2em;
+}
+
+.article-body p:first-child,
+.article-body p.section-start {
+  text-indent: 0;
+}
+
+.article-body hr + p,
+.article-body blockquote + p,
+.article-body figure + p,
+.article-body h2 + p,
+.article-body h3 + p {
+  text-indent: 0;
+}
+
+/* Section break: ornamental glyph with vertical breathing room */
+.article-body hr {
+  border: 0;
+  height: 2.4rem;
+  margin: 0.8rem 0;
+  text-align: center;
+  overflow: visible;
+}
+.article-body hr::after {
+  content: '✦';
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  line-height: 2.4rem;
+  color: var(--solo-text-muted);
+  opacity: 0.35;
+}
+
+/* Block elements get vertical air around them (no paragraph-margin reset) */
+.article-body blockquote {
+  margin: 1.2rem 0 1.2rem 1.5rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--solo-rule);
+  font-style: italic;
+  color: var(--solo-text-muted);
+}
+.article-body blockquote p {
+  text-indent: 0;
+  font-size: 1.05rem;
+  margin-bottom: 0.6rem;
+}
+.article-body blockquote p:last-child { margin-bottom: 0; }
+
+.article-body figure,
+.article-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6rem auto;
+}
+
+/* Bulleted/numbered lists: match body type size, indent farther in. */
+.article-body ul,
+.article-body ol {
+  margin: 1rem 0 1.2rem;
+  padding-left: 3em;
+}
+.article-body li {
+  font-size: 1.24rem;
+  line-height: 1.58;
+  margin-bottom: 0.45rem;
+}
+.article-body li:last-child { margin-bottom: 0; }
+.article-body li p {
+  text-indent: 0;
+  margin-bottom: 0.3rem;
+}
+
+.article-body h2,
+.article-body h3 {
+  font-style: italic;
+  font-weight: 500;
+  margin: 1.6rem 0 0.6rem;
+}
+.article-body h2 { font-size: 1.4rem; }
+.article-body h3 { font-size: 1.15rem; }
+
+/* Theme-scoped accents: writing pages = burgundy; dialogue pages = blue. */
+.article-body.solo h2,
+.article-body.solo h3,
+.article-body.solo a {
+  color: var(--solo-accent);
+}
+.article-body.dial h2,
+.article-body.dial h3,
+.article-body.dial a {
+  color: var(--dial-accent-blue);
+}
+
+/* Footnote markers in body text inherit the link color from above. */
+.article-body sup a[data-footnote-ref] {
+  border-bottom: none;
+}
+
+/* Backref glyph in the footnotes section — clearly clickable. */
+.article-body .data-footnote-backref {
+  margin-left: 0.25em;
+  font-size: 0.85em;
+  text-decoration: none;
+  border-bottom: none;
+  opacity: 0.7;
+}
+.article-body .data-footnote-backref:hover {
+  opacity: 1;
+}
+
+/* Footnotes section divider + heading */
+.article-body section.footnotes {
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--solo-rule);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.article-body.dial section.footnotes {
+  border-top-color: var(--dial-rule);
+}
+.article-body section.footnotes ol {
+  padding-left: 1.4rem;
+}
+.article-body section.footnotes li {
+  margin-bottom: 0.6rem;
+}
+.article-body section.footnotes li p {
+  text-indent: 0;
+  font-size: 0.9rem;
+  display: inline;
+}
+.article-body section.footnotes h2 {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.8rem;
+}
+
+.article-body sup {
+  font-size: 0.65em;
+  vertical-align: super;
+  line-height: 0;
+}
+
+/* ─── Math (KaTeX) ───────────────────────────────────────── */
+.math-display {
+  text-align: center;
+  margin: 1.6rem 0;
+  font-size: 1.15rem;
+}
+
+/* ─── Links ──────────────────────────────────────────────── */
+a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+a:hover {
+  border-bottom-color: currentColor;
+}
+
+/* ─── Navigation ─────────────────────────────────────────── */
+.site-nav {
+  display: flex;
+  gap: 1.8rem;
+  font-size: 0.84rem;
+  font-style: italic;
+}
+
+.site-nav a {
+  transition: opacity 0.2s;
+}
+
+.site-nav a:hover {
+  opacity: 1;
+}
+
+/* ─── Filter pills ───────────────────────────────────────── */
+.filters {
+  display: flex;
+  gap: 0.45rem;
+  margin-bottom: 2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.filters button {
+  font-family: var(--font-body);
+  border-radius: 2px;
+  padding: 0.28rem 0.6rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+/* ─── Index list ─────────────────────────────────────────── */
+.index-item {
+  padding: 0.85rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  text-decoration: none;
+  transition: padding-left 0.15s;
+}
+
+.index-item:hover {
+  padding-left: 0.3rem;
+}
+
+/* ─── Dynamical system canvas ────────────────────────────── */
+.system-canvas,
+.index-system {
+  position: absolute;
+  top: -20px;
+  right: -60px;
+  width: 580px;
+  height: 500px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 65% at 50% 50%, black 0%, transparent 72%);
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .article-body p {
+    font-size: 1.1rem;
+  }
+
+  .system-canvas,
+  .index-system {
+    width: 360px;
+    height: 360px;
+    top: -10px;
+    right: -80px;
+    opacity: 0.5;
+  }
+}

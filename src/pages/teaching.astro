@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+
+const talks = [
+  {
+    title: 'Oh God—not the math',
+    subtitle: 'A walk through statistics for incoming neuroscience grad students.',
+    venue: 'UCSF Neuroscience Orientation 2024',
+    date: 'September 2024',
+    href: 'https://maxine.science/nso-24-stats/',
+  },
+  // Archived — re-enable when ready to publish:
+  // {
+  //   title: 'How would we know what an astrocyte knows?',
+  //   subtitle: 'I. The view from monad theory · II. The view from representation theory',
+  //   venue: 'International Convention on the Mathematics of Neuroscience and AI · Models of Consciousness 6',
+  //   date: 'October 2024',
+  //   href: '/talks/astrocyte-knows/',
+  // },
+  // {
+  //   title: 'Capitalism is a prion',
+  //   subtitle: 'On the dynamics of mimetic capture in late-stage capital.',
+  //   venue: 'ACT2Infer: Applied Category Theory in Active Inference · UCSF NRPS',
+  //   date: 'November 2024',
+  //   href: '/talks/capitalism-prion/',
+  // },
+  // {
+  //   title: 'Generalized Hardy-Weinberg equilibrium',
+  //   subtitle: 'The stationary case of Freud’s “Phylogenetic Fantasy”?',
+  //   venue: 'UCSF Neuroscience Research in Progress Seminar',
+  //   date: 'November 2023',
+  //   href: '/talks/hw-phylogenetic-fantasy/',
+  // },
+];
+---
+<Base title="Teaching">
+  <div class="page">
+    <div class="content">
+      <div class="crumb"><a href="/">Maxine's dream machine</a> → Teaching</div>
+
+      <h1 class="title">Teaching</h1>
+      <p class="lede">
+        Talks and notes on the mathematics of mind. The pieces below are the
+        long-form companions to the slide decks; each opens a self-contained Quarto
+        page with the math worked through.
+      </p>
+
+      <div class="rule"></div>
+
+      <div class="talks">
+        {talks.map(t => (
+          <a href={t.href} class="talk">
+            <div class="talk-main">
+              <div class="talk-title">{t.title}</div>
+              {t.subtitle && <div class="talk-sub">{t.subtitle}</div>}
+              <div class="talk-venue">{t.venue}</div>
+            </div>
+            <div class="talk-date">{t.date}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page {
+    background: var(--solo-bg);
+    color: var(--solo-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.8rem 1.5rem 5rem;
+  }
+  .crumb {
+    font-size: 0.72rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 3.5rem;
+    opacity: 0.6;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+  .crumb a { color: inherit; }
+  .title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--solo-accent);
+    margin-bottom: 1rem;
+  }
+  .lede {
+    font-size: 1rem;
+    color: var(--solo-text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.2rem;
+    font-style: italic;
+    max-width: 520px;
+  }
+  .rule {
+    height: 1px;
+    background: linear-gradient(to right, rgba(219,160,160,0.33), transparent 80%);
+    margin-bottom: 2.4rem;
+  }
+  .talks { display: flex; flex-direction: column; }
+  .talk {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid var(--solo-rule);
+    color: inherit;
+    text-decoration: none;
+    transition: padding-left 0.15s;
+  }
+  .talk:hover { padding-left: 0.3rem; }
+  .talk-main { min-width: 0; }
+  .talk-title {
+    font-size: 1.05rem;
+    color: var(--solo-text);
+    margin-bottom: 0.2rem;
+  }
+  .talk-sub {
+    font-size: 0.8rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    margin-bottom: 0.35rem;
+    line-height: 1.5;
+  }
+  .talk-venue {
+    font-size: 0.72rem;
+    color: var(--solo-text-muted);
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+  .talk-date {
+    font-size: 0.74rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    opacity: 0.5;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+</style>

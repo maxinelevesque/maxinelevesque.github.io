@@ -1,0 +1,316 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="About">
+  <div class="page">
+    <div class="content">
+      <div class="crumb"><a href="/">Maxine's dream machine</a> → About</div>
+
+      <h1 class="name">Maxine Levesque, <span class="post">PhD</span></h1>
+
+      <p class="lede">
+        is a <strong>physician-scientist in training</strong>. She uses math to study the relational
+        architecture of <strong>mind</strong>, in all its amazing forms. She is building a world
+        where we can <strong>freely make sense of the Universe together</strong>—for the
+        benefit of all.
+      </p>
+
+      <ul class="links">
+        <li><a href="https://bsky.app/profile/maxine.science">Bluesky</a></li>
+        <li><a href="https://scholar.google.com/citations?user=DcbG8n8AAAAJ">Google&nbsp;Scholar</a></li>
+        <li><a href="https://github.com/maxinelevesque">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/maxinecollard">LinkedIn</a></li>
+        <li class="email">hello [at] maxine [dot] science</li>
+      </ul>
+
+      <img src="/profile.jpg" alt="" class="profile" />
+
+      <section class="cv">
+        <h2>Education</h2>
+
+        <h3>PhD <span class="dates">2020 – 2025</span></h3>
+        <p class="sub-dates"><em>MD</em> 2018 – 2020 &nbsp;|&nbsp; <em>2026 – 2028 (expected)</em></p>
+        <h4>University of California, San Francisco</h4>
+        <p>
+          <a href="https://mstp.ucsf.edu">Medical Scientist Training Program</a> · <strong>Neuroscience</strong>
+          Graduate Program · Weill Fellow
+        </p>
+        <p><strong>Dissertation</strong>: “Toward general world models” (<em>under embargo</em>)</p>
+
+        <h3>BS <span class="dates">2011 – 2015</span></h3>
+        <h4>Johns Hopkins University</h4>
+        <p>
+          <em>Primary major in</em> <strong>Biomedical Engineering</strong> · <em>Second major in</em>
+          <strong>Mathematics</strong> · <em>Minor in</em> <strong>Applied Mathematics and Statistics</strong>
+          · Michael Bloomberg Scholar
+        </p>
+      </section>
+
+      <section class="cv">
+        <h2>Professional experience</h2>
+
+        <h3>Scientific consultant <span class="dates">2025 – <em>present</em></span></h3>
+        <p>
+          I work with clients on scientific strategy and due diligence for revolutionary projects
+          at the frontiers of human knowledge, lending expertise in <strong>neurotech</strong>,
+          <strong>mental health</strong>, <strong>AI</strong>, and <strong>scientific
+          infrastructure</strong>.
+        </p>
+        <p class="aside">For more information: consulting [at] maxine [dot] science</p>
+      </section>
+
+      <section class="cv">
+        <h2>Software contributions</h2>
+
+        <h4>bci2000web · <a href="https://github.com/cronelab/bci2000web">GitHub</a></h4>
+        <p>Enable control of and access to real-time neural data from BCI2000 over WebSockets.</p>
+
+        <h4>bci2k.js · <a href="https://www.npmjs.com/package/bci2k">npm</a> · <a href="https://github.com/cronelab/bci2k.js">GitHub</a></h4>
+        <p>Stream neural data to your browser.</p>
+
+        <h4>webfm · <a href="https://github.com/cronelab/webfm">GitHub</a></h4>
+        <p>A suite for real-time functional mapping of task-related brain activity on the web.</p>
+      </section>
+
+      <section class="cv">
+        <h2>Research experience</h2>
+
+        <h3>Independent work</h3>
+        <p>
+          I use <strong>applied category theory</strong> as a framework to understand systems’
+          <strong>internal world models</strong> — as well as those world models’ interactions and
+          dynamics — in a substrate-independent way.
+        </p>
+        <p class="aside">
+          Applied category theory is the mathematical study of what can be understood from the
+          architecture of interrelationships between things.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Recent talk collage</div>
+          <p><strong>Capitalism is a prion</strong> (2024). <em>Lightning talk (5 min.) at</em> ACT2Infer: Applied Category Theory in Active Inference. Berkeley, CA. <em>Expanded for the</em> UCSF Neuroscience Research in Progress Seminar. San Francisco, CA.</p>
+          <p><strong>How would we know what an astrocyte knows? II. The view from representation theory</strong> (2024). <em>Competitive talk (25 min.) at</em> Models of Consciousness 6, Association for Mathematical Consciousness Science. Bamberg, Germany.</p>
+          <p><strong>How would we know what an astrocyte knows? I. The view from monad theory</strong> (2024). <em>Chalk-talk poster at</em> the International Convention on the Mathematics of Neuroscience and AI. Rome, Italy.</p>
+          <p><strong>Freud’s ‘death-drive’, Thanatos: The necessity of un-persistence in systems that persist</strong> (2024). <em>Talk (7 min.) at</em> ACT2Infer: Applied Category Theory in Active Inference. Topos Institute, Berkeley, CA.</p>
+          <p><strong>What does biology study? The path from generalized Darwinism to world models to structure-learning in dynamic semiotic systems with boundaries</strong> (2024). <em>Lightning talk (5 min.) at</em> The Berkeley Seminar. Topos Institute, Berkeley, CA.</p>
+          <p><strong>Generalized Hardy-Weinberg equilibrium: The stationary case of Freud’s “Phylogenetic Fantasy”?</strong> (2023). <em>Talk (30 min.) at</em> UCSF Neuroscience Research in Progress Seminar. San Francisco, CA.</p>
+        </div>
+
+        <h3><a href="https://abbasilab.org">Abbasi Lab</a> @ UCSF <span class="dates">2023 – 2025</span></h3>
+        <p>
+          I study how the world-understanding of <strong>generative AI</strong> can be used to
+          characterize the <strong>diversity of human mental life</strong>, as well as how
+          individuals’ mental health <strong>changes over time</strong>.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Language models uncover dynamical mental phenotypes from naturalistic text</div>
+          <p><em>(Project lead.)</em></p>
+          <p>I developed methods for leveraging off-the-shelf generative language models (gen-LMs) to produce rich annotations estimating different facets of the internal mental state of individuals over time from naturalistic text. In particular, this project leverages large datasets of users’ interactions with mental health–related communities on social media.</p>
+          <p>While diagnosis, clinical decision-making, and psychotherapeutic management based on artificial agents faces a number of technical and ethical challenges, treating LMs as queryable repositories of <em>weak</em> but <em>rich</em> language understanding helps reframe their clinical utility toward information extraction, helping humans digest impossible volumes of information to aid, not supplant, informed decision-making.</p>
+          <p><em>In preparation.</em></p>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Multimodal+multilingual AI for quantitative and qualitative assessment of mental health in semi-structured electronic health records</div>
+          <p><em>(Project architect.)</em></p>
+          <p>Using the methodology developed above, I am working with a team to develop a pipeline to leverage the rich understanding of language models to help sort through massive amounts of mental health–related electronic health records, to help inform new ways of thinking about nosology and measurement in psychiatry.</p>
+          <p><em>In preparation.</em></p>
+        </div>
+
+        <h3><a href="https://www.kiraposkanzerlab.org">Poskanzer Lab</a> @ UCSF <span class="dates">2020 – 2025</span></h3>
+        <p>
+          I used mathematical tools to understand how <strong>astrocytes</strong> — the
+          understudied “glue” cells that make up ⅓ of the brain — are able to <strong>compute</strong>,
+          how astrocytes and neurons <strong>co-regulate</strong> each other’s dynamics, and how
+          this might <strong>impact human health</strong>.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Astrocyte integration of neuromodulatory input</div>
+          <p><em>(Project lead: Charlotte Taylor.)</em></p>
+          <p>I consulted on analysis and interpretation of multimodal data to investigate the role of astrocytes’ histamine sensing on intracellular signaling, regulation of neuronal activity, and sleep behavior.</p>
+          <p><em>In revision.</em></p>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Astrocyte network response to neurotransmitters</div>
+          <p><em>(Project lead: Dr. Michelle Cahill.)</em></p>
+          <p>I developed computational methods to unravel how astrocyte networks differentially encode exposure to GABA and glutamate, revealing a new kind of astrocytic calcium excitation and giving a first hint at the conditional logic of astrocytes’ integration of neurotransmitters in space and time.</p>
+          <p><a href="https://www.nature.com/articles/s41586-024-07311-5"><em>Nature</em></a> · <a href="https://www.biorxiv.org/content/10.1101/2023.12.01.568932v1"><em>bioRxiv</em></a></p>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Astrocyte GPCR signaling and sleep</div>
+          <p><em>Project lead: Dr. Trisha Vaidyanathan</em></p>
+          <p>I developed computational methods to uncover how astrocytes’ physiological responses to changes in their cellular signaling depend on changes in the collective dynamical state of neurons over the course of the sleep-wake cycle—and, how astrocytes’ calcium excitations precede synchronization of coherent neural activity across the brain during the “boot-up” period immediately before the transition to wakefulness.</p>
+          <p><a href="https://elifesciences.org/articles/63329"><em>eLife</em></a></p>
+        </div>
+
+        <h3><a href="https://cronelab.github.io">Crone Lab</a> @ JHU <span class="dates">2012 – 2018</span></h3>
+        <p>I studied how <strong>information flow</strong> in the human brain rapidly changes during <strong>movement</strong> and <strong>speech</strong>.</p>
+
+        <div class="callout">
+          <div class="callout-title"><em>Project collage</em></div>
+          <p>Dynamic brain information flow in human intracranial EEG. <a href="https://www.sciencedirect.com/science/article/pii/S1053811916300167"><em>Neuroimage</em></a> (<em>as project lead</em>) · <a href="https://academic.oup.com/cercor/article/29/2/777/4823221"><em>Cerebral Cortex</em></a> (<em>with Dr. Kiyohide Usami</em>)</p>
+          <p>Networks for language and movement. <a href="https://www.sciencedirect.com/science/article/pii/S0301008220300435"><em>Progress in Neurobiology</em></a> (<em>with Dr. Anna Korzeniewska and many others</em>)</p>
+          <p>Tools to connect brain activity to the web. <a href="https://www.frontiersin.org/articles/10.3389/fnins.2018.01030/full"><em>Frontiers in Neuroscience</em></a> (<em>with Dr. Griffin Milsap</em>)</p>
+          <p>Language brain-machine interfaces. <a href="https://www.frontiersin.org/articles/10.3389/fnins.2019.00060/full"><em>Frontiers in Neuroscience</em></a> (<em>with Dr. Griffin Milsap</em>)</p>
+        </div>
+
+        <p>I also architected a platform for data collection and personalized ML model training / deployment for <a href="https://www.epiwatch.com">EpiWatch</a>, a <strong>biosensor-driven seizure detection app</strong> running on Apple Watch.</p>
+
+        <h3>Hong Lab @ Tsinghua University <span class="dates">2013</span></h3>
+        <p>I built an <strong>international collaboration</strong>, as part of the Tsinghua–Johns Hopkins Joint Institute for Biomedical Engineering Research in Beijing, in order to apply research methods I was developing on dynamic information flow at JHU to human intracranial brain recordings collected at Tsinghua.</p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page {
+    background: var(--solo-bg);
+    color: var(--solo-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.8rem 1.5rem 5rem;
+  }
+  .crumb {
+    font-size: 0.72rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 3.5rem;
+    opacity: 0.6;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+  .crumb a { color: inherit; }
+  .name {
+    font-size: 2.2rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--solo-accent);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .name .post {
+    font-size: 1rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    margin-left: 0.3rem;
+  }
+  .lede {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-bottom: 1.6rem;
+    color: var(--solo-text);
+  }
+  .lede strong { color: var(--solo-accent); font-weight: 500; }
+  .links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.1rem;
+    font-size: 0.84rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 2rem;
+  }
+  .links a {
+    color: var(--solo-accent);
+    font-style: italic;
+  }
+  .links .email {
+    font-style: italic;
+    opacity: 0.7;
+  }
+  .profile {
+    width: 100%;
+    border-radius: 2px;
+    margin-bottom: 2.4rem;
+    filter: saturate(0.85);
+  }
+  .cv {
+    margin-bottom: 2.8rem;
+  }
+  .cv h2 {
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--solo-accent);
+    margin-bottom: 1.4rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--solo-rule);
+    font-weight: 400;
+  }
+  .cv h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--solo-text);
+    margin-top: 1.4rem;
+    margin-bottom: 0.15rem;
+    font-style: italic;
+  }
+  .cv h3 a { color: inherit; }
+  .cv h3 .dates {
+    font-size: 0.78rem;
+    color: var(--solo-text-muted);
+    font-style: normal;
+    font-weight: 400;
+    margin-left: 0.4rem;
+  }
+  .cv h4 {
+    font-size: 0.96rem;
+    font-weight: 500;
+    color: var(--solo-text-muted);
+    margin-top: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+  .cv h4 a { color: var(--solo-accent); font-style: italic; }
+  .cv p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-bottom: 0.6rem;
+    color: var(--solo-text);
+  }
+  .cv strong { font-weight: 500; }
+  .cv .sub-dates {
+    font-size: 0.78rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 0.3rem;
+    margin-top: -0.1rem;
+  }
+  .aside {
+    font-size: 0.78rem;
+    color: var(--solo-text-muted);
+    font-style: italic;
+    opacity: 0.7;
+    padding-left: 1rem;
+    border-left: 1px solid var(--solo-rule);
+    margin: 0.6rem 0 1rem;
+  }
+  .callout {
+    background: rgba(74, 40, 56, 0.35);
+    border-left: 2px solid var(--solo-accent);
+    padding: 0.9rem 1rem;
+    margin: 0.8rem 0 1.2rem;
+    border-radius: 0 2px 2px 0;
+  }
+  .callout-title {
+    font-size: 0.82rem;
+    color: var(--solo-accent);
+    font-style: italic;
+    margin-bottom: 0.4rem;
+  }
+  .callout p {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    margin-bottom: 0.4rem;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  .cv a { color: var(--solo-accent); }
+  .cv a:hover { border-bottom-color: var(--solo-accent); }
+</style>
