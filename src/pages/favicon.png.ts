@@ -61,13 +61,18 @@ export const GET: APIRoute = async () => {
   }
   const d = segs.join('');
 
+  // Render the SVG at a much larger native resolution than the favicon
+  // will be displayed at. Thin strokes (0.3 viewBox-units = ~1.2 render
+  // pixels at 512px) keep overlap low enough that the single-path
+  // opacity reads as layered instead of saturating into a blob, and the
+  // browser downscale to 16/32px does the rest of the alpha smoothing.
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
     <rect width="64" height="64" rx="10" fill="#2e1420"/>
-    <path d="${d}" stroke="#dba0a0" stroke-width="0.55" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <path d="${d}" stroke="#dba0a0" stroke-width="0.3" fill="none" opacity="0.3" stroke-linecap="round"/>
   </svg>`;
 
   const png = new Resvg(svg, {
-    fitTo: { mode: 'width', value: 128 },
+    fitTo: { mode: 'width', value: 512 },
   })
     .render()
     .asPng();
