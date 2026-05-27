@@ -349,7 +349,7 @@ function threeBody(w: number, h: number): SystemRender {
   const sc = Math.min(w, h) * 0.18;
   const cx = w * 0.5,
     cy = h * 0.42;
-  const dt = 0.001;
+  const dt = 0.003;
   const softening = 0.5;
   const bodies = [
     { x: -1, y: 0, vx: 0.35, vy: -0.2, m: 1 },
@@ -444,11 +444,14 @@ export function renderSystemSVG(
   let inner = '';
   if (r.kind === 'lines') {
     const segs = r.items as Segment[];
-    // Build a single path for efficiency
+    // Build a single path for efficiency.
     const d = segs
       .map((s) => `M${s.x1.toFixed(1)} ${s.y1.toFixed(1)}L${s.x2.toFixed(1)} ${s.y2.toFixed(1)}`)
       .join('');
-    inner = `<path d="${d}" stroke="${color}" stroke-width="0.6" fill="none" opacity="${opacity * 0.5}" />`;
+    // Three-body has far fewer strokes than the double pendulum and
+    // needs a higher per-stroke alpha to read.
+    const strokeOpacity = index === 11 ? opacity * 0.95 : opacity * 0.5;
+    inner = `<path d="${d}" stroke="${color}" stroke-width="0.6" fill="none" opacity="${strokeOpacity}" />`;
   } else {
     const pts = r.items as Point[];
     // Use a single path of zero-length lines for the dots — much smaller than <circle> per point.
