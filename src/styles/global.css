@@ -47,8 +47,11 @@ body {
 }
 
 /* ─── Article body — book typesetting ────────────────────── */
+.article-body {
+  --body-size: 1.24rem;
+}
 .article-body p {
-  font-size: 1.24rem;
+  font-size: var(--body-size);
   line-height: 1.58;
   margin: 0;
   text-indent: 2em;
@@ -115,7 +118,7 @@ body {
   padding-left: 3em;
 }
 .article-body li {
-  font-size: 1.24rem;
+  font-size: var(--body-size);
   line-height: 1.58;
   margin-bottom: 0.45rem;
 }
@@ -282,16 +285,22 @@ a:hover {
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 720px) {
-  .article-body p {
-    font-size: 1.1rem;
+  .article-body {
+    --body-size: 1.1rem;
   }
 
+  /* Mobile: shrink and re-anchor so the canvas sits mostly inside the
+     viewport, and shift the mask center upward — most systems draw
+     in the upper third of the canvas, so a 50%/50% mask center clips
+     them out. 50%/35% catches the actual drawing region. */
   .system-canvas,
   .index-system {
-    width: 360px;
-    height: 360px;
-    top: -10px;
-    right: -80px;
-    opacity: 0.5;
+    width: 320px;
+    height: 320px;
+    top: 0;
+    right: -20px;
+    opacity: 0.55;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
   }
 }
