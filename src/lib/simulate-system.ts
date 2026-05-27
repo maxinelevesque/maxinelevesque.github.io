@@ -349,7 +349,7 @@ function threeBody(w: number, h: number): SystemRender {
   const sc = Math.min(w, h) * 0.18;
   const cx = w * 0.5,
     cy = h * 0.42;
-  const dt = 0.003;
+  const dt = 0.002;
   const softening = 0.5;
   const bodies = [
     { x: -1, y: 0, vx: 0.35, vy: -0.2, m: 1 },
@@ -360,9 +360,10 @@ function threeBody(w: number, h: number): SystemRender {
   // Shorter exposure than the home-page sim — the per-frame triangle
   // overlay accumulates quickly into a dense silhouette otherwise.
   for (let f = 0; f < 400; f++) {
-    // Larger inner step count gives a faster apparent motion between
-    // each per-frame triangle snapshot.
-    for (let s = 0; s < 14; s++) {
+    // Larger inner step count keeps total simulated time the same as
+    // when dt was higher — same number of triangles drawn (400 frames),
+    // but bodies advance further per frame at finer resolution.
+    for (let s = 0; s < 21; s++) {
       for (let a = 0; a < 3; a++) {
         let ax = 0,
           ay = 0;
@@ -450,7 +451,7 @@ export function renderSystemSVG(
       .join('');
     // Three-body has far fewer strokes than the double pendulum and
     // needs a higher per-stroke alpha to read.
-    const strokeOpacity = index === 11 ? opacity * 0.95 : opacity * 0.5;
+    const strokeOpacity = index === 11 ? opacity * 0.75 : opacity * 0.5;
     inner = `<path d="${d}" stroke="${color}" stroke-width="0.6" fill="none" opacity="${strokeOpacity}" />`;
   } else {
     const pts = r.items as Point[];

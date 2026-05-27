@@ -13,6 +13,9 @@ export async function getStaticPaths() {
 // Per-slug overrides for the system-render panel.
 const OVERRIDES: Record<string, Partial<OGOptions>> = {
   'trauma-junkie-2': { systemOpacity: 0.55 },
+  'trauma-junkie-1': { systemOpacity: 0.45 },
+  'oppenheimer-review': { systemOpacity: 0.4, systemTop: 10 },
+  'dont-walk-on-grass': { systemRight: -100, systemTop: 20 },
 };
 
 export const GET: APIRoute = async ({ props }) => {

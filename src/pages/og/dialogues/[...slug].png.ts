@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 // Per-slug overrides for the system-render panel.
 const OVERRIDES: Record<string, Partial<OGOptions>> = {
   'the-floor-is-here': { systemOpacity: 0.55 },
+  'midwives-of-the-kami': { systemOpacity: 0.42 },
   'deus-ex-machina': { systemTop: -100, systemRight: -120 },
 };
 
