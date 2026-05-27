@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
     system: 0,
     footer: 'compact',
     systemSize: 620,
-    systemOpacity: 0.85,
+    systemOpacity: 1.0,
     systemTop: 10,
   });
   return new Response(png, {
