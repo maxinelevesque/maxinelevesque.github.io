@@ -16,7 +16,11 @@ export interface SystemRender {
   items: Point[] | Segment[];
 }
 
-/* ─── 0: Double Pendulum — collect tip trajectory as polyline ───── */
+/* ─── 0: Double Pendulum ─────────────────────────────────────────
+   Matches the home-page rendering: every frame draws the *full link*
+   (origin → joint1 → joint2). Layered at low opacity these overlap into
+   the characteristic cluster of pendulum positions, not just a tip
+   trajectory polyline. */
 function doublePendulum(w: number, h: number): SystemRender {
   const g = 9.81,
     l1 = 0.4,
@@ -32,8 +36,6 @@ function doublePendulum(w: number, h: number): SystemRender {
   let w1 = 0,
     w2 = 0;
   const segs: Segment[] = [];
-  let lastX = 0,
-    lastY = 0;
   for (let frame = 0; frame < 4000; frame++) {
     const sd = Math.sin(th1 - th2),
       cd = Math.cos(th1 - th2);
@@ -58,9 +60,8 @@ function doublePendulum(w: number, h: number): SystemRender {
     const y1 = cy + l1 * scale * Math.cos(th1);
     const x2 = x1 + l2 * scale * Math.sin(th2);
     const y2 = y1 + l2 * scale * Math.cos(th2);
-    if (frame > 0) segs.push({ x1: lastX, y1: lastY, x2, y2 });
-    lastX = x2;
-    lastY = y2;
+    segs.push({ x1: cx, y1: cy, x2: x1, y2: y1 });
+    segs.push({ x1: x1, y1: y1, x2: x2, y2: y2 });
   }
   return { kind: 'lines', items: segs };
 }

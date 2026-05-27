@@ -78,9 +78,10 @@ export async function makeOG({
   const titleSize = title.length > 60 ? 56 : title.length > 38 ? 72 : 90;
 
   // Render the system to a transparent PNG and embed as a data URL.
-  // 1200×260 band that sits along the top of the OG image.
-  const SYS_W = 1200;
-  const SYS_H = 260;
+  // Big square that sits on the right side, bleeding off the right edge.
+  // Lower opacity so the text reads cleanly over it.
+  const SYS_W = 760;
+  const SYS_H = 760;
   const systemImg = renderSystemDataURL(system, SYS_W, SYS_H, t.accent);
 
   // Footer variants
@@ -134,17 +135,19 @@ export async function makeOG({
       position: 'relative',
     },
     [
-      // Top: system render fades behind the optional tag
+      // Right side: enlarged, faded system render that bleeds off the
+      // right edge. Text content sits over the burgundy/midnight ground
+      // on the left.
       el(
         'div',
         {
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
+          top: -40,
+          right: -40,
+          width: SYS_W,
           height: SYS_H,
           display: 'flex',
-          opacity: 0.65,
+          opacity: 0.3,
         },
         {
           type: 'img',
