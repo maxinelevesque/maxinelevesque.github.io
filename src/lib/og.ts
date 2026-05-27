@@ -36,7 +36,10 @@ export type OGTheme = keyof typeof THEMES;
 
 export interface OGOptions {
   title: string;
-  subtitle?: string;
+  /** Subtitle text, or a satori children element/array for mixed styling. */
+  subtitle?: string | unknown;
+  /** Override subtitle font size (default 30). */
+  subtitleSize?: number;
   tag?: string;
   theme?: OGTheme;
   /** Index into the dynamical-systems library (0-12). */
@@ -76,6 +79,7 @@ function renderSystemDataURL(
 export async function makeOG({
   title,
   subtitle = '',
+  subtitleSize = 30,
   tag = '',
   theme = 'solo',
   system = 0,
@@ -218,11 +222,15 @@ export async function makeOG({
                 'div',
                 {
                   color: t.muted,
-                  fontSize: 30,
+                  fontSize: subtitleSize,
                   fontStyle: 'italic',
                   lineHeight: 1.4,
                   maxWidth: 900,
                   display: 'flex',
+                  // Preserves the space between flex-item spans when the
+                  // subtitle is split into mixed-style elements (e.g.
+                  // "Live free. " upright + "Don't join." italic).
+                  gap: 10,
                 },
                 subtitle,
               )

@@ -348,7 +348,7 @@ function threeBody(w: number, h: number): SystemRender {
   const G = 1;
   const sc = Math.min(w, h) * 0.18;
   const cx = w * 0.5,
-    cy = h * 0.42;
+    cy = h * 0.28;
   const dt = 0.002;
   const softening = 0.5;
   const bodies = [
