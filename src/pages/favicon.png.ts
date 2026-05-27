@@ -1,12 +1,19 @@
 import type { APIRoute } from 'astro';
+import { Resvg } from '@resvg/resvg-js';
 
 /**
- * Site favicon — a short trace of the double pendulum (system 0). Uses
- * the same math as src/lib/simulate-system.ts but runs a tiny ~120-frame
- * sim so the resulting SVG path stays compact (~5 KB) for use as a
- * favicon, rather than the full 1800-frame attractor we render into OG.
+ * Site favicon — a short double-pendulum trace rendered to PNG.
+ *
+ * Rendered server-side at 128×128. The browser downscales to 16/32px
+ * for tab favicons, which preserves the alpha layering of overlapping
+ * pendulum links. (Linking an SVG directly causes browsers to rasterize
+ * the SVG at the final favicon size, where the overlapping strokes
+ * saturate and the trace blows out.)
  */
 export const GET: APIRoute = async () => {
+  // Simulate the pendulum on the same coordinate system the OG render
+  // uses, but for a much shorter exposure so the trace stays sparse at
+  // favicon size.
   const W = 64;
   const H = 64;
   const g = 9.81;
@@ -16,15 +23,15 @@ export const GET: APIRoute = async () => {
   const m2 = 1;
   const scale = Math.min(W, H) * 0.42;
   const cx = W * 0.5;
-  const cy = H * 0.3;
-  const dt = 0.004;
+  const cy = H * 0.4;
+  const dt = 0.014;
   let th1 = 0.85 * Math.PI;
   let th2 = 0.45 * Math.PI;
   let w1 = 0;
   let w2 = 0;
 
   const segs: string[] = [];
-  for (let frame = 0; frame < 120; frame++) {
+  for (let frame = 0; frame < 160; frame++) {
     const sd = Math.sin(th1 - th2);
     const cd = Math.cos(th1 - th2);
     const den = 2 * m1 + m2 - m2 * Math.cos(2 * (th1 - th2));
@@ -52,16 +59,22 @@ export const GET: APIRoute = async () => {
       `M${cx.toFixed(1)} ${cy.toFixed(1)}L${x1.toFixed(1)} ${y1.toFixed(1)}L${x2.toFixed(1)} ${y2.toFixed(1)}`,
     );
   }
-
   const d = segs.join('');
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="10" fill="#2e1420"/>
-  <path d="${d}" stroke="#dba0a0" stroke-width="0.6" fill="none" opacity="0.55"/>
-</svg>`;
 
-  return new Response(svg, {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+    <rect width="64" height="64" rx="10" fill="#2e1420"/>
+    <path d="${d}" stroke="#dba0a0" stroke-width="0.55" fill="none" opacity="0.5" stroke-linecap="round"/>
+  </svg>`;
+
+  const png = new Resvg(svg, {
+    fitTo: { mode: 'width', value: 128 },
+  })
+    .render()
+    .asPng();
+
+  return new Response(png, {
     headers: {
-      'Content-Type': 'image/svg+xml',
+      'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=31536000',
     },
   });
