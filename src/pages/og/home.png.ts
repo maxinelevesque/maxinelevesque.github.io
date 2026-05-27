@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
     footer: 'compact',
     systemSize: 620,
     systemOpacity: 0.85,
-    systemTop: 60,
+    systemTop: 10,
   });
   return new Response(png, {
     headers: { 'Content-Type': 'image/png', 'Cache-Control': 'public, max-age=31536000' },

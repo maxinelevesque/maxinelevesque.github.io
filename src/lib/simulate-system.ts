@@ -31,8 +31,8 @@ function doublePendulum(w: number, h: number): SystemRender {
   const cx = w * 0.5,
     cy = h * 0.28;
   const dt = 0.003;
-  let th1 = 0.6 * Math.PI,
-    th2 = 0.85 * Math.PI;
+  let th1 = 0.85 * Math.PI,
+    th2 = 0.45 * Math.PI;
   let w1 = 0,
     w2 = 0;
   const segs: Segment[] = [];
@@ -357,7 +357,9 @@ function threeBody(w: number, h: number): SystemRender {
     { x: 0, y: 1.5, vx: -0.25, vy: -0.2, m: 1 },
   ];
   const segs: Segment[] = [];
-  for (let f = 0; f < 1200; f++) {
+  // Shorter exposure than the home-page sim — the per-frame triangle
+  // overlay accumulates quickly into a dense silhouette otherwise.
+  for (let f = 0; f < 400; f++) {
     for (let s = 0; s < 6; s++) {
       for (let a = 0; a < 3; a++) {
         let ax = 0,
