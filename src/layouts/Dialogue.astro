@@ -16,7 +16,7 @@ const { frontmatter } = Astro.props;
 const systemIndex = frontmatter.system ?? 2;
 const coauthor = frontmatter.coauthor ?? 'Claude';
 ---
-<Base title={frontmatter.title} description={frontmatter.subtitle}>
+<Base title={frontmatter.title} description={frontmatter.subtitle} theme="dial">
   <div class="page">
     <!-- Dynamical system background -->
     <div class="system-canvas">

@@ -10,5 +10,10 @@
   "dependencies": {
     "astro": "^5.8.0",
     "katex": "^0.16.22"
+  },
+  "devDependencies": {
+    "@fontsource/eb-garamond": "^5.2.7",
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.26.0"
   }
 }

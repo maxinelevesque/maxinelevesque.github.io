@@ -38,12 +38,20 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Match the body theme so mobile overscroll / iOS bounce / desktop
+     overflow regions don't flash white. Per-theme override below. */
+  background: var(--solo-bg);
+}
+
+html[data-theme="dial"] {
+  background: var(--dial-bg);
 }
 
 body {
   font-family: var(--font-body);
   line-height: 1.58;
   font-variant-numeric: oldstyle-nums proportional-nums;
+  background: inherit;
 }
 
 /* ─── Article body — book typesetting ────────────────────── */
