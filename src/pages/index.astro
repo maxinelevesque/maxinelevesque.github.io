@@ -11,7 +11,7 @@ const allPieces = [
   ...writing.map(p => ({
     title: p.data.title,
     date: p.data.date,
-    tag: p.data.category === 'fiction' ? 'story' : p.data.category,
+    tag: p.data.kind === 'fiction' ? 'story' : p.data.kind === 'essay' ? 'article' : 'note',
     former: p.data.formerName,
     slug: `/writing/${p.slug}`,
   })),

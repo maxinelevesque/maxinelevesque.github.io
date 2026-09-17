@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Rebuild when the canonical content repo (maxinelevesque/writing) publishes.
+  # Its publish workflow fires repository_dispatch with event_type content-updated.
+  repository_dispatch:
+    types: [content-updated]
 
 permissions:
   contents: read
@@ -28,6 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Generate content from canonical writing repo
+        run: npm run generate
 
       - name: Build
         run: npm run build

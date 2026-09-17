@@ -21,9 +21,9 @@ const OVERRIDES: Record<string, Partial<OGOptions>> = {
 export const GET: APIRoute = async ({ props }) => {
   const entry = props.entry as CollectionEntry<'writing'>;
   const tag =
-    entry.data.category === 'fiction'
+    entry.data.kind === 'fiction'
       ? `Story · ${entry.data.date}`
-      : entry.data.category === 'article'
+      : entry.data.kind === 'essay'
         ? `Article · ${entry.data.date}`
         : `Note · ${entry.data.date}`;
 

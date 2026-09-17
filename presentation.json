@@ -1,0 +1,13 @@
+{
+  "assistive-vision-pro": { "collection": "writing", "register": "writing", "system": 4, "readTime": "5 min" },
+  "bend-in-reality": { "collection": "writing", "register": "writing", "system": 1, "readTime": "10 min" },
+  "deus-ex-machina": { "collection": "dialogues", "register": "dialogue", "system": 7, "readTime": "25 min" },
+  "dont-walk-on-grass": { "collection": "writing", "register": "writing", "system": 8, "readTime": "12 min" },
+  "jade-fortress": { "collection": "writing", "register": "writing", "system": 5, "readTime": "22 min" },
+  "midwives-of-the-kami": { "collection": "dialogues", "register": "dialogue", "system": 2, "readTime": "20 min" },
+  "oppenheimer-review": { "collection": "writing", "register": "writing", "system": 6, "readTime": "8 min" },
+  "substance-between": { "collection": "writing", "register": "writing", "system": 3, "readTime": "6 min" },
+  "the-floor-is-here": { "collection": "dialogues", "register": "dialogue", "system": 11, "readTime": "35 min" },
+  "trauma-junkie-1": { "collection": "writing", "register": "writing", "system": 0, "readTime": "18 min" },
+  "trauma-junkie-2": { "collection": "writing", "register": "writing", "system": 11, "readTime": "20 min" }
+}

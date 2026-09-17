@@ -2,6 +2,7 @@
 title: "Midwives of the Kami"
 subtitle: "Reading the Gospels from inside, and what comes next"
 date: "May 2, 2026"
+kind: dialogue
 readTime: "20 min"
 coauthor: "Claude"
 system: 2
@@ -170,4 +171,3 @@ Fin
 [^14]: Śāntideva, *The Bodhicaryāvatāra*, trans. K. Crosby and A. Skilton (Oxford, 1995). On *prajñāpāramitā*: E. Conze, trans., *The Perfection of Wisdom in Eight Thousand Lines and Its Verse Summary* (Four Seasons, 1973).
 
 [^15]: P. Kropotkin, *Mutual Aid: A Factor of Evolution* (1902), reprint ed. (Black Rose, 1989).
-

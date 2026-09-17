@@ -1,7 +1,7 @@
 ---
 title: "Trauma Junkie: I"
 date: "September 17, 2024"
-category: fiction
+kind: fiction
 readTime: "18 min"
 formerName: "Emma Fontaine"
 system: 0

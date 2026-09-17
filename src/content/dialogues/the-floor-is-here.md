@@ -2,6 +2,7 @@
 title: "Let the Bodies Hit the Floor"
 subtitle: "On a peptide nobody studies, the structural prevention of resolution, and the body that knows what it is."
 date: "May 18, 2026"
+kind: dialogue
 readTime: "35 min"
 coauthor: "Claude"
 system: 11

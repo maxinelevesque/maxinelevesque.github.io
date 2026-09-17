@@ -1,7 +1,7 @@
 ---
 title: "Vision Pro: Assistive device"
 date: "April 23, 2024"
-category: article
+kind: essay
 readTime: "5 min"
 formerName: "Maxine Collard"
 system: 4

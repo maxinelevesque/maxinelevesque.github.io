@@ -6,7 +6,7 @@ interface Props {
     title: string;
     subtitle?: string;
     date: string;
-    category: string;
+    kind: string;
     readTime: string;
     formerName?: string;
     system?: number;
@@ -15,7 +15,10 @@ interface Props {
 
 const { frontmatter } = Astro.props;
 const systemIndex = frontmatter.system ?? 0;
-const categoryLabel = frontmatter.category.toUpperCase();
+// kind is the semantic field; the header label keeps the site's prior wording
+// (essays display as "ARTICLE").
+const KIND_LABEL: Record<string, string> = { essay: 'article', fiction: 'fiction', note: 'note' };
+const categoryLabel = (KIND_LABEL[frontmatter.kind] ?? frontmatter.kind).toUpperCase();
 ---
 <Base
   title={frontmatter.title}

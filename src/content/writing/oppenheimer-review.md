@@ -2,7 +2,7 @@
 title: "To struggle against world-ending time"
 subtitle: "A review of Oppenheimer (2023)."
 date: "August 24, 2023"
-category: article
+kind: essay
 readTime: "8 min"
 formerName: "Max Collard"
 system: 6

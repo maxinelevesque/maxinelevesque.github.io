@@ -2,7 +2,7 @@
 title: "A bend in reality"
 subtitle: "When one is depressed, one lives in a depressed world."
 date: "December 17, 2022"
-category: article
+kind: essay
 readTime: "10 min"
 formerName: "Max Collard"
 system: 1

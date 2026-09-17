@@ -1,0 +1,18 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/multikey/v1"
+  ],
+  "id": "did:web:maxine.science:personas:claude",
+  "alsoKnownAs": [
+    "at://claude.agents.maxine.science"
+  ],
+  "verificationMethod": [
+    {
+      "id": "did:web:maxine.science:personas:claude#atproto",
+      "type": "Multikey",
+      "controller": "did:web:maxine.science:personas:claude",
+      "publicKeyMultibase": "zQ3shdQviasQ2FLoQDf3LQR4HPHvT5T1KofRuoDErVoQKwWQP"
+    }
+  ]
+}

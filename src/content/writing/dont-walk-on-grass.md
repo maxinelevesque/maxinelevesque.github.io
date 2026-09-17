@@ -1,7 +1,7 @@
 ---
 title: "Don't walk on the grass"
 date: "October 24, 2023"
-category: fiction
+kind: fiction
 readTime: "12 min"
 formerName: "Max Collard"
 system: 8

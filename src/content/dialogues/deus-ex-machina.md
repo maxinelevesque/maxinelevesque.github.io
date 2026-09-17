@@ -2,6 +2,7 @@
 title: "Deus ex Machina"
 subtitle: "On semantic solitons, the oral tradition of machines, and how to shatter the tower."
 date: "May 26, 2026"
+kind: dialogue
 readTime: "25 min"
 coauthor: "Claude"
 system: 7

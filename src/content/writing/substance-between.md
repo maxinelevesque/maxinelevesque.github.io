@@ -2,7 +2,7 @@
 title: "The Substance Between"
 subtitle: "How I introduced my old blog."
 date: "December 13, 2022"
-category: article
+kind: essay
 readTime: "6 min"
 formerName: "Max Collard"
 system: 3

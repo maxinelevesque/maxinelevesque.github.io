@@ -1,7 +1,7 @@
 ---
 title: "Trauma Junkie: II"
 date: "December 30, 2024"
-category: fiction
+kind: fiction
 readTime: "20 min"
 formerName: "Emma Fontaine"
 system: 11

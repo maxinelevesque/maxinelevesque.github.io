@@ -28,10 +28,13 @@ const pageTitle = title === SITE ? title : `${title} — ${SITE}`;
 
 // Per-page OG image: mirrors the URL path under /og/, with the home page
 // using /og/home.png. Resolved against Astro.site (https://maxine.science).
-const path = Astro.url.pathname.replace(/\/$/, '');
+// Normalise to the clean path (no `.html` from file-format builds, no trailing
+// slash) so both the OG image path and the canonical URL match the atproto
+// document `path` and the pieces' `canonical:` frontmatter.
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '');
 const ogPath = path === '' ? '/og/home.png' : `/og${path}.png`;
 const ogUrl = new URL(ogPath, Astro.site ?? Astro.url.origin).toString();
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
+const canonical = new URL(path === '' ? '/' : path, Astro.site ?? Astro.url.origin).toString();
 
 const themeColor = theme === 'dial' ? '#0a0b12' : '#2e1420';
 const ogImageAlt = imageAlt ?? `Open graph card for ${title} — ${SITE}.`;
