@@ -43,6 +43,10 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
+          # Required so the .well-known/ dot-directory (site.standard.publication
+          # verification file) is included — v5 defaults this to false, which
+          # silently drops all hidden files from the deployed site.
+          include-hidden-files: true
 
   deploy:
     environment:
