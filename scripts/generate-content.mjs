@@ -84,6 +84,20 @@ const piecesDir = join(src, 'pieces');
 const slugs = readdirSync(piecesDir).filter((n) => statSync(join(piecesDir, n)).isDirectory()).sort();
 if (slugs.length === 0) die(`no pieces found in ${piecesDir}`);
 
+// Wipe previously-generated content before regenerating so a slug removed or
+// renamed upstream disappears (GitHub Pages deploys the whole dist, and a stale
+// committed .md would otherwise resurrect a dead URL). Site-local files that are
+// NOT generated from pieces/** are preserved — currently just the straw-holes
+// stub, until it's promoted upstream.
+const SITE_LOCAL = new Set(['dialogues/straw-holes']);
+for (const coll of ['writing', 'dialogues']) {
+  const dir = join(ROOT, 'src', 'content', coll);
+  if (!existsSync(dir)) continue;
+  for (const f of readdirSync(dir)) {
+    if (f.endsWith('.md') && !SITE_LOCAL.has(`${coll}/${f.replace(/\.md$/, '')}`)) rmSync(join(dir, f));
+  }
+}
+
 const written = [];
 for (const slug of slugs) {
   const file = join(piecesDir, slug, 'index.md');
