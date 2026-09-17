@@ -5,6 +5,7 @@ interface Props {
   frontmatter: {
     title: string;
     subtitle?: string;
+    summary?: string;
     date: string;
     kind: string;
     readTime: string;
@@ -22,7 +23,7 @@ const categoryLabel = (KIND_LABEL[frontmatter.kind] ?? frontmatter.kind).toUpper
 ---
 <Base
   title={frontmatter.title}
-  description={frontmatter.subtitle}
+  description={frontmatter.summary ?? frontmatter.subtitle}
   ogType="article"
   published={frontmatter.date}
   author={frontmatter.formerName ? `Maxine Levesque (as ${frontmatter.formerName})` : 'Maxine Levesque'}

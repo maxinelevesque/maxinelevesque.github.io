@@ -5,6 +5,7 @@ interface Props {
   frontmatter: {
     title: string;
     subtitle?: string;
+    summary?: string;
     date: string;
     readTime: string;
     coauthor?: string;
@@ -18,7 +19,7 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
 ---
 <Base
   title={frontmatter.title}
-  description={frontmatter.subtitle}
+  description={frontmatter.summary ?? frontmatter.subtitle}
   theme="dial"
   ogType="article"
   published={frontmatter.date}
