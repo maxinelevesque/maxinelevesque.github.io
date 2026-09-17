@@ -176,7 +176,8 @@ for (const slug of slugs) {
 const recordsPath = join(src, 'records.json');
 if (existsSync(recordsPath)) {
   try {
-    const pubUri = JSON.parse(readFileSync(recordsPath, 'utf8'))?.publication?.uri;
+    const records = JSON.parse(readFileSync(recordsPath, 'utf8'));
+    const pubUri = records?.publication?.uri;
     if (pubUri) {
       const wellKnown = join(ROOT, 'public', '.well-known');
       mkdirSync(wellKnown, { recursive: true });
@@ -185,11 +186,22 @@ if (existsSync(recordsPath)) {
     } else {
       console.warn('generate-content: records.json has no publication.uri — skipping .well-known verification file');
     }
+    // Per-page atproto link data, consumed by Base.astro to emit
+    // <link rel="site.standard.document"> (per slug) + <link rel="site.standard.publication">
+    // tags that Bluesky's crawler reads to render the enhanced link card.
+    const documents = {};
+    for (const [slug, rec] of Object.entries(records?.documents ?? {})) {
+      if (rec?.uri) documents[slug] = rec.uri;
+    }
+    const dataDir = join(ROOT, 'src', 'data');
+    mkdirSync(dataDir, { recursive: true });
+    writeFileSync(join(dataDir, 'atproto.json'), JSON.stringify({ publication: pubUri ?? '', documents }, null, 2) + '\n');
+    console.log(`generate-content: wrote src/data/atproto.json (${Object.keys(documents).length} documents + publication)`);
   } catch (e) {
-    console.warn(`generate-content: could not read records.json (${e.message}) — skipping .well-known verification file`);
+    console.warn(`generate-content: could not read records.json (${e.message}) — skipping .well-known + atproto.json`);
   }
 } else {
-  console.warn('generate-content: no records.json in source — skipping .well-known verification file');
+  console.warn('generate-content: no records.json in source — skipping .well-known + atproto.json');
 }
 
 // Persona did:web documents: serve the writing repo's did-docs/personas/** at
