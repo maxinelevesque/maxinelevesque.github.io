@@ -86,10 +86,10 @@ if (slugs.length === 0) die(`no pieces found in ${piecesDir}`);
 
 // Wipe previously-generated content before regenerating so a slug removed or
 // renamed upstream disappears (GitHub Pages deploys the whole dist, and a stale
-// committed .md would otherwise resurrect a dead URL). Site-local files that are
-// NOT generated from pieces/** are preserved — currently just the straw-holes
-// stub, until it's promoted upstream.
-const SITE_LOCAL = new Set(['dialogues/straw-holes']);
+// committed .md would otherwise resurrect a dead URL). SITE_LOCAL lists any
+// content files that are NOT generated from pieces/** and must be preserved.
+// (Empty now that straw-holes has been promoted into pieces/ upstream.)
+const SITE_LOCAL = new Set();
 for (const coll of ['writing', 'dialogues']) {
   const dir = join(ROOT, 'src', 'content', coll);
   if (!existsSync(dir)) continue;

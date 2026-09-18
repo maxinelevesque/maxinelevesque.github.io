@@ -7,6 +7,7 @@
   "midwives-of-the-kami": { "collection": "dialogues", "register": "dialogue", "system": 2, "readTime": "20 min" },
   "oppenheimer-review": { "collection": "writing", "register": "writing", "system": 6, "readTime": "8 min" },
   "substance-between": { "collection": "writing", "register": "writing", "system": 3, "readTime": "6 min" },
+  "straw-holes": { "collection": "dialogues", "register": "dialogue", "system": 4, "readTime": "30 min" },
   "the-floor-is-here": { "collection": "dialogues", "register": "dialogue", "system": 11, "readTime": "35 min" },
   "trauma-junkie-1": { "collection": "writing", "register": "writing", "system": 0, "readTime": "18 min" },
   "trauma-junkie-2": { "collection": "writing", "register": "writing", "system": 11, "readTime": "20 min" }
