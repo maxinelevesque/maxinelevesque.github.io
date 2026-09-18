@@ -92,7 +92,7 @@ if (slugs.length === 0) die(`no pieces found in ${piecesDir}`);
 const SITE_LOCAL = new Set();
 for (const coll of ['writing', 'dialogues']) {
   const dir = join(ROOT, 'src', 'content', coll);
-  if (!existsSync(dir)) continue;
+  mkdirSync(dir, { recursive: true }); // may not exist on a fresh clone (generated dirs are gitignored)
   for (const f of readdirSync(dir)) {
     if (f.endsWith('.md') && !SITE_LOCAL.has(`${coll}/${f.replace(/\.md$/, '')}`)) rmSync(join(dir, f));
   }

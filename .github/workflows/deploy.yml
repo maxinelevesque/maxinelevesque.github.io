@@ -33,10 +33,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Generate content from canonical writing repo
-        run: npm run generate
-
       - name: Build
+        # `npm run build` runs the content generator first (clones the writing
+        # repo, writes the gitignored src/content/**, atproto.json, .well-known,
+        # personas), then astro build.
         run: npm run build
 
       - name: Upload artifact

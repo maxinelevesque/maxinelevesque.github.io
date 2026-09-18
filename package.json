@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "generate": "node scripts/generate-content.mjs",
-    "build": "astro build",
+    "build": "npm run generate && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

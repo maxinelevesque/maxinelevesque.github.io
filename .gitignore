@@ -204,3 +204,13 @@ dist/
 #   .claude/settings.local.json is per-developer, ignore separately if needed
 # === End crosslink managed ===
 drafts/
+
+# Generated at build by scripts/generate-content.mjs (npm run generate) from the
+# maxinelevesque/writing content repo. CI regenerates these every build, so they
+# are the sole source of truth and are NOT committed. Hand-authored files in the
+# same trees — src/content/config.ts, public/straw-holes/ — stay tracked.
+/src/content/writing/
+/src/content/dialogues/
+/src/data/atproto.json
+/public/.well-known/
+/public/personas/
