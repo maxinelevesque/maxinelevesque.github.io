@@ -36,6 +36,8 @@ const dialogues = defineCollection({
     kind: z.literal('dialogue').optional(),
     readTime: z.string(),
     coauthor: z.string().default('Claude'),
+    // One or two sentences hung as a footnote off the coauthor byline (SCHEMA.md upstream).
+    coauthorNote: z.string().optional(),
     summary: z.string().optional(),
     // Index into the dynamical systems library (0-12), from presentation.json
     system: z.number().default(2),

@@ -158,6 +158,7 @@ for (const slug of slugs) {
   lines.push(`readTime: ${q(pres.readTime)}`);
   if (collection === 'writing' && fmParsed.formerName) lines.push(`formerName: ${q(fmParsed.formerName)}`);
   if (collection === 'dialogues') lines.push(`coauthor: ${q(fmParsed.coauthor)}`);
+  if (collection === 'dialogues' && fmParsed.coauthorNote) lines.push(`coauthorNote: ${q(fmParsed.coauthorNote)}`);
   if (fmParsed.summary) lines.push(`summary: ${q(fmParsed.summary)}`);
   lines.push(`system: ${Number(pres.system)}`);
   lines.push('---');

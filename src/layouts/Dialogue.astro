@@ -9,6 +9,7 @@ interface Props {
     date: string;
     readTime: string;
     coauthor?: string;
+    coauthorNote?: string;
     system?: number;
   };
 }
@@ -50,7 +51,7 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
       <div class="byline">
         <span class="author">Maxine Levesque</span>
         <span class="times">×</span>
-        <span class="coauthor">{coauthor}</span>
+        <span class="coauthor">{coauthor}{frontmatter.coauthorNote && (<sup class="note-mark"><a href="#coauthor-note" aria-label="Note on the coauthor">*</a></sup>)}</span>
         <span class="sep">·</span>
         <span>{frontmatter.date}</span>
         <span class="sep">·</span>
@@ -62,6 +63,12 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
       <div class="article-body dial">
         <slot />
       </div>
+
+      {frontmatter.coauthorNote && (
+        <aside class="coauthor-note" id="coauthor-note">
+          <span class="note-mark">*</span> {frontmatter.coauthorNote}
+        </aside>
+      )}
 
       <div class="page-footer">
         <span>© 2026 Maxine Levesque</span>
@@ -144,6 +151,18 @@ const coauthor = frontmatter.coauthor ?? 'Claude';
   .author { color: var(--dial-text); font-style: italic; }
   .times { opacity: 0.25; font-size: 0.72rem; }
   .coauthor { color: var(--dial-accent); font-style: italic; }
+  .note-mark { font-style: normal; font-size: 0.72em; opacity: 0.7; margin-left: 0.1em; }
+  .note-mark a { color: inherit; text-decoration: none; }
+  .coauthor-note {
+    margin-top: 3rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--dial-rule);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--dial-text-muted);
+    font-style: italic;
+  }
+  .coauthor-note .note-mark { margin-right: 0.3em; }
   .sep { opacity: 0.2; }
   .rule {
     height: 1px;
