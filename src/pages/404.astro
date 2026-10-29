@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Not found">
+  <!--
+    The site serves slashless URLs (/about, /writing/<slug>; see trailingSlash in
+    astro.config.mjs), so older links and search results pointing at /about/ land
+    here. GitHub Pages can't issue server-side redirects, so retry the slashless
+    path from the client before showing the not-found message.
+  -->
+  <script is:inline>
+    (function () {
+      var p = location.pathname;
+      if (p.length > 1 && p.endsWith('/')) {
+        location.replace(p.replace(/\/+$/, '') + location.search + location.hash);
+      }
+    })();
+  </script>
+  <div class="page">
+    <div class="content">
+      <div class="crumb"><a href="/">Maxine's dream machine</a> → Not found</div>
+      <h1 class="title">Not found</h1>
+      <p class="lede">
+        Nothing lives at this address. Try the <a href="/">home page</a>.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .page {
+    background: var(--solo-bg);
+    color: var(--solo-text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+  }
+  .content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.8rem 1.5rem 5rem;
+  }
+  .crumb {
+    font-size: 0.72rem;
+    color: var(--solo-text-muted);
+    margin-bottom: 3.5rem;
+    opacity: 0.6;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+  .crumb a { color: inherit; }
+  .title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--solo-accent);
+    margin-bottom: 1rem;
+  }
+  .lede {
+    font-size: 1rem;
+    color: var(--solo-text-muted);
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .lede a { color: var(--solo-accent); }
+</style>
