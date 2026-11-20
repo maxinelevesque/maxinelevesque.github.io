@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkAbstract from './src/lib/remark-abstract.mjs';
 
 export default defineConfig({
   site: 'https://maxine.science',
@@ -18,7 +19,7 @@ export default defineConfig({
     // TeX/LaTeX math: remark-math parses `$…$` / `$$…$$`; rehype-katex renders
     // it to static HTML at build time (KaTeX CSS is loaded in Base.astro).
     // No client-side JS — safe for static GitHub Pages hosting.
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, remarkAbstract],
     rehypePlugins: [rehypeKatex],
     shikiConfig: {
       theme: 'css-variables',
