@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generate src/content/{writing,dialogues}/*.md from the canonical content repo
+// Generate src/content/{writing,dialogues,research}/*.md from the canonical content repo
 // `maxinelevesque/writing` (pieces/**), merged with presentation.json.
 //
 //   - semantic frontmatter (title, subtitle, date, updated, kind, coauthor,
@@ -7,7 +7,7 @@
 //   - presentation (system index, readTime) comes from presentation.json, keyed
 //     by slug — this is the build-time merge that keeps those fields in the
 //     generated frontmatter where the Astro pages/OG routes already read them
-//   - routing: kind === 'dialogue' -> dialogues, else -> writing
+//   - routing: kind dialogue -> dialogues, report -> research, else -> writing
 //
 // Source resolution:
 //   WRITING_SRC=/path/to/writing   use a local checkout (no clone) — used in dev
@@ -70,6 +70,49 @@ function parseFrontmatter(fm) {
   return out;
 }
 
+// Flow sequence `[a, "b, c", d]` -> ['a', 'b, c', 'd'], splitting on commas
+// outside double quotes (mirrors writing/scripts/lib/frontmatter.mjs).
+function parseFlowList(val, where) {
+  if (val === undefined) return [];
+  const v = val.trim();
+  if (!v.startsWith('[') || !v.endsWith(']')) die(`${where}: expected a [flow, list] (got ${v})`);
+  const parts = [];
+  let cur = '';
+  let quoted = false;
+  const inner = v.slice(1, -1);
+  for (let i = 0; i < inner.length; i++) {
+    const ch = inner[i];
+    if (quoted && ch === '\\' && i + 1 < inner.length) { cur += inner[++i]; continue; }
+    if (ch === '"') { quoted = !quoted; continue; }
+    if (ch === ',' && !quoted) { parts.push(cur.trim()); cur = ''; continue; }
+    cur += ch;
+  }
+  parts.push(cur.trim());
+  return parts.filter(Boolean);
+}
+
+// Contributor entries are persona keys, optionally "key: role" (writing SCHEMA.md).
+// Resolved against the writing repo's personas.json for the display name; the
+// piece's role overrides the persona's default role.
+let personas = {};
+function resolveContributors(list, slug) {
+  return list.map((entry) => {
+    const i = entry.indexOf(':');
+    const key = (i === -1 ? entry : entry.slice(0, i)).trim();
+    const role = i === -1 ? '' : entry.slice(i + 1).trim();
+    const p = personas[key];
+    if (!p) die(`${slug}: unknown contributor persona "${key}"`);
+    const out = { name: p.displayName || key };
+    if (role || p.role) out.role = role || p.role;
+    return out;
+  });
+}
+
+// kind -> site collection. Mirrors writing/scripts/validate's SEGMENT table.
+const COLLECTION = { essay: 'writing', fiction: 'writing', note: 'writing', dialogue: 'dialogues', report: 'research' };
+const REGISTER = { writing: 'writing', dialogues: 'dialogue', research: 'research' };
+const DEFAULT_SYSTEM = { writing: 0, dialogues: 2, research: 9 };
+
 function humanDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
   if (!m) return iso; // already human, or non-ISO — pass through
@@ -90,13 +133,20 @@ if (slugs.length === 0) die(`no pieces found in ${piecesDir}`);
 // content files that are NOT generated from pieces/** and must be preserved.
 // (Empty now that straw-holes has been promoted into pieces/ upstream.)
 const SITE_LOCAL = new Set();
-for (const coll of ['writing', 'dialogues']) {
+for (const coll of ['writing', 'dialogues', 'research']) {
   const dir = join(ROOT, 'src', 'content', coll);
   mkdirSync(dir, { recursive: true }); // may not exist on a fresh clone (generated dirs are gitignored)
   for (const f of readdirSync(dir)) {
     if (f.endsWith('.md') && !SITE_LOCAL.has(`${coll}/${f.replace(/\.md$/, '')}`)) rmSync(join(dir, f));
   }
 }
+
+try { personas = JSON.parse(readFileSync(join(src, 'personas.json'), 'utf8')); } catch {}
+
+// Per-piece static files (the read-aloud companion) are copied to
+// public/<collection>/<slug>/; the whole tree is regenerated each run.
+const PIECE_PUBLIC = join(ROOT, 'public', 'research');
+rmSync(PIECE_PUBLIC, { recursive: true, force: true });
 
 const written = [];
 for (const slug of slugs) {
@@ -108,26 +158,26 @@ for (const slug of slugs) {
   const kind = fmParsed.kind;
   if (!kind) die(`${slug}: missing kind`);
 
-  // Authorship / register distinction. This site has exactly two registers:
-  //   solo  (warm) -> writing collection,  byline = formerName?
-  //   co-write (cool) -> dialogues collection, byline = "× {coauthor}"
-  // Co-authorship is signalled by the semantic `coauthor` field, and — per the
-  // upstream schema (writing/scripts/validate rule 6) — is fused with
-  // kind: dialogue. We assert that invariant here so a mis-tagged piece FAILS
-  // loudly instead of silently rendering in the wrong register / losing its
-  // co-write byline. (If we ever want co-written essays/fiction, this is the
-  // single place that has to change, alongside a coauthor byline in Writing.astro.)
+  // Authorship / register distinction. This site has three registers:
+  //   solo     (warm, burgundy)  -> writing collection,   byline = formerName?
+  //   co-write (cool, midnight)  -> dialogues collection, byline = "× {coauthor}"
+  //   research (ochre)           -> research collection,  byline = "× {coauthor}"?
+  // Per the upstream schema (writing/scripts/validate rule 6), dialogues must
+  // name a coauthor, reports may, and other kinds may not. We assert that here
+  // so a mis-tagged piece FAILS loudly instead of silently rendering in the
+  // wrong register or losing its coauthor byline.
+  const collection = COLLECTION[kind];
+  if (!collection) die(`${slug}: unknown kind "${kind}"`);
   const isCoWrite = Boolean(fmParsed.coauthor);
   if (kind === 'dialogue' && !isCoWrite) {
     die(`${slug}: kind: dialogue but no coauthor — a co-write must name its coauthor.`);
   }
-  if (kind !== 'dialogue' && isCoWrite) {
-    die(`${slug}: coauthor present on kind: ${kind}. This site renders a co-write byline only in the dialogues collection. ` +
-        `Mark it kind: dialogue upstream, or if it should be a co-written ${kind} we need the orthogonal-authorship change first.`);
+  if (collection === 'writing' && isCoWrite) {
+    die(`${slug}: coauthor present on kind: ${kind}. Only dialogues and reports carry a coauthor byline. ` +
+        `Mark it kind: dialogue or kind: report upstream.`);
   }
-  const collection = kind === 'dialogue' ? 'dialogues' : 'writing';
 
-  const expectedRegister = collection === 'dialogues' ? 'dialogue' : 'writing';
+  const expectedRegister = REGISTER[collection];
   let pres = presentation[slug];
   if (pres) {
     // Curated entry present: its values win, but must agree with the routing.
@@ -145,7 +195,7 @@ for (const slug of slugs) {
     // presentation.json — an explicit entry always overrides these defaults.
     const words = body.trim().split(/\s+/).filter(Boolean).length;
     const readMin = Math.max(1, Math.round(words / 200));
-    pres = { collection, register: expectedRegister, system: collection === 'dialogues' ? 2 : 0, readTime: `${readMin} min` };
+    pres = { collection, register: expectedRegister, system: DEFAULT_SYSTEM[collection], readTime: `${readMin} min` };
     console.warn(`generate-content: ${slug} has no presentation.json entry — defaulting system=${pres.system}, readTime="${pres.readTime}". Add an entry to curate.`);
   }
 
@@ -157,8 +207,21 @@ for (const slug of slugs) {
   lines.push(`kind: ${kind}`);
   lines.push(`readTime: ${q(pres.readTime)}`);
   if (collection === 'writing' && fmParsed.formerName) lines.push(`formerName: ${q(fmParsed.formerName)}`);
-  if (collection === 'dialogues') lines.push(`coauthor: ${q(fmParsed.coauthor)}`);
-  if (collection === 'dialogues' && fmParsed.coauthorNote) lines.push(`coauthorNote: ${q(fmParsed.coauthorNote)}`);
+  if (collection !== 'writing' && fmParsed.coauthor) lines.push(`coauthor: ${q(fmParsed.coauthor)}`);
+  if (collection !== 'writing' && fmParsed.coauthorNote) lines.push(`coauthorNote: ${q(fmParsed.coauthorNote)}`);
+  if (collection === 'research') {
+    const contributors = resolveContributors(parseFlowList(fmParsed.contributors, slug), slug);
+    if (contributors.length) lines.push(`contributors: ${JSON.stringify(contributors)}`);
+    if (fmParsed.readAloud) {
+      // The upstream validator guarantees a contained relative .txt path.
+      const from = join(piecesDir, slug, fmParsed.readAloud);
+      if (!existsSync(from)) die(`${slug}: readAloud file not found: ${fmParsed.readAloud}`);
+      const name = fmParsed.readAloud.split('/').pop();
+      mkdirSync(join(PIECE_PUBLIC, slug), { recursive: true });
+      cpSync(from, join(PIECE_PUBLIC, slug, name));
+      lines.push(`readAloud: ${q(`/research/${slug}/${name}`)}`);
+    }
+  }
   if (fmParsed.summary) lines.push(`summary: ${q(fmParsed.summary)}`);
   lines.push(`system: ${Number(pres.system)}`);
   lines.push('---');

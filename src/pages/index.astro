@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 
 const writing = await getCollection('writing');
 const dialogues = await getCollection('dialogues');
+const research = await getCollection('research');
 
 // Combine and sort by date (newest first). Frontmatter dates are human strings
 // ("December 13, 2022", "May 2026"); Date.parse handles both reliably.
@@ -21,6 +22,13 @@ const allPieces = [
     tag: 'dialogue',
     coauthor: p.data.coauthor,
     slug: `/dialogues/${p.slug}`,
+  })),
+  ...research.map(p => ({
+    title: p.data.title,
+    date: p.data.date,
+    tag: 'research',
+    coauthor: p.data.coauthor,
+    slug: `/research/${p.slug}`,
   })),
 ].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 ---
@@ -52,9 +60,10 @@ const allPieces = [
           <a href={item.slug} class="index-item">
             <div class="item-left">
               {item.tag === 'dialogue' && <span class="dot" />}
+              {item.tag === 'research' && <span class="dot research" title="Research report" />}
               <span class="item-title">{item.title}</span>
               {item.coauthor && (
-                <span class="item-coauthor">× {item.coauthor}</span>
+                <span class={`item-coauthor${item.tag === 'research' ? ' research' : ''}`}>× {item.coauthor}</span>
               )}
               {item.former && (
                 <span class="item-former">as {item.former}</span>
@@ -184,6 +193,8 @@ const allPieces = [
     flex-shrink: 0;
     opacity: 0.7;
   }
+  .dot.research { background: var(--res-accent); }
+  .item-coauthor.research { color: var(--res-accent); }
   .item-former {
     font-size: 0.68rem;
     color: var(--solo-text-muted);

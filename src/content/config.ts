@@ -1,10 +1,11 @@
 import { defineCollection, z } from 'astro:content';
 
-// Content files under src/content/{writing,dialogues} are GENERATED at build
+// Content files under src/content/{writing,dialogues,research} are GENERATED at build
 // time by scripts/generate-content.mjs from the canonical `maxinelevesque/writing`
 // repo, merged with presentation.json (system index + readTime, keyed by slug).
 // See SPEC.md. `kind` is the semantic category carried over from the source repo
-// (essay|fiction|note → writing, dialogue → dialogues); `readTime` and `system`
+// (essay|fiction|note → writing, dialogue → dialogues, report → research);
+// `readTime` and `system`
 // are injected from the presentation sidecar, so they still live in frontmatter
 // where the pages and OG routes read them.
 
@@ -44,4 +45,26 @@ const dialogues = defineCollection({
   }),
 });
 
-export const collections = { writing, dialogues };
+// Research reports: long-form technical pieces, optionally co-written, with
+// per-contributor roles and an optional read-aloud companion.
+const research = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string().optional(),
+    date: z.string(),
+    updated: z.string().optional(),
+    kind: z.literal('report'),
+    readTime: z.string(),
+    coauthor: z.string().optional(),
+    coauthorNote: z.string().optional(),
+    summary: z.string().optional(),
+    // Resolved by the generator from the writing repo's personas.json.
+    contributors: z.array(z.object({ name: z.string(), role: z.string().optional() })).default([]),
+    // Site path of the read-aloud companion, copied into public/ by the generator.
+    readAloud: z.string().optional(),
+    system: z.number().default(9),
+  }),
+});
+
+export const collections = { writing, dialogues, research };

@@ -211,6 +211,8 @@ drafts/
 # same trees — src/content/config.ts, public/straw-holes/ — stay tracked.
 /src/content/writing/
 /src/content/dialogues/
+/src/content/research/
 /src/data/atproto.json
 /public/.well-known/
 /public/personas/
+/public/research/

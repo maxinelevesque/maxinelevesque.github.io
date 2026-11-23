@@ -21,6 +21,15 @@
   --dial-rule: #1e1d28;
   --dial-category: #8b7cb8;
 
+  /* Research theme — lamp-lit ochre (research reports) */
+  --res-bg: #17140d;
+  --res-text: #e2dccb;
+  --res-text-muted: #8a7f66;
+  --res-accent: #d0a85c;
+  --res-link: #dbb877;
+  --res-rule: #30291a;
+  --res-category: #d0a85c;
+
   /* Shared */
   --font-body: 'EB Garamond', Garamond, 'Times New Roman', serif;
   --max-width: 600px;
@@ -45,6 +54,10 @@ html {
 
 html[data-theme="dial"] {
   background: var(--dial-bg);
+}
+
+html[data-theme="research"] {
+  background: var(--res-bg);
 }
 
 body {
@@ -145,7 +158,8 @@ body {
 .article-body h2 { font-size: 1.4rem; }
 .article-body h3 { font-size: 1.15rem; }
 
-/* Theme-scoped accents: writing pages = burgundy; dialogue pages = blue. */
+/* Theme-scoped accents: writing pages = burgundy; dialogue pages = blue;
+   research pages = ochre. */
 .article-body.solo h2,
 .article-body.solo h3,
 .article-body.solo a {
@@ -156,6 +170,13 @@ body {
 .article-body.dial a {
   color: var(--dial-accent-blue);
 }
+.article-body.research h2,
+.article-body.research h3,
+.article-body.research a {
+  color: var(--res-link);
+}
+/* Faint panel surface (abstracts, "What is established") in the research register. */
+.article-body.research { --article-surface: rgb(208 168 92 / .05); }
 
 /* Footnote markers in body text inherit the link color from above. */
 .article-body sup a[data-footnote-ref] {
@@ -184,6 +205,13 @@ body {
 }
 .article-body.dial section.footnotes {
   border-top-color: var(--dial-rule);
+}
+.article-body.research section.footnotes {
+  border-top-color: var(--res-rule);
+}
+.article-body.research blockquote {
+  border-left-color: var(--res-rule);
+  color: var(--res-text-muted);
 }
 .article-body section.footnotes ol {
   padding-left: 1.4rem;
