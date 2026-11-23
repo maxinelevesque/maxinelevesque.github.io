@@ -141,6 +141,11 @@ for (const coll of ['writing', 'dialogues', 'research']) {
   }
 }
 
+// Astro's content layer caches entries in node_modules/.astro/data-store.json
+// and can keep serving an entry whose file was wiped above, so a local build
+// would still emit a removed piece's page. Drop the cache; CI starts clean anyway.
+rmSync(join(ROOT, 'node_modules', '.astro', 'data-store.json'), { force: true });
+
 try { personas = JSON.parse(readFileSync(join(src, 'personas.json'), 'utf8')); } catch {}
 
 // Per-piece static files (the read-aloud companion) are copied to

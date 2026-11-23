@@ -209,6 +209,9 @@ body {
 .article-body.research section.footnotes {
   border-top-color: var(--res-rule);
 }
+.article-body.dial blockquote {
+  border-left-color: var(--dial-rule);
+}
 .article-body.research blockquote {
   border-left-color: var(--res-rule);
   color: var(--res-text-muted);
