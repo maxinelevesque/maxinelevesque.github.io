@@ -20,7 +20,7 @@ export function initColumnNotes(contents) {
       const gap = 16;
       // A full-width figure occupies the gutter too. Notes/captions that would
       // cross it continue below it, rather than drawing over the figure.
-      const blocked = [...content.querySelectorAll('figure[data-layout="full"]')]
+      const blocked = [...content.querySelectorAll('figure[data-layout="full"], .table-wrap[data-layout="full"]')]
         .map((figure) => figure.getBoundingClientRect());
       let bottom = -Infinity;
       for (const item of items) {

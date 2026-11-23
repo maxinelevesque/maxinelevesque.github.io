@@ -6,13 +6,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
-import { remarkEssayFormat, rehypeColumnNotes, parseFigureMarker } from '../src/lib/essay-format.mjs';
+import { remarkEssayFormat, rehypeEssayBlocks, rehypeColumnNotes, parseFigureMarker } from '../src/lib/essay-format.mjs';
 import remarkAbstract from '../src/lib/remark-abstract.mjs';
 
 const make = (opts) => createMarkdownProcessor({
   syntaxHighlight: false, smartypants: false,
   remarkPlugins: [remarkMath, remarkAbstract, [remarkEssayFormat, opts]],
-  rehypePlugins: [[rehypeColumnNotes, opts]],
+  rehypePlugins: [[rehypeEssayBlocks, opts], [rehypeColumnNotes, opts]],
 });
 const processor = await make({ always: true });
 const render = async (md, p = processor) => (await p.render(md)).code;
@@ -64,6 +64,25 @@ const inside = (await plain.render(essayLike, { fileURL: new URL('file:///site/s
 assert.match(inside, /<figure id="f"/);
 assert.match(inside, /essay-endnotes/);
 
+// The page switch's place, paragraphs that continue after a display, proof
+// links and table wrappers.
+const blocksCase = await render([
+  'Intro.', '', '<!-- page-switch -->', '',
+  'Before,', '', '$$', 'x = y', '$$', 'and after, continuing.', '',
+  '$$', 'z', '$$', '', 'A new paragraph.', '',
+  '```text', 'S K K x', '```', 'continuing after code.', '',
+  'It is [proved](https://example.org/a/B.lean#L3-L9), and [this](https://example.org/a/B.md) is not.', '',
+  '| a | b |', '|---|---|', '| 1 | 2 |',
+].join('\n'));
+assert.match(blocksCase, /<div class="page-switch-slot"><\/div>/);
+assert.match(blocksCase, /<p class="continues">and after, continuing\.<\/p>/);
+assert.match(blocksCase, /<p>A new paragraph\.<\/p>/);
+assert.match(blocksCase, /<p class="continues">continuing after code\.<\/p>/);
+assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.lean#L3-L9" class="proof-link">proved<span class="visually-hidden"> \(machine-checked proof in Lean\)<\/span><\/a>/);
+assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.md">this<\/a>/);
+assert.match(blocksCase, /<div class="table-wrap">\s*<table>/);
+await assert.rejects(render('<!-- page-switch -->\n\nText.\n\n<!-- page-switch -->'), undefined, 'two switches');
+
 // Marker grammar.
 assert.deepEqual(parseFigureMarker('<!-- figure #fig-reduction component="reduction" calc="tree" -->'),
   { id: 'fig-reduction', component: 'reduction', layout: 'left', attrs: { calc: 'tree' } });
@@ -86,4 +105,4 @@ for (const broken of [
   '<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.\n\n<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.', // duplicate id
 ]) await assert.rejects(render(broken), undefined, broken);
 
-console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, collection scoping.');
+console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, page switch, continuing paragraphs, proof links, tables, collection scoping.');

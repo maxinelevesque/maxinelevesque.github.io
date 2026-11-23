@@ -14,10 +14,16 @@
 .essay :focus-visible { outline: 2px solid var(--essay-accent); outline-offset: 4px; }
 
 /* Margin notes */
-.essay .noted-block { position: relative; margin: .6rem 0; }
-.essay .noted-block > p { text-indent: 2em; }
-.essay h2 + .noted-block > p,
-.essay h3 + .noted-block > p { text-indent: 0; }
+.essay .noted-block { position: relative; margin: 0; }
+/* Specific enough to beat the site's `p:first-child` rule: a paragraph with
+   notes is still indented like any other. */
+.article-body.essay .noted-block > p { text-indent: 2em; }
+.article-body.essay :is(h2, h3, hr, blockquote, .abstract, figure, .table-wrap) + .noted-block > p,
+.article-body.essay .noted-block:first-child > p,
+.article-body.essay .noted-block > p.continues { text-indent: 0; }
+.article-body.essay :is(.table-wrap, .page-switch) + p { text-indent: 0; }
+/* Anchored headings, figures and notes stop below the stuck page switch. */
+.essay :is(h2, h3, h4, [id]) { scroll-margin-top: 3.5rem; }
 .essay .column-notes { padding-left: 1.35rem; margin: 0; }
 .essay .column-note {
   margin: 0 0 .8rem;
@@ -30,6 +36,40 @@
 .essay .column-note:last-child { margin-bottom: 0; }
 .essay .column-note::marker { color: var(--essay-accent); font-variant-numeric: lining-nums; }
 .essay .column-note:target { outline: 1px solid var(--essay-accent); outline-offset: .3rem; }
+/* Beside their paragraph, notes are a size smaller and set closer, and need no
+   return link; collected at the end, they keep it. */
+.essay .column-notes .column-note { font-size: .88rem; line-height: 1.42; }
+.essay .column-notes .data-footnote-backref { display: none; }
+
+/* Code in the research register carries a little ochre, to stand apart from
+   the prose. A long term is displayed, like an equation. */
+.article-body.research code { color: color-mix(in srgb, var(--res-accent) 45%, var(--res-text)); }
+.essay pre {
+  margin: 1.4rem 0 1.4rem 2em;
+  padding: 0;
+  background: none !important;
+  overflow-x: auto;
+  font-size: var(--body-size);
+  line-height: 1.5;
+}
+.essay pre code { font-size: .82em; }
+
+/* Proof links: the proved statement, with a dashed underline, links to its
+   machine-checked proof. */
+.essay a.proof-link {
+  color: inherit;
+  border-bottom: 1px dashed color-mix(in srgb, var(--essay-accent) 70%, transparent);
+}
+.essay a.proof-link:hover { border-bottom-style: solid; border-bottom-color: var(--essay-accent); }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* Tables: a wide one takes room from the margins (the page script decides),
+   otherwise it scrolls. */
+.essay .table-wrap { margin: 1.8rem 0; overflow-x: auto; }
+.essay .table-wrap table { margin: 0; }
 .essay .essay-endnotes { margin-top: 3rem; }
 .essay .essay-endnotes ol { margin-bottom: 0; padding-left: 1.35rem; }
 .essay .essay-endnotes .column-note p { font-size: inherit; }
@@ -89,9 +129,13 @@
   .essay figure[data-layout='left'] > figcaption { left: calc(100% + 3rem); }
   .essay figure[data-layout='full'] { width: calc(100% + 32rem); max-width: none; margin-left: -16rem; }
   .essay figure[data-layout='full'] > figcaption { width: calc(100% - 32rem); max-width: none; margin-left: 16rem; }
+  .essay .table-wrap[data-layout='left'] { width: calc(100% + 16rem); margin-left: -16rem; }
+  .essay .table-wrap[data-layout='full'] { width: calc(100% + 32rem); margin-left: -16rem; }
 }
 
-/* The page-level switch (e.g. the calculus), shown only when scripts run. */
+/* The page-level switch (e.g. the calculus), shown only when scripts run.
+   Above the article by default; where the piece places it, it sits in the
+   text until scrolled past, then sticks to the top of the window. */
 .page-switch {
   position: sticky;
   top: 0;
@@ -103,9 +147,17 @@
   margin: -1.2rem 0 1.6rem;
   padding: .55rem 0;
   font-size: .85rem;
-  background: color-mix(in srgb, var(--res-bg) 97%, transparent);
+  background: var(--res-bg);
   border-bottom: 1px solid var(--res-rule);
 }
+.essay > .page-switch {
+  margin: 1.2rem 0;
+  padding: .55rem 0;
+  border-top: 1px solid var(--res-rule);
+  transition: border-color .2s;
+}
+.essay > .page-switch[data-stuck] { border-top-color: transparent; }
+.page-switch-sentinel { height: 0; }
 .page-switch-label {
   font-variant-caps: all-small-caps;
   letter-spacing: .08em;

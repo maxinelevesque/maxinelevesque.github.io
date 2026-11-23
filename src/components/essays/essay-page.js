@@ -22,6 +22,18 @@ function initPageSwitch(control, content) {
   if (!control) {
     return { snapshot: () => ({ ...params }), on: () => () => {} };
   }
+  // The piece introduces the switch where its <!-- page-switch --> marker is;
+  // from there it sticks to the top of the window. Without a marker it sits
+  // above the article.
+  const slot = content.querySelector('.page-switch-slot');
+  if (slot) slot.replaceWith(control);
+  const sentinel = document.createElement('div');
+  sentinel.className = 'page-switch-sentinel';
+  control.before(sentinel);
+  new IntersectionObserver(([entry]) => {
+    control.toggleAttribute('data-stuck', !entry.isIntersecting && entry.boundingClientRect.top < 0);
+  }).observe(sentinel);
+
   const name = control.dataset.param;
   const fallback = control.dataset.default;
   const buttons = [...control.querySelectorAll('button[data-value]')];
@@ -98,9 +110,34 @@ async function mountFigure(figure, slug, page, reducedMotion) {
   }
 }
 
+// A table wider than the text column takes room from the left margin, then
+// from both, as figures do; beyond that, or on narrow screens, it scrolls.
+function initTables(content) {
+  const wraps = [...content.querySelectorAll('.table-wrap')];
+  if (!wraps.length) return;
+  const wide = window.matchMedia('screen and (min-width: 1100px)');
+  const layout = () => {
+    for (const wrap of wraps) {
+      wrap.removeAttribute('data-layout');
+      if (!wide.matches) continue;
+      const table = wrap.querySelector('table');
+      table.style.width = 'max-content';
+      const need = table.offsetWidth;
+      table.style.width = '';
+      const column = wrap.clientWidth;
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+      if (need > column) wrap.dataset.layout = need > column + 16 * rem ? 'full' : 'left';
+    }
+  };
+  layout();
+  wide.addEventListener('change', layout);
+  document.fonts.ready.then(layout);
+}
+
 export function initEssayPage(content) {
   if (!content || content.dataset.essayReady) return;
   content.dataset.essayReady = 'true';
+  initTables(content);
   initColumnNotes([content]);
   const page = initPageSwitch(document.querySelector('.page-switch'), content);
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkAbstract from './src/lib/remark-abstract.mjs';
-import { remarkEssayFormat, rehypeColumnNotes } from './src/lib/essay-format.mjs';
+import { remarkEssayFormat, rehypeEssayBlocks, rehypeColumnNotes } from './src/lib/essay-format.mjs';
 
 export default defineConfig({
   site: 'https://maxine.science',
@@ -23,7 +23,7 @@ export default defineConfig({
     // The interactive essay format (figures, theorem boxes, margin notes)
     // applies to research reports only; see src/lib/essay-format.mjs.
     remarkPlugins: [remarkMath, remarkAbstract, remarkEssayFormat],
-    rehypePlugins: [rehypeKatex, rehypeColumnNotes],
+    rehypePlugins: [rehypeKatex, rehypeEssayBlocks, rehypeColumnNotes],
     shikiConfig: {
       theme: 'css-variables',
     },

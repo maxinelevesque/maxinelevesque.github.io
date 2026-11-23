@@ -19,15 +19,19 @@ readAloud: read-aloud.txt
 
 A page can keep its main thought in one column while letting a small observation sit alongside it.[^parts] The note belongs to this paragraph, even when the screen becomes too narrow for a second column.
 
-Two nearby notes should remain separate and legible.[^nearby] A citation can travel with the note rather than interrupting the sentence.[^citation] Follow a note number to its text, then use its return link to come back.
+Two nearby notes should remain separate and legible.[^nearby] A citation names its author in the text, as Euclid does here, and keeps the reference in a note.[^citation] On a narrow screen, follow a note number to its text, then use its return link to come back.
 
 [^parts]: **A note on parts.** Three equal pieces make a whole. This is placeholder commentary, not a claim from either essay.
 [^nearby]: This second note is deliberately close to the first. The layout reserves space for both notes, so their text cannot collide.
-[^citation]: A citation may include a complete reference: Euclid, *Elements*, Book I, Common Notion 5. This demonstrates citation typography only.
+[^citation]: Euclid, [*Elements*](https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0086), Book I, Common Notion 5. The link sits on the title; no bare DOI or URL is printed.
 
 ## 2. Three ways to give a figure room
 
-The filled length begins at $1/3$ of the whole. Drag the underlined number or use the slider. Arrow keys adjust by one twelfth. The caption records the initial state so that a static reader has the same starting point. The *Notation* control at the top of the page switches every figure between lowest terms and twelfths, and the address bar keeps the choice (`?notation=twelfths`).
+The filled length begins at $1/3$ of the whole. Drag the underlined number or use the slider. Arrow keys adjust by one twelfth. The caption records the initial state so that a static reader has the same starting point.
+
+Every figure can show its values in lowest terms or in twelfths. The control below switches all of them at once; as you read on, it stays at the top of the window, and the address bar keeps the choice (`?notation=twelfths`).
+
+<!-- page-switch -->
 
 ### In the text column
 
@@ -69,7 +73,39 @@ This is the default arrangement for a wide figure. On a thinner screen, both the
 >
 > This disclosure demonstrates how an author can distinguish a statement from its scope. It carries no claims from the essays.
 
-## 4. Related reading and a companion
+## 4. Displays, proofs and tables
+
+Long expressions are displayed rather than set inline. Four twelfths reduce by their common factor,
+
+$$
+\frac{4}{12} = \frac{4 \div 4}{12 \div 4} = \frac{1}{3},
+$$
+and the paragraph continues after the display without a new indent, as in LaTeX. A blank line after a display starts a new paragraph instead.
+
+A long term is displayed as code rather than squeezed into a line:
+
+```text
+S K K x  →  K x (K x)  →  x
+```
+
+That the remainder is always two thirds is [checked by machine for every twelfth](https://example.org/thirds/Thirds.lean#L12).[^lean] A statement with a dashed underline links to its proof.
+
+| Filled | Lowest terms | Remainder |
+|---|---|---|
+| 3/12 | 1/4 | 3/4 |
+| 4/12 | 1/3 | 2/3 |
+| 6/12 | 1/2 | 1/2 |
+
+A table too wide for the column takes room from the left margin, then from both.
+
+| Twelfths | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Lowest terms | 0 | 1/12 | 1/6 | 1/4 | 1/3 | 5/12 | 1/2 | 7/12 | 2/3 | 3/4 | 5/6 | 11/12 | 1 |
+| Remainder | 1 | 11/12 | 5/6 | 3/4 | 2/3 | 7/12 | 1/2 | 5/12 | 1/3 | 1/4 | 1/6 | 1/12 | 0 |
+
+[^lean]: A statement set with a dashed underline, like this one, links to its machine-checked proof in Lean, at a fixed commit.
+
+## 5. Related reading and a companion
 
 A future sequence link can remain an ordinary link in Markdown: [Continue to the next piece](#a-placeholder-continuation). An approved semantic relationship could later generate the same navigation.
 

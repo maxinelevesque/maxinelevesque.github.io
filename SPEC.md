@@ -37,8 +37,9 @@ Research reports use the interactive essay format approved on 2026-11-15
 the `research` collection only; other pieces render exactly as before.
 
 - **Notes:** ordinary Markdown footnotes. On screens 1100 px and wider the page
-  script moves each note beside its first referring paragraph; otherwise, and
-  without JavaScript, they are collected at the end as "Notes and footnotes".
+  script moves each note beside its first referring paragraph, a size smaller
+  and without a return link; otherwise, and without JavaScript, they are
+  collected at the end as "Notes and footnotes", with return links.
 - **Theorem boxes:** `> [!THEOREM] Lead`. **Scope boxes:** `> [!ESTABLISHED] Lead`,
   shown as a disclosure.
 - **Figures:** three blocks, in this order:
@@ -58,8 +59,22 @@ the `research` collection only; other pieces render exactly as before.
   `presentation.json` under `figureLayouts`, and the generator writes it into the
   marker. Relative links into `assets/` (and to the read-aloud file) are rewritten
   to `/files/<slug>/…`.
+- **Displays:** `$$…$$` for mathematics, a fenced code block for a long term
+  (set as a display, in the register's code colour). A paragraph that starts on
+  the line right after a display, with no blank line, continues the paragraph
+  before it and is not indented, as in LaTeX; a blank line starts a new one.
+- **Proof links:** a link to a Lean file (`….lean`, optionally `#L12` or
+  `#L12-L20`) is a proof link: the linked text, the proved statement, gets a
+  dashed underline, and screen readers hear "machine-checked proof in Lean".
+  Introduce the convention in a note at its first use.
+- **Tables:** left-aligned headers over a rule. A table wider than the text
+  column takes room from the left margin, then from both, on wide screens (the
+  page script measures it); otherwise it scrolls sideways.
 - **Page switch:** an optional page-level control declared in `presentation.json`
-  (`pageSwitch: { param, label, default, options: [{ value, label }] }`). Its state
+  (`pageSwitch: { param, label, default, options: [{ value, label }] }`). The
+  piece introduces it with a `<!-- page-switch -->` marker where its text
+  explains it; the control sits there in the text until scrolled past, then
+  sticks to the top of the window. Without a marker it sits above the article. Its state
   lives in the query string (`?calc=tree`), not the fragment, so `#` links to
   figures, sections and notes keep it; the default value is left out of the URL.
   An old `#calc=tree` link is converted once on load. The current value is also
@@ -120,7 +135,11 @@ The sample component is `prototypes/essay-format/figures/fraction-bar.js`.
 - **Always dark.** `:root` declares `color-scheme: dark`, so an SVG image's own
   `prefers-color-scheme` rules pick their dark variant here even when the
   reader's system is light (GitHub shows the light variant on its light theme).
-- **Code** is set in IBM Plex Mono, self-hosted via `@fontsource/ibm-plex-mono`.
+- **Code** is set in IBM Plex Mono, self-hosted via `@fontsource/ibm-plex-mono`;
+  in the research register it is tinted toward ochre.
+- **Hyphenation:** body text hyphenates automatically (words of six letters or
+  more); headings, titles, code and math don't.
+- **Math size:** inline and display math share one size, 1.1em of the body text.
 - **Reduced motion:** with `prefers-reduced-motion: reduce`, the background systems
   draw their finished trace at once instead of animating it, and CSS transitions
   are cut to nothing.
