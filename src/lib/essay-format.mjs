@@ -11,6 +11,13 @@
 // becomes <figure id="fig-id" data-figure="name" …> holding the still and a
 // <figcaption>. The page script mounts the figure's component over the still;
 // without JavaScript, or if mounting fails, the still and caption remain.
+//
+//   <!-- page-switch -->     where the page switch (e.g. the calculus) is
+//                            introduced; it sticks to the top from there on.
+//
+// A paragraph that starts on the line right after a display (math or code),
+// with no blank line between, continues the paragraph before it and is not
+// indented, as in LaTeX. Links to Lean files are proof links.
 
 export const ESSAY_COLLECTIONS = ['research'];
 export const LAYOUTS = ['center', 'left', 'full'];
@@ -50,13 +57,27 @@ export function parseFigureMarker(html) {
   return out;
 }
 
+const continues = (display, next) => next?.type === 'paragraph'
+  && display.position && next.position && next.position.start.line === display.position.end.line + 1;
+
 export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = false } = {}) {
   return (tree, file) => {
     if (!always && !inEssayCollection(file, collections)) return;
     const ids = new Set();
+    let switchSlot = false;
     const nodes = tree.children;
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
+      if ((node.type === 'math' || node.type === 'code') && continues(node, nodes[i + 1])) {
+        const next = nodes[i + 1];
+        next.data = { ...next.data, hProperties: { ...next.data?.hProperties, className: ['continues'] } };
+      }
+      if (node.type === 'html' && /^<!--\s*page-switch\s*-->\s*$/.test(node.value.trim())) {
+        if (switchSlot) file.fail('Only one <!-- page-switch --> marker per piece.', node);
+        switchSlot = true;
+        nodes[i] = { type: 'pageSwitchSlot', data: { hName: 'div', hProperties: { className: ['page-switch-slot'] } } };
+        continue;
+      }
       if (node.type === 'html') {
         let marker;
         try { marker = parseFigureMarker(node.value); } catch (e) { file.fail(e.message, node); }
@@ -102,6 +123,31 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
         first.children = [text(disclosure ? label : `Theorem. ${label}`)];
       }
     }
+  };
+}
+
+// Links to Lean source files are proof links: the linked text is the proved
+// statement, shown with a dashed underline. Tables get a wrapper so a wide one
+// can take room from the margins (the page script decides) or scroll.
+export const PROOF_LINK = /\.lean(?:#L\d+(?:-L\d+)?)?$/;
+export function rehypeEssayBlocks({ collections = ESSAY_COLLECTIONS, always = false } = {}) {
+  return (tree, file) => {
+    if (!always && !inEssayCollection(file, collections)) return;
+    const visit = (node) => {
+      if (!node.children) return;
+      node.children = node.children.map((child) => {
+        if (child.tagName === 'table') {
+          return element('div', { className: ['table-wrap'] }, [child]);
+        }
+        if (child.tagName === 'a' && PROOF_LINK.test(String(child.properties?.href ?? '').split('?')[0])) {
+          child.properties.className = [...(child.properties.className ?? []), 'proof-link'];
+          child.children = [...child.children, element('span', { className: ['visually-hidden'] }, [text(' (machine-checked proof in Lean)')])];
+        }
+        visit(child);
+        return child;
+      });
+    };
+    visit(tree);
   };
 }
 

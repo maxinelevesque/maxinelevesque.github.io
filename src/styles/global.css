@@ -88,7 +88,8 @@ body {
 }
 
 .article-body p:first-child,
-.article-body p.section-start {
+.article-body p.section-start,
+.article-body p.continues {
   text-indent: 0;
 }
 
@@ -269,11 +270,38 @@ body {
 }
 
 /* ─── Math (KaTeX) ───────────────────────────────────────── */
-.math-display {
+/* Inline and display math share one size, a little under KaTeX's default
+   1.21em, which runs large beside EB Garamond's small x-height. */
+/* rehype-katex sets display math as a bare span.katex-display (older output
+   used div.math-display); size both from the body text. */
+.math-display,
+.article-body .katex-display {
   text-align: center;
   margin: 1.6rem 0;
-  font-size: 1.15rem;
+  font-size: var(--body-size, 1.24rem);
 }
+.article-body .katex { font-size: 1.1em; }
+
+/* ─── Tables ─────────────────────────────────────────────── */
+.article-body table {
+  margin: 1.8rem 0;
+  border-collapse: collapse;
+  font-size: 1rem;
+  line-height: 1.45;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.article-body th {
+  font-weight: 500;
+  padding: 0 1.4rem .45rem 0;
+  border-bottom: 1px solid var(--solo-rule);
+  vertical-align: bottom;
+}
+.article-body th:not([align]) { text-align: left; }
+.article-body td { padding: .4rem 1.4rem 0 0; vertical-align: baseline; }
+.article-body tbody tr:first-child td { padding-top: .55rem; }
+.article-body :is(th, td):last-child { padding-right: 0; }
+.article-body.dial th { border-bottom-color: var(--dial-rule); }
+.article-body.research th { border-bottom-color: var(--res-rule); }
 
 /* ─── Links ──────────────────────────────────────────────── */
 a {
@@ -369,6 +397,19 @@ a:hover {
     mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
     -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
   }
+}
+
+/* ─── Hyphenation ────────────────────────────────────────── */
+/* Ragged right reads better with hyphenation, especially technical prose.
+   Words of six letters or more, at least three letters on each side. */
+body {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+h1, h2, h3, h4, h5, h6, .title, code, kbd, samp, pre, .katex, nav {
+  -webkit-hyphens: manual;
+  hyphens: manual;
 }
 
 /* ─── Code ──────────────────────────────────────────────── */
