@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 48" preserveAspectRatio="none" role="img" aria-labelledby="title desc">
+  <title id="title">One third of a whole</title>
+  <desc id="desc">Four of twelve equal cells are filled. The filled part is one third; the remainder is two thirds.</desc>
+  <rect width="768" height="48" rx="2" fill="#4a2838"/>
+  <rect width="256" height="48" fill="#dba0a0"/>
+  <path d="M64 0v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48" stroke="#2e1420" stroke-width="2" vector-effect="non-scaling-stroke"/>
+</svg>

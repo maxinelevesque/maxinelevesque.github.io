@@ -1,0 +1,17 @@
+A measure of thirds. Placeholder reading companion.
+
+This is a sample of the reading format. No text comes from either essay.
+
+Abstract. This sample explores how a page can make room for commentary, adjustable drawings, and statements of scope while preserving a simple reading column. Its three drawings show the same invented example at different widths.
+
+A page can keep its main thought in one column while placing observations beside it. On a narrow screen, the observations are collected at the end with the footnotes.
+
+The three figures show the same horizontal bar, which represents one whole. It has twelve equal cells. Four cells are filled. Four twelfths equals one third. Two thirds remains. Each interactive control changes its own filled portion in steps of one twelfth.
+
+Figure one stays in the text column with its caption on the right. Figure two expands into the left margin, again with its caption on the right. Figure three spans both margins with its caption below in the main text column. On narrow screens, all three drawings fit the normal text column and have captions below.
+
+Statement: if twelve equal cells represent one whole, filling four represents one third.
+
+What is established: the starting value is exactly one third. The demonstration calculates fractions with integers. Decimals are used only to position the drawing.
+
+An ordinary link can connect one piece to the next. This companion is authored separately so its wording can be reviewed for listening.

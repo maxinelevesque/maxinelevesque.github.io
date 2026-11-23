@@ -70,7 +70,9 @@ body {
 /* ─── Article body — book typesetting ────────────────────── */
 .article-body {
   --body-size: 1.24rem;
+  --article-surface: rgb(219 160 160 / .045);
 }
+.article-body.dial { --article-surface: rgb(124 160 200 / .045); }
 .article-body p {
   font-size: var(--body-size);
   line-height: 1.58;
@@ -85,6 +87,7 @@ body {
 
 .article-body hr + p,
 .article-body blockquote + p,
+.article-body .abstract + p,
 .article-body figure + p,
 .article-body h2 + p,
 .article-body h3 + p {
@@ -123,6 +126,23 @@ body {
   margin-bottom: 0.6rem;
 }
 .article-body blockquote p:last-child { margin-bottom: 0; }
+
+/* Abstracts retain their semantic Markdown lead, with a quiet surface rather
+   than the rule and italics used for quotations. */
+.article-body .abstract {
+  margin: 1.6rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--article-surface);
+  border: 0;
+  border-radius: 2px;
+  font-style: normal;
+}
+.article-body .abstract p {
+  font-size: 1.05rem;
+  text-indent: 0;
+  margin-bottom: .6rem;
+}
+.article-body .abstract p:last-child { margin-bottom: 0; }
 
 .article-body figure,
 .article-body img {
