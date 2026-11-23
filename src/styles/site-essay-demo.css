@@ -1,0 +1,112 @@
+/* Additions to the actual Writing layout. Its typography and register remain
+   authoritative; this stylesheet never changes the page shell or root tokens. */
+.essay-demo {
+  --paper: var(--solo-bg);
+  --ink: var(--solo-text);
+  --accent: var(--solo-accent);
+  --track: var(--solo-rule);
+}
+.essay-demo [hidden] { display: none !important; }
+.essay-demo .demo-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 1rem;
+  padding-bottom: .8rem;
+  margin-bottom: 1.5rem;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--solo-text-muted);
+}
+.essay-demo .demo-tools a { color: var(--solo-accent); }
+.essay-demo :focus-visible { outline: 2px solid var(--solo-accent); outline-offset: 4px; }
+.essay-demo-content { position: relative; }
+.essay-demo .noted-block { position: relative; margin: .6rem 0; }
+.essay-demo .noted-block > p { text-indent: 2em; }
+.essay-demo h2 + .noted-block > p { text-indent: 0; }
+.essay-demo .column-notes {
+  padding-left: 1.35rem;
+  margin: 0;
+}
+.essay-demo .column-note {
+  margin: 0 0 .8rem;
+  color: var(--solo-text-muted);
+  font-size: .95rem;
+  line-height: 1.5;
+  scroll-margin-top: 1rem;
+}
+.essay-demo .column-note p { display: inline; font-size: inherit; line-height: inherit; text-indent: 0; }
+.essay-demo .column-note:last-child { margin-bottom: 0; }
+.essay-demo .column-note::marker { color: var(--solo-accent); font-variant-numeric: lining-nums; }
+.essay-demo .column-note:target { outline: 1px solid var(--solo-accent); outline-offset: .3rem; }
+.essay-demo .essay-endnotes { margin-top: 3rem; }
+.essay-demo .essay-endnotes ol { margin-bottom: 0; padding-left: 1.35rem; }
+.essay-demo .essay-endnotes .column-note p { font-size: inherit; }
+.essay-demo .theorem { margin: 1.6rem 0; border-left: 2px solid var(--solo-accent); padding-left: 1rem; }
+.essay-demo .theorem p { text-indent: 0; }
+.essay-demo .container-lead {
+  font-variant-caps: all-small-caps;
+  letter-spacing: .06em;
+  color: var(--solo-accent);
+  margin-bottom: .4rem;
+}
+.essay-demo details { margin: 1.6rem 0; padding: .9rem 1.2rem; border: 0; border-radius: 2px; background: var(--article-surface); }
+.essay-demo summary { cursor: pointer; font-size: 1.1rem; list-style: none; }
+.essay-demo summary::-webkit-details-marker { display: none; }
+/* Center the triangle on the small-cap glyphs, retaining the original label
+   spacing. The native summary still handles focus and keyboard activation. */
+.essay-demo summary::before {
+  content: '';
+  display: inline-block;
+  width: .6em;
+  height: .6em;
+  margin-inline-end: .26em;
+  vertical-align: -.07em;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.essay-demo details[open] > summary::before { transform: rotate(90deg); }
+.essay-demo details p { text-indent: 0; margin-top: .6rem; }
+.essay-demo figure { position: relative; margin: 2.8rem auto 3.2rem; padding: 0; border: 0; font-variant-numeric: lining-nums tabular-nums; }
+.essay-demo figure > p { text-indent: 0; }
+.essay-demo figure img, .essay-demo figure svg { width: 100%; height: auto; display: block; }
+.essay-demo figure img { margin: 0; height: 3rem; }
+.essay-demo .figure-live svg { height: 3rem; margin: 1.2rem 0 .7rem; }
+.essay-demo .figure-values { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .3rem 1.2rem; font-size: 1rem; line-height: 1.5; }
+.essay-demo figcaption { max-width: 34.5rem; margin-top: 1.2rem; color: var(--solo-text-muted); font-size: .95rem; line-height: 1.5; }
+.essay-demo .figure-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; font-size: 1rem; }
+.essay-demo .figure-controls label { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; }
+.essay-demo button, .essay-demo input { font: inherit; }
+.essay-demo button { background: transparent; color: var(--solo-accent); border: 0; padding: .2rem .4rem; cursor: pointer; }
+.essay-demo input { accent-color: var(--solo-accent); color-scheme: dark; max-width: 100%; }
+.essay-demo .scrub { color: var(--solo-accent); border-bottom: 1px dashed; cursor: ew-resize; touch-action: none; user-select: none; min-width: 2.5em; text-align: center; }
+.essay-demo .bar-track { fill: var(--solo-rule); }
+.essay-demo .bar-fill { fill: var(--solo-accent); }
+.essay-demo .bar-grid { stroke: var(--solo-bg); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.essay-demo .figure-help { font-size: .85rem; color: var(--solo-text-muted); text-indent: 0; }
+.essay-demo .figure-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.essay-demo .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+@media (min-width: 1100px) {
+  /* Margin content is out of the text flow: long notes can continue alongside
+     later paragraphs. The shared gutter layout prevents notes/captions colliding. */
+  .essay-demo .column-notes,
+  .essay-demo figure:not([data-layout='full']) > figcaption {
+    position: absolute;
+    left: calc(100% + 3rem);
+    top: 0;
+    width: 13rem;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .essay-demo figure:not([data-layout='full']) > figcaption { margin-top: 1.2rem; }
+  .essay-demo figure[data-layout='left'] { width: calc(100% + 16rem); max-width: none; margin-left: -16rem; }
+  .essay-demo figure[data-layout='left'] > figcaption { left: calc(100% + 3rem); }
+  .essay-demo figure[data-layout='full'] { width: calc(100% + 32rem); max-width: none; margin-left: -16rem; }
+  .essay-demo figure[data-layout='full'] > figcaption { width: calc(100% - 32rem); max-width: none; margin-left: 16rem; }
+}
+@media print {
+  .essay-demo .demo-tools, .essay-demo .figure-controls, .essay-demo .figure-help { display: none !important; }
+  .essay-demo .noted-block { display: block; width: auto; }
+  .essay-demo figure[data-layout] { width: 100%; max-width: 100%; margin-left: 0; }
+  .essay-demo figure[data-layout] > figcaption { position: static; width: auto; margin: 1.2rem 0 0; }
+}
