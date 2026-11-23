@@ -1,4 +1,4 @@
-// Run with: node --test prototypes/essay-format/figures/
+// Run with: node --test prototypes/essay-format/figures/*.test.mjs
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { rational, parseRational, fractionText, complement } from './rational.mjs';
