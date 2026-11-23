@@ -1,4 +1,15 @@
-# A measure of thirds
+---
+title: "A measure of thirds"
+subtitle: "A placeholder report for checking the interactive essay format: margin notes, figures, theorem boxes and the page switch."
+date: 2026-11-14
+kind: report
+coauthor: "Claude"
+coauthorNote: "A placeholder note on the division of work, written by Claude Opus 5.5 for this sample."
+summary: "A placeholder report. Its words, values and drawings are invented to exercise the format."
+canonical: https://maxine.science/research/essay-format-sample
+contributors: ["claude: figures and placeholder text"]
+readAloud: read-aloud.txt
+---
 
 *A placeholder for reviewing the reading format. All words, values, and drawings here are invented for this prototype.*
 
@@ -16,13 +27,13 @@ Two nearby notes should remain separate and legible.[^nearby] A citation can tra
 
 ## 2. Three ways to give a figure room
 
-The filled length begins at $1/3$ of the whole. Drag the underlined number or use the slider. Arrow keys adjust by one twelfth. The caption records the initial state so that a static reader has the same starting point.
+The filled length begins at $1/3$ of the whole. Drag the underlined number or use the slider. Arrow keys adjust by one twelfth. The caption records the initial state so that a static reader has the same starting point. The *Notation* control at the top of the page switches every figure between lowest terms and twelfths, and the address bar keeps the choice (`?notation=twelfths`).
 
 ### In the text column
 
-::figure{#thirds-centered component="fraction-bar" value="1/3"}
+<!-- figure #thirds-centered component="fraction-bar" value="1/3" -->
 
-![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](/prototypes/assets/fraction-bar.svg)
+![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](assets/fraction-bar.svg)
 
 **Figure 1. In the column.** The drawing occupies the text column, with this caption in the right margin. Four of twelve equal cells are filled: $4/12 = 1/3$, leaving $2/3$ unfilled.
 
@@ -30,9 +41,9 @@ The main text continues at its usual width. The right margin carries the explana
 
 ### Into the left margin · default
 
-::figure{#thirds component="fraction-bar" value="1/3"}
+<!-- figure #thirds component="fraction-bar" value="1/3" -->
 
-![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](/prototypes/assets/fraction-bar.svg)
+![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](assets/fraction-bar.svg)
 
 **Figure 2. More room on the left.** The drawing extends into the left margin and ends at the text column’s right edge. This caption stays in the right margin. The same starting value is $1/3$; the remainder is $2/3$.
 
@@ -40,9 +51,9 @@ This is the default arrangement for a wide figure. On a thinner screen, both the
 
 ### Across the full width
 
-::figure{#thirds-full component="fraction-bar" value="1/3"}
+<!-- figure #thirds-full component="fraction-bar" value="1/3" -->
 
-![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](/prototypes/assets/fraction-bar.svg)
+![A horizontal bar divided into twelve equal cells. Four cells are filled, representing one third.](assets/fraction-bar.svg)
 
 **Figure 3. Across both margins.** This drawing spans the full available essay width. Its caption sits below within the main text column. Four filled cells still represent one third of the whole.
 
@@ -62,8 +73,8 @@ This is the default arrangement for a wide figure. On a thinner screen, both the
 
 A future sequence link can remain an ordinary link in Markdown: [Continue to the next piece](#a-placeholder-continuation). An approved semantic relationship could later generate the same navigation.
 
-The [read-aloud companion](/prototypes/assets/read-aloud.txt) is separately authored plain text. A reader can also open the [portable Markdown sample](/prototypes/assets/reader.md), which contains ordinary notes, the static figure, and readable blockquotes.
+The [read-aloud companion](read-aloud.txt) is separately authored plain text.
 
 ## A placeholder continuation
 
-This is only a destination for the sample link. No essay has been imported or published.
+This is only a destination for the sample link.

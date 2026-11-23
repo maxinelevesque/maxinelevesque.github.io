@@ -1,7 +1,9 @@
 ---
 import Base from './Base.astro';
+import '../styles/essay-format.css';
 
 interface Props {
+  slug: string;
   frontmatter: {
     title: string;
     subtitle?: string;
@@ -12,6 +14,7 @@ interface Props {
     coauthorNote?: string;
     contributors?: { name: string; role?: string }[];
     readAloud?: string;
+    pageSwitch?: { param: string; label: string; default: string; options: { value: string; label: string }[] };
     system?: number;
   };
 }
@@ -19,7 +22,8 @@ interface Props {
 // Research reports: the ochre register. Like a dialogue, a report may be
 // co-written; unlike one, the coauthor is optional, contributions are credited
 // by role at the foot of the page, and a read-aloud companion may be linked.
-const { frontmatter } = Astro.props;
+const { frontmatter, slug } = Astro.props;
+const pageSwitch = frontmatter.pageSwitch;
 const systemIndex = frontmatter.system ?? 9;
 const coauthor = frontmatter.coauthor;
 const contributors = frontmatter.contributors ?? [];
@@ -72,7 +76,17 @@ const contributors = frontmatter.contributors ?? [];
 
       <div class="rule"></div>
 
-      <div class="article-body research">
+      {pageSwitch && (
+        <div class="page-switch" role="group" aria-label={pageSwitch.label}
+          data-param={pageSwitch.param} data-default={pageSwitch.default} hidden>
+          <span class="page-switch-label" aria-hidden="true">{pageSwitch.label}</span>
+          {pageSwitch.options.map((o) => (
+            <button type="button" data-value={o.value} aria-pressed={String(o.value === pageSwitch.default)}>{o.label}</button>
+          ))}
+        </div>
+      )}
+
+      <div class="article-body research essay" data-slug={slug}>
         <slot />
       </div>
 
@@ -104,6 +118,11 @@ const contributors = frontmatter.contributors ?? [];
   </div>
 
   <script>
+    import { initEssayPage } from '../components/essays/essay-page.js';
+    initEssayPage(document.querySelector('.article-body.essay'));
+  </script>
+
+  <script>
     import { initSystem, SYSTEM_NAMES } from '../components/dynamical-systems.js';
     const canvas = document.getElementById('system-canvas');
     if (canvas) {
@@ -123,7 +142,9 @@ const contributors = frontmatter.contributors ?? [];
     font-family: var(--font-body);
     min-height: 100vh;
     position: relative;
-    overflow: hidden;
+    /* clip, not hidden: hidden would make this a scroll container and stop
+       the page switch from sticking to the top of the window. */
+    overflow: clip;
   }
   .content {
     max-width: var(--max-width);

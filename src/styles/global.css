@@ -32,6 +32,8 @@
 
   /* Shared */
   --font-body: 'EB Garamond', Garamond, 'Times New Roman', serif;
+  /* Self-hosted (Base.astro imports @fontsource/ibm-plex-mono). */
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --max-width: 600px;
 }
 
@@ -51,6 +53,11 @@ html {
      overflow regions don't flash white. Per-theme override below. */
   background: var(--solo-bg);
 }
+
+/* The site is always dark. Saying so makes form controls and scrollbars dark,
+   and makes an SVG image's own prefers-color-scheme rules pick their dark
+   variant even when the reader's system is set to light. */
+:root { color-scheme: dark; }
 
 html[data-theme="dial"] {
   background: var(--dial-bg);
@@ -361,5 +368,25 @@ a:hover {
     opacity: 0.55;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
     -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 35%, black 0%, transparent 78%);
+  }
+}
+
+/* ─── Code ──────────────────────────────────────────────── */
+code, kbd, samp, pre {
+  font-family: var(--font-mono);
+  /* Plex Mono's x-height runs larger than Garamond's. */
+  font-size: 0.86em;
+  font-style: normal;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────── */
+/* The background systems draw their finished trace at once (see
+   dynamical-systems.js); this covers CSS transitions and smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }

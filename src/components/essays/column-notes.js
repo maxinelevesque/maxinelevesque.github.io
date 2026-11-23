@@ -1,8 +1,8 @@
 // A single right gutter holds notes and figure captions independently of the
 // reading column. Notes retain one DOM copy and return to bottom footnotes on
 // narrow screens. Long margin content never increases a paragraph's height.
-export function initColumnNotes(root = document) {
-  for (const content of root.querySelectorAll('.essay-demo-content')) {
+export function initColumnNotes(contents) {
+  for (const content of contents) {
     if (content.dataset.notesReady) continue;
     const section = content.querySelector('.essay-endnotes');
     const endnotes = section?.querySelector('ol');

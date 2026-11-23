@@ -215,9 +215,11 @@ drafts/
 /src/data/atproto.json
 /public/.well-known/
 /public/personas/
-/public/research/
+/public/files/
 
 # Private, immutable tailnet demo snapshot; never published by site CI.
 /.local-demo/
 # Local hosting notes for the private demo (machine-specific; not published).
 /prototypes/essay-format/HOSTING.md
+# Figure code copied from the writing repo's pinned commit by generate-content.
+/src/figures/

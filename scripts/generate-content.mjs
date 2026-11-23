@@ -13,10 +13,21 @@
 //   WRITING_SRC=/path/to/writing   use a local checkout (no clone) — used in dev
 //   otherwise                      shallow-clone $WRITING_REPO_URL @ $WRITING_REF
 //
+// Research reports in the interactive essay format (SPEC.md) also get:
+//   - their files (assets/, the read-aloud companion) copied to public/files/<slug>/,
+//     with relative links in the body rewritten to point there
+//   - figure layouts and the page switch from presentation.json
+//   - figure code copied to src/figures/<slug>/ from the writing commit pinned
+//     in presentation.json ("figures": "<sha>"), never from the branch being built.
+//     FIGURES_FROM_SOURCE=1 takes it from the source tree instead (local
+//     samples and private previews only).
+//   PRESENTATION_OVERLAY=/path.json merges extra presentation entries (samples).
+//
 // Slugs present in the site but NOT in pieces/ (e.g. the straw-holes stub) are
 // left untouched. Dep-free by design (mirrors writing/scripts/validate).
 
-import { execSync } from 'node:child_process';
+import { execSync, execFileSync } from 'node:child_process';
+import { parseFigureMarker, LAYOUTS } from '../src/lib/essay-format.mjs';
 import { mkdtempSync, mkdirSync, readdirSync, readFileSync, writeFileSync, existsSync, rmSync, cpSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -47,6 +58,10 @@ if (src) {
 
 // --- presentation sidecar ---
 const presentation = JSON.parse(readFileSync(join(ROOT, 'presentation.json'), 'utf8'));
+if (process.env.PRESENTATION_OVERLAY) {
+  Object.assign(presentation, JSON.parse(readFileSync(process.env.PRESENTATION_OVERLAY, 'utf8')));
+}
+const FIGURES_FROM_SOURCE = process.env.FIGURES_FROM_SOURCE === '1';
 
 // --- minimal frontmatter split + parse (flat key: value, values may be quoted) ---
 function splitFrontmatter(raw, where) {
@@ -148,16 +163,84 @@ rmSync(join(ROOT, 'node_modules', '.astro', 'data-store.json'), { force: true })
 
 try { personas = JSON.parse(readFileSync(join(src, 'personas.json'), 'utf8')); } catch {}
 
-// Per-piece static files (the read-aloud companion) are copied to
-// public/<collection>/<slug>/; the whole tree is regenerated each run.
-const PIECE_PUBLIC = join(ROOT, 'public', 'research');
+// Per-piece static files (assets/, the read-aloud companion) are copied to
+// public/files/<slug>/, beside rather than under the page's own URL, so a
+// directory never shadows /research/<slug>. Regenerated each run, like the
+// figure code in src/figures/.
+const PIECE_PUBLIC = join(ROOT, 'public', 'files');
 rmSync(PIECE_PUBLIC, { recursive: true, force: true });
+const FIGURES_DIR = join(ROOT, 'src', 'figures');
+rmSync(FIGURES_DIR, { recursive: true, force: true });
+
+// Copy pieces/<slug>/figures (or drafts/<slug>/figures) as of a pinned writing
+// commit. The source checkout may be shallow, so fetch the commit if needed.
+function extractPinnedFigures(slug, sha, dest) {
+  if (!/^[0-9a-f]{40}$/.test(sha)) die(`${slug}: presentation "figures" must be a full 40-character writing commit (got ${sha})`);
+  const git = (...args) => execFileSync('git', ['-C', src, ...args], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const has = (spec) => { try { git('cat-file', '-e', spec); return true; } catch { return false; } };
+  if (!has(`${sha}^{commit}`)) {
+    try { git('fetch', '--quiet', '--depth', '1', 'origin', sha); }
+    catch (e) { die(`${slug}: can't fetch pinned figures commit ${sha} into ${src}: ${e.stderr || e.message}`); }
+  }
+  const path = ['pieces', 'drafts'].map((d) => `${d}/${slug}/figures`).find((p) => has(`${sha}:${p}`));
+  if (!path) die(`${slug}: pinned commit ${sha} has no pieces/${slug}/figures or drafts/${slug}/figures`);
+  const tmp = mkdtempSync(join(tmpdir(), 'figures-'));
+  try {
+    const tar = join(tmp, 'figures.tar');
+    git('archive', '--format=tar', '-o', tar, sha, path);
+    execFileSync('tar', ['-xf', tar, '-C', tmp]);
+    cpSync(join(tmp, path), dest, { recursive: true });
+  } finally {
+    rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
+// A relative link or image in a report's body that names one of the files
+// copied to /files/<slug>/ (anything in assets/, and the read-aloud companion)
+// is rewritten to point at the copy.
+function rewriteRelativeLinks(body, pieceDir, slug, readAloud) {
+  return body.replace(/\]\((?!\s)(?:\.\/)?([^)\s#?]+)/g, (whole, target) => {
+    if (target.includes('..')) return whole;
+    if (!(target.startsWith('assets/') || target === readAloud)) return whole;
+    if (!existsSync(join(pieceDir, target))) die(`${slug}: the body links to ${target}, which doesn't exist`);
+    return `](/files/${slug}/${target}`;
+  });
+}
+
+// Figure markers get their layout from presentation.json (a site choice, not a
+// semantic one). Returns the rewritten body and the components it names.
+function applyFigureLayouts(body, slug, layouts = {}) {
+  const components = new Set();
+  const seen = new Set();
+  const out = body.replace(/^<!--\s*figure\b[\s\S]*?-->/gm, (comment) => {
+    let marker;
+    try { marker = parseFigureMarker(comment); } catch (e) { die(`${slug}: ${e.message}`); }
+    components.add(marker.component);
+    seen.add(marker.id);
+    const layout = layouts[marker.id];
+    if (!layout) return comment;
+    if (!LAYOUTS.includes(layout)) die(`${slug}: presentation figureLayouts.${marker.id} must be one of ${LAYOUTS.join(', ')}`);
+    if (/\slayout="/.test(comment)) die(`${slug}: figure ${marker.id} sets its layout in the source; layouts belong in presentation.json`);
+    return comment.replace(/\s*-->$/, ` layout="${layout}" -->`);
+  });
+  for (const id of Object.keys(layouts)) {
+    if (!seen.has(id)) console.warn(`generate-content: ${slug}: presentation figureLayouts names #${id}, which no figure has`);
+  }
+  return { body: out, components };
+}
+
+function checkPageSwitch(slug, sw) {
+  const ok = sw && typeof sw === 'object' && /^[a-z][a-z0-9]*$/.test(sw.param ?? '') && sw.label
+    && Array.isArray(sw.options) && sw.options.length >= 2
+    && sw.options.every((o) => o.value && o.label) && sw.options.some((o) => o.value === sw.default);
+  if (!ok) die(`${slug}: presentation pageSwitch needs param (lowercase), label, default, and two or more {value, label} options including the default`);
+}
 
 const written = [];
 for (const slug of slugs) {
   const file = join(piecesDir, slug, 'index.md');
   if (!existsSync(file)) die(`${slug}: no index.md`);
-  const { body } = splitFrontmatter(readFileSync(file, 'utf8'), slug);
+  let { body } = splitFrontmatter(readFileSync(file, 'utf8'), slug);
   const fmParsed = parseFrontmatter(splitFrontmatter(readFileSync(file, 'utf8'), slug).fm);
 
   const kind = fmParsed.kind;
@@ -217,14 +300,44 @@ for (const slug of slugs) {
   if (collection === 'research') {
     const contributors = resolveContributors(parseFlowList(fmParsed.contributors, slug), slug);
     if (contributors.length) lines.push(`contributors: ${JSON.stringify(contributors)}`);
+    const pieceDir = join(piecesDir, slug);
+    const files = join(PIECE_PUBLIC, slug);
+    if (existsSync(join(pieceDir, 'assets'))) {
+      cpSync(join(pieceDir, 'assets'), join(files, 'assets'), { recursive: true });
+    }
     if (fmParsed.readAloud) {
       // The upstream validator guarantees a contained relative .txt path.
-      const from = join(piecesDir, slug, fmParsed.readAloud);
+      const from = join(pieceDir, fmParsed.readAloud);
       if (!existsSync(from)) die(`${slug}: readAloud file not found: ${fmParsed.readAloud}`);
-      const name = fmParsed.readAloud.split('/').pop();
-      mkdirSync(join(PIECE_PUBLIC, slug), { recursive: true });
-      cpSync(from, join(PIECE_PUBLIC, slug, name));
-      lines.push(`readAloud: ${q(`/research/${slug}/${name}`)}`);
+      mkdirSync(dirname(join(files, fmParsed.readAloud)), { recursive: true });
+      cpSync(from, join(files, fmParsed.readAloud));
+      lines.push(`readAloud: ${q(`/files/${slug}/${fmParsed.readAloud}`)}`);
+    }
+    body = rewriteRelativeLinks(body, pieceDir, slug, fmParsed.readAloud?.replace(/^\.\//, ''));
+
+    const figures = applyFigureLayouts(body, slug, pres.figureLayouts);
+    body = figures.body;
+    if (figures.components.size) {
+      const dest = join(FIGURES_DIR, slug);
+      if (FIGURES_FROM_SOURCE) {
+        if (existsSync(join(pieceDir, 'figures'))) cpSync(join(pieceDir, 'figures'), dest, { recursive: true });
+      } else if (pres.figures) {
+        extractPinnedFigures(slug, pres.figures, dest);
+      } else {
+        console.warn(`generate-content: ${slug} has figures but no pinned "figures" commit in presentation.json — they will show their still images only.`);
+      }
+      if (existsSync(dest)) {
+        for (const c of figures.components) {
+          if (!['js', 'mjs'].some((ext) => existsSync(join(dest, `${c}.${ext}`)))) {
+            die(`${slug}: a figure names component "${c}", but figures/ has no ${c}.js or ${c}.mjs`);
+          }
+        }
+        console.log(`generate-content: ${slug}: figure code from ${FIGURES_FROM_SOURCE ? 'the source tree (unpinned)' : `writing@${pres.figures.slice(0, 12)}`}`);
+      }
+    }
+    if (pres.pageSwitch) {
+      checkPageSwitch(slug, pres.pageSwitch);
+      lines.push(`pageSwitch: ${JSON.stringify(pres.pageSwitch)}`);
     }
   }
   if (fmParsed.summary) lines.push(`summary: ${q(fmParsed.summary)}`);
