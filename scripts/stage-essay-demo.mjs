@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const source = join(root, 'dist');
 const destination = join(root, '.local-demo', 'site');
-const demo = 'prototypes/essay-format.html';
-if (!existsSync(join(source, demo))) throw new Error('Build first: WRITING_SRC=../writing ESSAY_PROTOTYPE=1 npm run build');
+const demo = 'research/essay-format-sample.html';
+if (!existsSync(join(source, demo))) throw new Error('Build first: WRITING_SRC=../writing node scripts/build-essay-sample.mjs');
 rmSync(destination, { recursive: true, force: true });
 cpSync(source, destination, { recursive: true });
 

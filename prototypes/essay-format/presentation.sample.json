@@ -1,0 +1,21 @@
+{
+  "essay-format-sample": {
+    "collection": "research",
+    "register": "research",
+    "system": 9,
+    "readTime": "4 min",
+    "figureLayouts": {
+      "thirds-centered": "center",
+      "thirds-full": "full"
+    },
+    "pageSwitch": {
+      "param": "notation",
+      "label": "Notation",
+      "default": "lowest",
+      "options": [
+        { "value": "lowest", "label": "Lowest terms" },
+        { "value": "twelfths", "label": "Twelfths" }
+      ]
+    }
+  }
+}

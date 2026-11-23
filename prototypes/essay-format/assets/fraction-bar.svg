@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="768" height="48" viewBox="0 0 768 48" preserveAspectRatio="none" role="img" aria-labelledby="title desc">
+  <title id="title">One third of a whole</title>
+  <desc id="desc">Four of twelve equal cells are filled. The filled part is one third; the remainder is two thirds.</desc>
+  <style>
+    .track { fill: #30291a; } .fill { fill: #d0a85c; } .grid { stroke: #17140d; }
+    /* GitHub's light theme shows this still on white. */
+    @media (prefers-color-scheme: light) { .track { fill: #e6dcc6; } .fill { fill: #8a6420; } .grid { stroke: #ffffff; } }
+  </style>
+  <rect class="track" width="768" height="48" rx="2"/>
+  <rect class="fill" width="256" height="48"/>
+  <path class="grid" d="M64 0v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48m64-48v48" stroke-width="2" vector-effect="non-scaling-stroke"/>
+</svg>

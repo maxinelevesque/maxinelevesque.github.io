@@ -63,6 +63,13 @@ const research = defineCollection({
     contributors: z.array(z.object({ name: z.string(), role: z.string().optional() })).default([]),
     // Site path of the read-aloud companion, copied into public/ by the generator.
     readAloud: z.string().optional(),
+    // The page-level switch (e.g. ?calc=), from presentation.json.
+    pageSwitch: z.object({
+      param: z.string().regex(/^[a-z][a-z0-9]*$/),
+      label: z.string(),
+      default: z.string(),
+      options: z.array(z.object({ value: z.string(), label: z.string() })).min(2),
+    }).optional(),
     system: z.number().default(9),
   }),
 });

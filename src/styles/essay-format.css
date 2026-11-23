@@ -1,0 +1,136 @@
+/* The interactive essay format (SPEC.md, "Interactive essay format"), as
+   approved in the 2026-11-15 demo. Scoped to `.article-body.essay`; the
+   register supplies the colours through the --essay-* properties, which figure
+   components may use too. */
+.article-body.research.essay {
+  --essay-text: var(--res-text);
+  --essay-muted: var(--res-text-muted);
+  --essay-accent: var(--res-accent);
+  --essay-rule: var(--res-rule);
+  --essay-bg: var(--res-bg);
+}
+.essay { position: relative; }
+.essay [hidden] { display: none !important; }
+.essay :focus-visible { outline: 2px solid var(--essay-accent); outline-offset: 4px; }
+
+/* Margin notes */
+.essay .noted-block { position: relative; margin: .6rem 0; }
+.essay .noted-block > p { text-indent: 2em; }
+.essay h2 + .noted-block > p,
+.essay h3 + .noted-block > p { text-indent: 0; }
+.essay .column-notes { padding-left: 1.35rem; margin: 0; }
+.essay .column-note {
+  margin: 0 0 .8rem;
+  color: var(--essay-muted);
+  font-size: .95rem;
+  line-height: 1.5;
+  scroll-margin-top: 1rem;
+}
+.essay .column-note p { display: inline; font-size: inherit; line-height: inherit; text-indent: 0; }
+.essay .column-note:last-child { margin-bottom: 0; }
+.essay .column-note::marker { color: var(--essay-accent); font-variant-numeric: lining-nums; }
+.essay .column-note:target { outline: 1px solid var(--essay-accent); outline-offset: .3rem; }
+.essay .essay-endnotes { margin-top: 3rem; }
+.essay .essay-endnotes ol { margin-bottom: 0; padding-left: 1.35rem; }
+.essay .essay-endnotes .column-note p { font-size: inherit; }
+
+/* Theorem boxes and "What is established" */
+.essay .theorem { margin: 1.6rem 0; border-left: 2px solid var(--essay-accent); padding-left: 1rem; }
+.essay .theorem p { text-indent: 0; }
+.essay .container-lead {
+  font-variant-caps: all-small-caps;
+  letter-spacing: .06em;
+  color: var(--essay-accent);
+  margin-bottom: .4rem;
+}
+.essay details { margin: 1.6rem 0; padding: .9rem 1.2rem; border: 0; border-radius: 2px; background: var(--article-surface); }
+.essay summary { cursor: pointer; font-size: 1.1rem; list-style: none; }
+.essay summary::-webkit-details-marker { display: none; }
+/* The triangle is centred on the small-cap label; the native summary still
+   handles focus and keyboard activation. */
+.essay summary::before {
+  content: '';
+  display: inline-block;
+  width: .6em;
+  height: .6em;
+  margin-inline-end: .26em;
+  vertical-align: -.07em;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.essay details[open] > summary::before { transform: rotate(90deg); }
+.essay details p { text-indent: 0; margin-top: .6rem; }
+
+/* Figures. Labels inside components are HTML text at a consistent size; only
+   the drawing scales with the container. */
+.essay figure { position: relative; margin: 2.8rem auto 3.2rem; padding: 0; border: 0; font-variant-numeric: lining-nums tabular-nums; scroll-margin-top: 3.5rem; }
+.essay figure > p { text-indent: 0; }
+.essay figure > .figure-still img { display: block; width: 100%; height: auto; margin: 0; }
+.essay .figure-live { font-size: 1rem; line-height: 1.5; }
+.essay figcaption { max-width: 34.5rem; margin-top: 1.2rem; color: var(--essay-muted); font-size: .95rem; line-height: 1.5; }
+.essay figcaption p { text-indent: 0; }
+.essay .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+
+@media (min-width: 1100px) {
+  /* Margin content is out of the text flow, so long notes can run on beside
+     later paragraphs; the page script keeps notes and captions from colliding. */
+  .essay .column-notes,
+  .essay figure:not([data-layout='full']) > figcaption {
+    position: absolute;
+    left: calc(100% + 3rem);
+    top: 0;
+    width: 13rem;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+  .essay figure:not([data-layout='full']) > figcaption { margin-top: 1.2rem; }
+  .essay figure[data-layout='left'] { width: calc(100% + 16rem); max-width: none; margin-left: -16rem; }
+  .essay figure[data-layout='left'] > figcaption { left: calc(100% + 3rem); }
+  .essay figure[data-layout='full'] { width: calc(100% + 32rem); max-width: none; margin-left: -16rem; }
+  .essay figure[data-layout='full'] > figcaption { width: calc(100% - 32rem); max-width: none; margin-left: 16rem; }
+}
+
+/* The page-level switch (e.g. the calculus), shown only when scripts run. */
+.page-switch {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2rem .9rem;
+  margin: -1.2rem 0 1.6rem;
+  padding: .55rem 0;
+  font-size: .85rem;
+  background: color-mix(in srgb, var(--res-bg) 97%, transparent);
+  border-bottom: 1px solid var(--res-rule);
+}
+.page-switch-label {
+  font-variant-caps: all-small-caps;
+  letter-spacing: .08em;
+  color: var(--res-text-muted);
+}
+.page-switch button {
+  font: inherit;
+  font-style: italic;
+  background: transparent;
+  border: 0;
+  padding: .1rem .2rem;
+  color: var(--res-text-muted);
+  cursor: pointer;
+}
+.page-switch button:hover { color: var(--res-text); }
+.page-switch button[aria-pressed='true'] {
+  color: var(--res-accent);
+  text-decoration: underline;
+  text-underline-offset: .3em;
+}
+.page-switch button:focus-visible { outline: 2px solid var(--res-accent); outline-offset: 2px; }
+
+@media print {
+  .page-switch { display: none !important; }
+  .essay .noted-block { display: block; width: auto; }
+  .essay figure[data-layout] { width: 100%; max-width: 100%; margin-left: 0; }
+  .essay figure[data-layout] > figcaption { position: static; width: auto; margin: 1.2rem 0 0; }
+}

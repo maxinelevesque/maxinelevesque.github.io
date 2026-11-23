@@ -1,5 +1,7 @@
 # Interactive essay format — approved demo and source proposal
 
+> **2026-11-23: adopted.** The format is now in production for research reports, with figure markers as HTML comments (`<!-- figure #id component="…" -->`) instead of `::figure{…}`, and figure code run from a pinned `writing` commit. The current contract is in `SPEC.md` ("Interactive essay format"); this directory now holds the sample report used by `scripts/build-essay-sample.mjs`. The proposal below is kept as the record of the approval.
+
 The placeholder [piece](index.md) demonstrates the proposed semantic elements below. These are proposals, not adopted source conventions. No essay text has been copied or publicly deployed, and `writing` has not been changed. Its existing sibling checkout was used read-only; its pre-existing commit ahead of `origin/main` was left alone.
 
 **2026-11-15 — demo design approved by Maxine.** The agreed treatment uses the current site's typography and palette; independently flowing margin notes on wide screens and bottom footnotes on mobile; three figure layouts, with expansion left as the default; right-margin captions starting slightly lower and captions below figures given more space; consistent figure label sizes; a left rule for theorems; and very subtle background boxes for abstracts and “What is established.” The disclosure triangle is centered on its small-cap label, with the original horizontal spacing restored. The implementation is saved on `prototype/interactive-essay-format`, and the private demo remains available for reference. Source/schema adoption and essay publication remain the separate decisions described below.
@@ -44,15 +46,11 @@ After approval, extend `writing`'s validator and publisher together with the sit
 
 The essay thread continues to own prose and scientific values. Once Maxine chooses the format, send its approved contract through Maxine before any conversion. Publication remains a separate decision.
 
-## Run the samples locally
+## Run the sample locally
 
 ```sh
-node scripts/check-essay-prototype.mjs
-WRITING_SRC=../writing ESSAY_PROTOTYPE=1 npm run build
+node scripts/check-essay-format.mjs
+WRITING_SRC=../writing node scripts/build-essay-sample.mjs
 npm run preview -- --host 127.0.0.1
-# Open http://127.0.0.1:4321/prototypes/essay-format
+# Open http://127.0.0.1:4321/research/essay-format-sample
 ```
-
-The `.svg`, `.txt`, and `reader.md` are under `/prototypes/assets/` in this opt-in build. Normal production builds omit every prototype route and asset endpoint; `noindex` is only an additional measure. The prototype is not a content collection entry and never enters the public homepage. The hosted private copy strips publication/canonical tags and loads fonts and math locally. No new npm packages are required.
-
-Verified: opt-in and ordinary production builds; exact-fraction and 32-note checks (including repeated-reference anchors); drag, keyboard, reset, disclosure, and fallback resources. The earlier study was checked at 1200, 375, and 320 px. The current hosted demo was checked through its HTTPS tailnet URL at desktop and phone widths, including a computed-style comparison against the live site's font, size, line spacing, column, title, and palette. Its requests stay on the demo origin. The managed static server is intentionally left running for Maxine's review.

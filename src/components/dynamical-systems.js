@@ -12,6 +12,11 @@ const SYSTEM_NAMES = [
   "Logistic Bifurcation",
 ];
 
+// Each system draws its trace a little per animation frame. With reduced
+// motion requested, the same frames run back to back before the first paint,
+// so the reader sees the finished trace without watching it being drawn.
+let schedule = (fn) => requestAnimationFrame(fn);
+
 function setupCanvas(canvas) {
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
@@ -53,7 +58,7 @@ function doublePendulum(ctx, w, h, color) {
     ctx.strokeStyle = color; ctx.globalAlpha = 0.06; ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x1, p.y1); ctx.lineTo(p.x2, p.y2); ctx.stroke();
     frame++;
-    if (frame < 4000) animId = requestAnimationFrame(draw);
+    if (frame < 4000) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -73,7 +78,7 @@ function lorenz(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy - z * sc + 20 * sc, 0.9, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -94,7 +99,7 @@ function rossler(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + y * sc, 0.9, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1000) animId = requestAnimationFrame(draw);
+    if (frame < 1000) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -117,7 +122,7 @@ function thomas(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + y * sc, 1, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -141,7 +146,7 @@ function aizawa(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy - z * sc, 0.8, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1100) animId = requestAnimationFrame(draw);
+    if (frame < 1100) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -164,7 +169,7 @@ function halvorsen(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + y * sc, 0.8, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1100) animId = requestAnimationFrame(draw);
+    if (frame < 1100) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -187,7 +192,7 @@ function chen(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy - z * sc + 25 * sc, 0.9, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -214,7 +219,7 @@ function clifford(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + y * sc, 0.7, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1500) animId = requestAnimationFrame(draw);
+    if (frame < 1500) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -237,7 +242,7 @@ function duffing(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + v * sc, 0.8, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -262,7 +267,7 @@ function henon(ctx, w, h, color) {
       }
     }
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -283,7 +288,7 @@ function sprottB(ctx, w, h, color) {
       ctx.beginPath(); ctx.arc(cx + x * sc, cy + z * sc, 0.9, 0, Math.PI * 2); ctx.fill();
     }
     frame++;
-    if (frame < 1100) animId = requestAnimationFrame(draw);
+    if (frame < 1100) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -332,7 +337,7 @@ function threeBody(ctx, w, h, color) {
     ctx.closePath();
     ctx.stroke();
     frame++;
-    if (frame < 1200) animId = requestAnimationFrame(draw);
+    if (frame < 1200) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -357,7 +362,7 @@ function logisticBifurcation(ctx, w, h, color) {
         ctx.fillRect(col, py, 1, 1);
       }
     }
-    if (col < totalCols) animId = requestAnimationFrame(draw);
+    if (col < totalCols) animId = schedule(draw);
   }
   draw();
   return () => cancelAnimationFrame(animId);
@@ -382,7 +387,18 @@ const SYSTEMS = [
 export function initSystem(canvas, systemIndex, color) {
   const { ctx, w, h } = setupCanvas(canvas);
   const idx = systemIndex % SYSTEMS.length;
-  return SYSTEMS[idx](ctx, w, h, color);
+  if (!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    return SYSTEMS[idx](ctx, w, h, color);
+  }
+  const queue = [];
+  schedule = (fn) => { queue.push(fn); return 0; };
+  try {
+    const cleanup = SYSTEMS[idx](ctx, w, h, color);
+    while (queue.length) queue.shift()();
+    return cleanup;
+  } finally {
+    schedule = (fn) => requestAnimationFrame(fn);
+  }
 }
 
 export { SYSTEM_NAMES };
