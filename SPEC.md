@@ -2,12 +2,16 @@
 
 Canonical content for this site lives in the public repo **`maxinelevesque/writing`**
 (one `pieces/<slug>/index.md` per piece, semantic frontmatter only: `title`,
-`subtitle?`, `date`, `updated?`, `kind` ∈ {essay, fiction, note, dialogue},
-`coauthor?`, `formerName?`, `summary?`, `canonical`). This site is a **downstream
+`subtitle?`, `date`, `updated?`, `kind` ∈ {essay, fiction, note, dialogue, report},
+`coauthor?`, `coauthorNote?`, `formerName?`, `summary?`, `canonical`, `tags?`,
+`contributors?`, `readAloud?`). This site is a **downstream
 consumer**: at build time `scripts/generate-content.mjs` shallow-clones that repo
 (or uses a local checkout via `WRITING_SRC`) and generates
-`src/content/{writing,dialogues}/<slug>.md`, routing by `kind` (`dialogue` →
-dialogues, else → writing). Presentation that is purely about *how this site
+`src/content/{writing,dialogues,research}/<slug>.md`, routing by `kind` (`dialogue` →
+dialogues, `report` → research, else → writing). Research reports render in a third,
+ochre register at `/research/<slug>`; their contributors are resolved against the
+content repo's `personas.json` (with per-piece roles), and a `readAloud` companion is
+copied to `public/research/<slug>/`. Presentation that is purely about *how this site
 renders* — the dynamical-system background index and the read-time string — is not
 in the content repo; it lives here in `presentation.json`, keyed by slug, and is
 **merged into the generated frontmatter at build time** so the existing Astro pages

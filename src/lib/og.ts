@@ -30,6 +30,13 @@ const THEMES = {
     muted: '#5a5664',
     rule: '#1e1d28',
   },
+  research: {
+    bg: '#17140d',
+    accent: '#d0a85c',
+    text: '#e2dccb',
+    muted: '#8a7f66',
+    rule: '#30291a',
+  },
 } as const;
 
 export type OGTheme = keyof typeof THEMES;

@@ -5,7 +5,7 @@ interface Props {
   title: string;
   description?: string;
   /** Theme — controls mobile browser chrome color. Defaults to solo (burgundy). */
-  theme?: 'solo' | 'dial';
+  theme?: 'solo' | 'dial' | 'research';
   /** og:type. `article` for content pieces, `website` for index pages. */
   ogType?: 'article' | 'website';
   /** Override for og:image:alt; otherwise auto-derived from the title. */
@@ -38,7 +38,8 @@ const ogPath = path === '' ? '/og/home.png' : `/og${path}.png`;
 const ogUrl = new URL(ogPath, Astro.site ?? Astro.url.origin).toString();
 const canonical = new URL(path === '' ? '/' : path, Astro.site ?? Astro.url.origin).toString();
 
-const themeColor = theme === 'dial' ? '#0a0b12' : '#2e1420';
+const THEME_COLORS = { solo: '#2e1420', dial: '#0a0b12', research: '#17140d' } as const;
+const themeColor = THEME_COLORS[theme];
 const ogImageAlt = imageAlt ?? `Open graph card for ${title} — ${SITE}.`;
 
 // atproto link tags: Bluesky's crawler reads these to map the posted URL to the

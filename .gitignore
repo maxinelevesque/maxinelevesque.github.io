@@ -14,8 +14,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+/lib/
+/lib64/
 parts/
 sdist/
 var/
@@ -211,9 +211,11 @@ drafts/
 # same trees — src/content/config.ts, public/straw-holes/ — stay tracked.
 /src/content/writing/
 /src/content/dialogues/
+/src/content/research/
 /src/data/atproto.json
 /public/.well-known/
 /public/personas/
+/public/research/
 
 # Private, immutable tailnet demo snapshot; never published by site CI.
 /.local-demo/
