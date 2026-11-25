@@ -32,6 +32,7 @@ import { mkdtempSync, mkdirSync, readdirSync, readFileSync, writeFileSync, exist
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
+import { readMinutes } from '../src/lib/read-time.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REPO_URL = process.env.WRITING_REPO_URL || 'https://github.com/maxinelevesque/writing.git';
@@ -127,6 +128,7 @@ function resolveContributors(list, slug) {
 const COLLECTION = { essay: 'writing', fiction: 'writing', note: 'writing', dialogue: 'dialogues', report: 'research' };
 const REGISTER = { writing: 'writing', dialogues: 'dialogue', research: 'research' };
 const DEFAULT_SYSTEM = { writing: 0, dialogues: 2, research: 9 };
+
 
 function humanDate(iso) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
@@ -288,10 +290,9 @@ for (const slug of slugs) {
     // No curated presentation yet — default so a brand-new upstream piece still
     // auto-publishes (this is the whole point of the content-updated rebuild).
     // system falls back to the collection's default background; readTime is
-    // estimated from body length (~200 wpm). Curate later by adding an entry to
+    // estimated from the prose (~200 wpm; src/lib/read-time.mjs). Curate later by adding an entry to
     // presentation.json — an explicit entry always overrides these defaults.
-    const words = body.trim().split(/\s+/).filter(Boolean).length;
-    const readMin = Math.max(1, Math.round(words / 200));
+    const readMin = readMinutes(body);
     pres = { collection, register: expectedRegister, system: DEFAULT_SYSTEM[collection], readTime: `${readMin} min` };
     console.warn(`generate-content: ${slug} has no presentation.json entry — defaulting system=${pres.system}, readTime="${pres.readTime}". Add an entry to curate.`);
   }
