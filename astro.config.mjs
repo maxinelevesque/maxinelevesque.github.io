@@ -10,6 +10,9 @@ import { REVIEW_SOURCE_MAP, remarkReviewDisplays, rehypeReviewSourceMap } from '
 const review = REVIEW_SOURCE_MAP
   ? { remark: [remarkReviewDisplays], rehype: [rehypeReviewSourceMap] }
   : { remark: [], rehype: [] };
+// Also for review previews: figure components' state reaches the review overlay
+// (essay-page.js). It's a build-time constant, so production bundles leave that code out.
+const define = { __REVIEW_PREVIEW__: JSON.stringify(REVIEW_SOURCE_MAP) };
 
 export default defineConfig({
   site: 'https://maxine.science',
@@ -19,6 +22,7 @@ export default defineConfig({
   // verification. `format: 'file'` emits /writing/<slug>.html (served without the
   // slash and without a redirect) instead of /writing/<slug>/index.html.
   trailingSlash: 'never',
+  vite: { define },
   build: { format: 'file' },
   // If using username.github.io, no base needed
   // If using a custom domain, no base needed

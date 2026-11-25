@@ -60,7 +60,10 @@ assert.ok(existsSync(join(dist, 'files', SLUG, 'read-aloud.txt')));
 const chunks = readdirSync(join(dist, '_astro'));
 assert.ok(chunks.some((f) => /^fraction-bar\..*\.js$/.test(f)), 'The figure component is bundled as its own chunk.');
 assert.ok(!chunks.some((f) => /\.test\./.test(f)), 'Figure tests are not bundled.');
-// Review previews (REVIEW_SOURCE_MAP=1) carry each block's source lines; production never does.
+// Review previews (REVIEW_SOURCE_MAP=1) carry each block's source lines, and hand figure state to
+// the review overlay; production never does either.
+const bridged = chunks.filter((f) => f.endsWith('.js')).some((f) => readFileSync(join(dist, '_astro', f), 'utf8').includes('reviewFigure'));
+assert.equal(bridged, process.env.REVIEW_SOURCE_MAP === '1', 'Only review builds hand figure state to the overlay.');
 if (process.env.REVIEW_SOURCE_MAP === '1') {
   const at = (re) => assert.match(html, re);
   at(/<figure id="thirds" [^>]*data-src="pieces\/essay-format-sample\/index\.md:\d+-\d+"/);

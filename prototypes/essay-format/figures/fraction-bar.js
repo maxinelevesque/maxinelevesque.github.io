@@ -78,4 +78,9 @@ export function mount(host, { id, attrs, params, on }) {
   scrub.addEventListener('lostpointercapture', stop);
   on('notation', (next) => { notation = next; draw(units, false); });
   draw(initialUnits, false);
+  // For review previews: a comment saves where the bar was, and "show me" puts it back.
+  return {
+    getState: () => ({ units }),
+    setState: (state) => { if (Number.isFinite(state?.units)) draw(state.units, false); },
+  };
 }

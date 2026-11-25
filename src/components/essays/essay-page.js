@@ -94,7 +94,7 @@ async function mountFigure(figure, slug, page, reducedMotion) {
     const mod = await load();
     if (typeof mod.mount !== 'function') throw new TypeError(`figure component "${name}" has no mount() export`);
     figure.prepend(host);
-    await mod.mount(host, {
+    const controls = await mod.mount(host, {
       id: figure.id,
       attrs: JSON.parse(figure.dataset.figureAttrs ?? '{}'),
       params: page.snapshot(),
@@ -103,6 +103,11 @@ async function mountFigure(figure, slug, page, reducedMotion) {
     });
     // Hide the still only once a working component is in place.
     for (const still of figure.querySelectorAll(':scope > .figure-still')) still.hidden = true;
+    // Review previews only: the overlay saves the figure's state with a comment and
+    // restores it for "show me". Production builds drop this (__REVIEW_PREVIEW__ is false).
+    if (__REVIEW_PREVIEW__ && typeof controls?.getState === 'function' && typeof controls?.setState === 'function') {
+      figure.reviewFigure = { getState: () => controls.getState(), setState: (s) => controls.setState(s) };
+    }
     figure.dataset.enhanced = 'true';
   } catch (error) {
     host.remove();

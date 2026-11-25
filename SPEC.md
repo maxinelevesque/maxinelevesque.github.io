@@ -122,6 +122,10 @@ export function mount(host, { id, attrs, params, on, reducedMotion }) { … }
 - `mount` may be async. If it throws or rejects, the page removes the host and
   keeps the still image and caption. The still is hidden only after `mount`
   succeeds.
+- `mount` may return `{ getState, setState }`, for review previews only (below):
+  `getState()` returns the figure's state as plain JSON (a few hundred bytes at
+  most), and `setState(state)` draws it again. A comment on the figure saves its
+  state, and "show me" restores it. Production pages never call them.
 - A component may import its own modules and CSS from `figures/`. Scope its CSS
   under its own class, and use the page's `--essay-text`, `--essay-muted`,
   `--essay-accent`, `--essay-rule` and `--essay-bg` colours. Labels are HTML text,
@@ -144,6 +148,9 @@ it came from, so a comment made on the page lands on the right lines in `writing
   tables and their rows, and notes (their definitions' lines). KaTeX and Shiki replace display
   math and code blocks, so those are matched back to their source by content.
 - A text block left without lines fails the build.
+- The page script hands each figure's `{ getState, setState }` (if its `mount` returned them) to
+  the review overlay as `figure.reviewFigure`. This is behind the build-time constant
+  `__REVIEW_PREVIEW__` (Vite `define`), so production bundles don't contain it.
 
 Without the variable, neither plugin is loaded, and pages are byte-for-byte as before;
 `build-essay-sample.mjs` checks this. Tests: `node scripts/check-review-source-map.mjs`, and
