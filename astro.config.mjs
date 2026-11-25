@@ -3,6 +3,13 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkAbstract from './src/lib/remark-abstract.mjs';
 import { remarkEssayFormat, rehypeEssayBlocks, rehypeColumnNotes } from './src/lib/essay-format.mjs';
+import { REVIEW_SOURCE_MAP, remarkReviewDisplays, rehypeReviewSourceMap } from './src/lib/review-source-map.mjs';
+
+// Review previews only (REVIEW_SOURCE_MAP=1): every block carries its source lines
+// in `writing` as data-src. Production builds don't load these plugins.
+const review = REVIEW_SOURCE_MAP
+  ? { remark: [remarkReviewDisplays], rehype: [rehypeReviewSourceMap] }
+  : { remark: [], rehype: [] };
 
 export default defineConfig({
   site: 'https://maxine.science',
@@ -22,8 +29,8 @@ export default defineConfig({
     // No client-side JS — safe for static GitHub Pages hosting.
     // The interactive essay format (figures, theorem boxes, margin notes)
     // applies to research reports only; see src/lib/essay-format.mjs.
-    remarkPlugins: [remarkMath, remarkAbstract, remarkEssayFormat],
-    rehypePlugins: [rehypeKatex, rehypeEssayBlocks, rehypeColumnNotes],
+    remarkPlugins: [remarkMath, remarkAbstract, remarkEssayFormat, ...review.remark],
+    rehypePlugins: [rehypeKatex, rehypeEssayBlocks, rehypeColumnNotes, ...review.rehype],
     shikiConfig: {
       theme: 'css-variables',
     },

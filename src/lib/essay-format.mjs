@@ -95,6 +95,8 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
         }
         nodes.splice(i, 3, {
           type: 'essayFigure',
+          // From the marker to the caption, so a comment on the figure has source lines.
+          position: node.position && caption.position && { start: node.position.start, end: caption.position.end },
           data: {
             hName: 'figure',
             hProperties: {

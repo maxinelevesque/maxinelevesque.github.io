@@ -52,7 +52,7 @@ assert.match(html, /<div class="page-switch" role="group" aria-label="Notation" 
 assert.match(html, /<div class="page-switch-slot"><\/div>/);
 assert.match(html, /class="proof-link"/);
 assert.equal((html.match(/<div class="table-wrap">/g) ?? []).length, 2);
-assert.match(html, /<p class="continues">and the paragraph continues/);
+assert.match(html, /<p class="continues"[^>]*>and the paragraph continues/);
 assert.match(html, /href="\/files\/essay-format-sample\/read-aloud\.txt"/);
 assert.match(html, /class="article-body research essay" data-slug="essay-format-sample"/);
 assert.ok(existsSync(join(dist, 'files', SLUG, 'assets', 'fraction-bar.svg')));
@@ -60,4 +60,13 @@ assert.ok(existsSync(join(dist, 'files', SLUG, 'read-aloud.txt')));
 const chunks = readdirSync(join(dist, '_astro'));
 assert.ok(chunks.some((f) => /^fraction-bar\..*\.js$/.test(f)), 'The figure component is bundled as its own chunk.');
 assert.ok(!chunks.some((f) => /\.test\./.test(f)), 'Figure tests are not bundled.');
-console.log(`\nSample report built and checked: dist/research/${SLUG}.html`);
+// Review previews (REVIEW_SOURCE_MAP=1) carry each block's source lines; production never does.
+if (process.env.REVIEW_SOURCE_MAP === '1') {
+  const at = (re) => assert.match(html, re);
+  at(/<figure id="thirds" [^>]*data-src="pieces\/essay-format-sample\/index\.md:\d+-\d+"/);
+  at(/<span class="katex-display" data-src="pieces\/essay-format-sample\/index\.md:\d+-\d+"/);
+  at(/<pre [^>]*data-src="pieces\/essay-format-sample\/index\.md:\d+-\d+"/);
+} else {
+  assert.doesNotMatch(html, /data-src=/, 'Production pages carry no source lines.');
+}
+console.log(`\nSample report built and checked: dist/research/${SLUG}.html${process.env.REVIEW_SOURCE_MAP === '1' ? ', with source lines' : ''}`);

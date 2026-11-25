@@ -130,6 +130,25 @@ export function mount(host, { id, attrs, params, on, reducedMotion }) { … }
 
 The sample component is `prototypes/essay-format/figures/fraction-bar.js`.
 
+## Review previews: source lines
+
+Review previews (maxine/review on the forge) need each rendered block to say which source lines
+it came from, so a comment made on the page lands on the right lines in `writing`. With
+`REVIEW_SOURCE_MAP=1`:
+
+- `generate-content` writes `src/data/review-source-map.json` (gitignored): each piece's offset
+  from the generated file to `pieces/<slug>/index.md`. The generator only rewrites text within
+  lines, so a single offset per piece is exact.
+- `src/lib/review-source-map.mjs` adds `data-src="pieces/<slug>/index.md:<start>-<end>"` to every
+  block: paragraphs, headings, list items, containers, figures (from the marker to the caption),
+  tables and their rows, and notes (their definitions' lines). KaTeX and Shiki replace display
+  math and code blocks, so those are matched back to their source by content.
+- A text block left without lines fails the build.
+
+Without the variable, neither plugin is loaded, and pages are byte-for-byte as before;
+`build-essay-sample.mjs` checks this. Tests: `node scripts/check-review-source-map.mjs`, and
+`REVIEW_SOURCE_MAP=1 node scripts/build-essay-sample.mjs` for the full build.
+
 ## Site-wide
 
 - **Always dark.** `:root` declares `color-scheme: dark`, so an SVG image's own
