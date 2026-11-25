@@ -213,6 +213,7 @@ drafts/
 /src/content/dialogues/
 /src/content/research/
 /src/data/atproto.json
+/src/data/review-source-map.json
 /public/.well-known/
 /public/personas/
 /public/files/

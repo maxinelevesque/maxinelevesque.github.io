@@ -237,11 +237,20 @@ function checkPageSwitch(slug, sw) {
 }
 
 const written = [];
+const REVIEW_SOURCE_MAP = process.env.REVIEW_SOURCE_MAP === '1';
+const sourceMap = {};
 for (const slug of slugs) {
   const file = join(piecesDir, slug, 'index.md');
   if (!existsSync(file)) die(`${slug}: no index.md`);
-  let { body } = splitFrontmatter(readFileSync(file, 'utf8'), slug);
-  const fmParsed = parseFrontmatter(splitFrontmatter(readFileSync(file, 'utf8'), slug).fm);
+  const raw = readFileSync(file, 'utf8');
+  let { body } = splitFrontmatter(raw, slug);
+  const fmParsed = parseFrontmatter(splitFrontmatter(raw, slug).fm);
+  // Review previews: the source line where the generated body starts (its leading
+  // blank lines are dropped below; nothing else changes the body's line count).
+  if (REVIEW_SOURCE_MAP) {
+    const head = raw.slice(0, raw.length - body.length);
+    sourceMap[slug] = { path: `pieces/${slug}/index.md`, firstLine: head.split('\n').length + /^\n*/.exec(body)[0].length };
+  }
 
   const kind = fmParsed.kind;
   if (!kind) die(`${slug}: missing kind`);
@@ -349,6 +358,17 @@ for (const slug of slugs) {
   const dest = join(ROOT, 'src', 'content', collection, `${slug}.md`);
   writeFileSync(dest, out);
   written.push(`${collection}/${slug}.md`);
+}
+
+// Review previews (REVIEW_SOURCE_MAP=1; src/lib/review-source-map.mjs): each piece's
+// line offset, so rendered blocks carry their source lines. Never in production.
+const sourceMapFile = join(ROOT, 'src', 'data', 'review-source-map.json');
+if (REVIEW_SOURCE_MAP) {
+  mkdirSync(dirname(sourceMapFile), { recursive: true });
+  writeFileSync(sourceMapFile, JSON.stringify(sourceMap, null, 2) + '\n');
+  console.log(`generate-content: wrote src/data/review-source-map.json (${Object.keys(sourceMap).length} pieces)`);
+} else {
+  rmSync(sourceMapFile, { force: true });
 }
 
 // standard.site domain verification: /.well-known/site.standard.publication must
