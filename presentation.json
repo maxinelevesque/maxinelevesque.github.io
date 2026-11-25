@@ -10,5 +10,17 @@
   "straw-holes": { "collection": "dialogues", "register": "dialogue", "system": 4, "readTime": "30 min" },
   "the-floor-is-here": { "collection": "dialogues", "register": "dialogue", "system": 11, "readTime": "35 min" },
   "trauma-junkie-1": { "collection": "writing", "register": "writing", "system": 0, "readTime": "18 min" },
-  "trauma-junkie-2": { "collection": "writing", "register": "writing", "system": 11, "readTime": "20 min" }
+  "trauma-junkie-2": { "collection": "writing", "register": "writing", "system": 11, "readTime": "20 min" },
+  "localization-semantics-1": {
+    "collection": "research", "register": "research", "system": 9, "readTime": "80 min",
+    "figureLayouts": { "fig-runs": "full", "fig-equalities": "full", "fig-predicates": "full", "fig-code": "full" },
+    "pageSwitch": {
+      "param": "calc", "label": "Calculus", "default": "ski",
+      "options": [
+        { "value": "ski", "label": "Combinatory logic" },
+        { "value": "tree", "label": "Tree calculus" },
+        { "value": "net", "label": "Interaction nets" }
+      ]
+    }
+  }
 }
