@@ -54,13 +54,30 @@
 }
 .essay pre code { font-size: .82em; }
 
-/* Proof links: the proved statement, with a dashed underline, links to its
-   machine-checked proof. */
-.essay a.proof-link {
+/* Proof links: the proved statement links to its machine-checked proof. A faint
+   dotted line shows what was proved, and a small ⊢ marks where it ends (in a
+   table of proofs the column says so already, so the mark is left out). */
+.article-body.essay a.proof-link { /* beats the register's link colour: the statement stays prose */
   color: inherit;
-  border-bottom: 1px dashed color-mix(in srgb, var(--essay-accent) 70%, transparent);
+  border-bottom: 0;
+  text-decoration: underline dotted 1px color-mix(in srgb, var(--essay-accent) 45%, transparent);
+  text-underline-offset: .22em;
 }
-.essay a.proof-link:hover { border-bottom-style: solid; border-bottom-color: var(--essay-accent); }
+.article-body.essay a.proof-link:hover {
+  text-decoration-style: solid;
+  text-decoration-color: var(--essay-accent);
+}
+.essay .proof-mark {
+  display: inline-block; /* keeps the underline off the mark */
+  text-indent: 0; /* an inline-block would take the paragraph's first-line indent */
+  margin-left: .08em;
+  font-family: var(--font-mono);
+  font-size: .62em;
+  line-height: 1;
+  vertical-align: .55em;
+  color: var(--essay-accent);
+}
+.essay td .proof-mark { display: none; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;

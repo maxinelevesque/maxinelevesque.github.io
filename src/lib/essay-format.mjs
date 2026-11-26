@@ -131,7 +131,8 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
 }
 
 // Links to Lean source files are proof links: the linked text is the proved
-// statement, shown with a dashed underline. Tables get a wrapper so a wide one
+// statement, shown with a faint dotted underline and closed by a small ⊢ (hidden
+// from screen readers, which hear "machine-checked proof in Lean" instead). Tables get a wrapper so a wide one
 // can take room from the margins (the page script decides) or scroll.
 export const PROOF_LINK = /\.lean(?:#L\d+(?:-L\d+)?)?$/;
 export function rehypeEssayBlocks({ collections = ESSAY_COLLECTIONS, always = false } = {}) {
@@ -145,7 +146,9 @@ export function rehypeEssayBlocks({ collections = ESSAY_COLLECTIONS, always = fa
         }
         if (child.tagName === 'a' && PROOF_LINK.test(String(child.properties?.href ?? '').split('?')[0])) {
           child.properties.className = [...(child.properties.className ?? []), 'proof-link'];
-          child.children = [...child.children, element('span', { className: ['visually-hidden'] }, [text(' (machine-checked proof in Lean)')])];
+          child.children = [...child.children,
+            element('span', { className: ['proof-mark'], ariaHidden: 'true' }, [text('⊢')]),
+            element('span', { className: ['visually-hidden'] }, [text(' (machine-checked proof in Lean)')])];
         }
         visit(child);
         return child;
