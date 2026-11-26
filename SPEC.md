@@ -164,12 +164,12 @@ Without the variable, neither plugin is loaded, and pages are byte-for-byte as b
 - **Code** is set in IBM Plex Mono, self-hosted via `@fontsource/ibm-plex-mono`;
   in the research register it is tinted toward ochre.
 - **Glyphs the fonts lack.** EB Garamond and Plex Mono have no arrows, set brackets `⟦ ⟧`,
-  geometric shapes `△ □ ○`, relations such as `∈`, or subscript digits, and Plex Mono has no
+  geometric shapes `△ □ ○`, relations such as `∈`, subscript digits or fractions such as `⅛ ⅜ ⅝`, and Plex Mono has no
   Greek. Self-hosted fallback faces cover exactly those, behind each font in its stack:
   - STIX Two Math behind Garamond, and last behind Plex Mono;
   - Noto Sans Mono's Greek, then Noto Sans Math, behind Plex Mono.
 
-  They are subsets in `public/fonts/fallback/` (34, 33 and 8 KB; SIL OFL, licences beside them),
+  They are subsets in `public/fonts/fallback/` (about 35, 34 and 8 KB; SIL OFL, licences beside them),
   made by `scripts/subset-fallback-fonts.py` from the `@fontsource` packages. Their
   `unicode-range` means a face is fetched only when a page uses one of its characters. Most pages
   use the breadcrumb's → or the end mark ■, so the serif one is common. They are the faces the

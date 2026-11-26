@@ -20,7 +20,7 @@ from fontTools import subset
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "node_modules", "@fontsource")
 OUT = os.path.join(ROOT, "public", "fonts", "fallback")
-SYMBOLS = "U+2080-209C,U+2190-21FF,U+2200-22FF,U+25A0-25FF,U+27E6-27EF"
+SYMBOLS = "U+2080-209C,U+2150-218F,U+2190-21FF,U+2200-22FF,U+25A0-25FF,U+27E6-27EF"
 FACES = [
     ("serif-math", "stix-two-math", "stix-two-math-latin-400-normal.woff", SYMBOLS),
     ("mono-greek", "noto-sans-mono", "noto-sans-mono-greek-400-normal.woff", "U+0370-03FF"),
