@@ -30,13 +30,18 @@ for (const [id, layout] of [['thirds-centered', 'center'], ['thirds', 'left'], [
 assert.equal((code.match(/<p class="figure-still"><img [^>]*alt="[^"]+"/g) ?? []).length, 3, 'Every figure keeps its still, with alt text.');
 assert.equal((code.match(/<figcaption>/g) ?? []).length, 3);
 assert.match(code, /<aside class="theorem" aria-label="Equal parts">\s*<p class="container-lead">Theorem\. Equal parts<\/p>/);
-assert.match(code, /<details class="established">\s*<summary class="container-lead">What is established<\/summary>/);
+assert.match(code, /<details class="disclosure">\s*<summary class="container-lead">What is established<\/summary>/);
+assert.match(code, /<details class="disclosure">\s*<summary class="container-lead">Every twelfth, with its proof<\/summary>\s*<div class="table-wrap">\s*<table>/, 'A box can hold a table, which gets its wrapper.');
 assert.match(code, /<aside class="abstract" aria-label="Abstract">\s*<p><strong>Abstract\.<\/strong>/);
-assert.doesNotMatch(code, /<!--\s*figure|\[!THEOREM\]|\[!ESTABLISHED\]|aria-describedby="footnote-label"/);
+assert.doesNotMatch(code, /<!--\s*figure|\[!THEOREM\]|\[!DETAILS\]|\[!ESTABLISHED\]|aria-describedby="footnote-label"/);
 assert.match(code, /class="footnotes essay-endnotes"/);
 assert.match(code, />Notes and footnotes<\/h2>/);
 assert.match(code, /data-note-ids="[^"]+"[^>]*hidden/);
 assert.ok(code.indexOf('class="footnotes essay-endnotes"') > code.indexOf('This is only a destination'), 'Notes follow the whole article by default.');
+
+// [!ESTABLISHED] is the box's older name: same box, any label.
+const older = await render('> [!ESTABLISHED] By level of support\n>\n> Body.');
+assert.match(older, /<details class="disclosure">\s*<summary class="container-lead">By level of support<\/summary>/);
 
 // An essay-scale note count, with repeated references and backlinks.
 const refs = Array.from({ length: 32 }, (_, i) => `Note ${i + 1}.[^n${i}]`).join(' ');

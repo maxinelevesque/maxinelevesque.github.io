@@ -40,8 +40,13 @@ the `research` collection only; other pieces render exactly as before.
   script moves each note beside its first referring paragraph, a size smaller
   and without a return link; otherwise, and without JavaScript, they are
   collected at the end as "Notes and footnotes", with return links.
-- **Theorem boxes:** `> [!THEOREM] Lead`. **Scope boxes:** `> [!ESTABLISHED] Lead`,
-  shown as a disclosure.
+- **Theorem boxes:** `> [!THEOREM] Lead`.
+- **Collapsible boxes:** `> [!DETAILS] Label`, a box closed until the reader
+  opens it, under whatever label suits its use ("By level of support", "Claims
+  and their Lean statements"). The rest of the quotation is its contents, and may
+  hold anything, a table included. A wide table in a box widens the box, open or
+  closed, on wide screens; otherwise it scrolls inside it. `[!ESTABLISHED]` is the
+  box's older name and still builds.
 - **Figures:** three blocks, in this order:
 
   ```md
