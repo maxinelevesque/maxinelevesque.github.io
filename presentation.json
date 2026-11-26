@@ -22,5 +22,9 @@
         { "value": "net", "label": "Interaction nets" }
       ]
     }
+  },
+  "holonomy-and-rent": {
+    "collection": "research", "register": "research", "system": 9, "readTime": "43 min",
+    "figureLayouts": { "fig-loop": "full", "fig-penrose": "full" }
   }
 }
