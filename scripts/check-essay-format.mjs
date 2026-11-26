@@ -88,6 +88,24 @@ assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.md">this<\/a>/)
 assert.match(blocksCase, /<div class="table-wrap">\s*<table>/);
 await assert.rejects(render('<!-- page-switch -->\n\nText.\n\n<!-- page-switch -->'), undefined, 'two switches');
 
+// Cards: the marker goes, the list is the grid, each picture is the card's.
+const cards = await render([
+  'Before.', '', '<!-- cards -->', '',
+  '- ![One.](a.svg) **First.** *Examples.* Text.',
+  '- ![Two.](b.svg) **Second.** Text.[^c]', '',
+  'After.', '', '[^c]: A note.',
+].join('\n'));
+assert.match(cards, /<ul class="cards">\s*<li class="card"><img src="a\.svg" alt="One\." class="card-picture"> <strong>First\.<\/strong>/);
+assert.equal((cards.match(/<li class="card">/g) ?? []).length, 2);
+assert.doesNotMatch(cards, /<!--\s*cards/);
+for (const broken of [
+  '<!-- cards -->\n\nNo list.',
+  '<!-- cards -->\n\n1. ![A.](a.svg) **Ordered.** No.',
+  '<!-- cards -->\n\n- **No picture.** Text.',
+  '<!-- cards -->\n\n- ![](a.svg) **Empty alt.** Text.',
+  '<!-- cards -->\n\n- ![A.](a.svg) No heading.',
+]) await assert.rejects(render(broken), undefined, broken);
+
 // Marker grammar.
 assert.deepEqual(parseFigureMarker('<!-- figure #fig-reduction component="reduction" calc="tree" -->'),
   { id: 'fig-reduction', component: 'reduction', layout: 'left', attrs: { calc: 'tree' } });
@@ -110,4 +128,4 @@ for (const broken of [
   '<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.\n\n<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.', // duplicate id
 ]) await assert.rejects(render(broken), undefined, broken);
 
-console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, page switch, continuing paragraphs, proof links, tables, collection scoping.');
+console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, page switch, continuing paragraphs, proof links, tables, cards, collection scoping.');

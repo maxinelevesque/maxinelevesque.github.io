@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" role="img" aria-label="One of 6 equal parts filled">
+  <style>
+    .rule { stroke: #d0a85c; } .track { fill: #30291a; } .fill { fill: #d0a85c; }
+    @media (prefers-color-scheme: light) { .track { fill: #e6dcc6; } .fill { fill: #8a6420; } .rule { stroke: #8a6420; } }
+  </style>
+  <line class="rule" x1="0" y1="2" x2="240" y2="2" stroke-width="3"/>
+  <rect class="fill" x="20" y="60" width="29" height="40"/><rect class="track" x="53" y="60" width="29" height="40"/><rect class="track" x="86" y="60" width="29" height="40"/><rect class="track" x="119" y="60" width="29" height="40"/><rect class="track" x="152" y="60" width="29" height="40"/><rect class="track" x="185" y="60" width="29" height="40"/>
+</svg>

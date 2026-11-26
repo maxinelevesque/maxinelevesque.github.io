@@ -47,6 +47,12 @@ the `research` collection only; other pieces render exactly as before.
   hold anything, a table included. A wide table in a box widens the box, open or
   closed, on wide screens; otherwise it scrolls inside it. `[!ESTABLISHED]` is the
   box's older name and still builds.
+- **Cards:** `<!-- cards -->` before a bulleted list. Each item is a card: its
+  picture (an image with alt text), its bold heading, then its text. On the site
+  they form a grid, two to a row in the text column and one on a phone; elsewhere
+  they are a list with small pictures. Cards take no figure number. A list item
+  without a picture and heading, or a marker not followed by a bulleted list,
+  fails the build.
 - **Figures:** three blocks, in this order:
 
   ```md
