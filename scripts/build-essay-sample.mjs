@@ -51,6 +51,7 @@ assert.equal((html.match(/<img src="\/files\/essay-format-sample\/assets\/fracti
 assert.match(html, /<div class="page-switch" role="group" aria-label="Notation" data-param="notation" data-default="lowest" hidden[^>]*>/);
 assert.match(html, /<div class="page-switch-slot"><\/div>/);
 assert.match(html, /class="proof-link"/);
+assert.match(html, /class="proof-link definition"[^>]*>the remainder<span class="proof-mark" aria-hidden="true">:=<\/span>/);
 assert.equal((html.match(/<li class="card"[^>]*><img src="\/files\/essay-format-sample\/assets\/card-[a-z]+\.svg"[^>]*class="card-picture"/g) ?? []).length, 4);
 assert.equal((html.match(/<div class="table-wrap">/g) ?? []).length, 3);
 assert.match(html, /<p class="continues"[^>]*>and the paragraph continues/);

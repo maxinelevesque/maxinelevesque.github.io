@@ -88,7 +88,7 @@ A long term is displayed as code rather than squeezed into a line:
 S K K x  →  K x (K x)  →  x
 ```
 
-That the remainder is always two thirds is [checked by machine for every twelfth](https://example.org/thirds/Thirds.lean#L12).[^lean] A statement with a dashed underline links to its proof.
+That the remainder is always two thirds is [checked by machine for every twelfth](https://example.org/thirds/Thirds.lean#L12).[^lean] A statement with a dotted underline, ending in ⊢, links to its proof; a name ending in :=, such as [the remainder](https://example.org/thirds/Thirds.lean#L4 "Definition: Thirds.remainder"), links to its definition.
 
 | Filled | Lowest terms | Remainder |
 |---|---|---|
@@ -112,7 +112,7 @@ A collapsible box can hold a wide table too. It is closed until opened, and on w
 > | Lowest terms | 0 | 1/12 | 1/6 | 1/4 | 1/3 | 5/12 | 1/2 | 7/12 | 2/3 | 3/4 | 5/6 | 11/12 | 1 |
 > | Remainder | 1 | 11/12 | 5/6 | 3/4 | 2/3 | 7/12 | 1/2 | 5/12 | 1/3 | 1/4 | 1/6 | 1/12 | 0 |
 
-[^lean]: A statement set with a dashed underline, like this one, links to its machine-checked proof in Lean, at a fixed commit.
+[^lean]: A statement with a faint dotted underline, ending in ⊢, like this one, links to its machine-checked proof in Lean, at a fixed commit. A name ending in := links to its definition in Lean.
 
 ## 5. Cards
 

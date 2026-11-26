@@ -85,6 +85,8 @@ assert.match(blocksCase, /<p>A new paragraph\.<\/p>/);
 assert.match(blocksCase, /<p class="continues">continuing after code\.<\/p>/);
 assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.lean#L3-L9" class="proof-link">proved<span class="proof-mark" aria-hidden="true">⊢<\/span><span class="visually-hidden"> \(machine-checked proof in Lean\)<\/span><\/a>/);
 assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.md">this<\/a>/);
+const definition = await render('[The eager table](https://example.org/a/T.lean#L128 "Definition: Ix.TC.eagerTable") compiles terms.');
+assert.match(definition, /class="proof-link definition">The eager table<span class="proof-mark" aria-hidden="true">:=<\/span><span class="visually-hidden"> \(definition in Lean\)<\/span><\/a>/);
 assert.match(blocksCase, /<div class="table-wrap">\s*<table>/);
 await assert.rejects(render('<!-- page-switch -->\n\nText.\n\n<!-- page-switch -->'), undefined, 'two switches');
 
@@ -128,4 +130,4 @@ for (const broken of [
   '<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.\n\n<!-- figure #f component="x" -->\n\n![A.](a.svg)\n\nC.', // duplicate id
 ]) await assert.rejects(render(broken), undefined, broken);
 
-console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, page switch, continuing paragraphs, proof links, tables, cards, collection scoping.');
+console.log('Essay format checks passed: figure markers and fallbacks, layouts, containers, abstracts, 32 margin notes, page switch, continuing paragraphs, proof and definition links, tables, cards, collection scoping.');
