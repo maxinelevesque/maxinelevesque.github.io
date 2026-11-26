@@ -117,21 +117,42 @@ async function mountFigure(figure, slug, page, reducedMotion) {
 
 // A table wider than the text column takes room from the left margin, then
 // from both, as figures do; beyond that, or on narrow screens, it scrolls.
+// A table inside a collapsible box widens the box instead, open or closed, so
+// opening it doesn't change its width.
 function initTables(content) {
   const wraps = [...content.querySelectorAll('.table-wrap')];
   if (!wraps.length) return;
   const wide = window.matchMedia('screen and (min-width: 1100px)');
-  const layout = () => {
-    for (const wrap of wraps) {
-      wrap.removeAttribute('data-layout');
-      if (!wide.matches) continue;
-      const table = wrap.querySelector('table');
+  // The table's natural width. A closed box lays nothing out, so a copy is
+  // measured in the article instead, for that moment only.
+  const natural = (table) => {
+    if (table.getClientRects().length) {
       table.style.width = 'max-content';
-      const need = table.offsetWidth;
+      const width = table.offsetWidth;
       table.style.width = '';
-      const column = wrap.clientWidth;
-      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-      if (need > column) wrap.dataset.layout = need > column + 16 * rem ? 'full' : 'left';
+      return width;
+    }
+    const copy = table.cloneNode(true);
+    copy.removeAttribute('id');
+    for (const el of copy.querySelectorAll('[id]')) el.removeAttribute('id');
+    Object.assign(copy.style, { position: 'absolute', visibility: 'hidden', width: 'max-content', left: '0', top: '0' });
+    content.append(copy);
+    const width = copy.offsetWidth;
+    copy.remove();
+    return width;
+  };
+  const layout = () => {
+    const boxes = new Map(); // what takes the room → the width its widest table needs
+    for (const wrap of wraps) {
+      const box = wrap.closest('details') ?? wrap;
+      box.removeAttribute('data-layout');
+      if (wide.matches) boxes.set(box, Math.max(boxes.get(box) ?? 0, natural(wrap.querySelector('table'))));
+    }
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    for (const [box, need] of boxes) {
+      const style = getComputedStyle(box);
+      const column = box.clientWidth - (parseFloat(style.paddingLeft) || 0) - (parseFloat(style.paddingRight) || 0);
+      if (need > column) box.dataset.layout = need > column + 16 * rem ? 'full' : 'left';
     }
   };
   layout();

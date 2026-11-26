@@ -227,7 +227,7 @@ body {
 .article-body.research a {
   color: var(--res-link);
 }
-/* Faint panel surface (abstracts, "What is established") in the research register. */
+/* Faint panel surface (abstracts, collapsible boxes) in the research register. */
 .article-body.research { --article-surface: rgb(208 168 92 / .05); }
 
 /* Footnote markers in body text inherit the link color from above. */

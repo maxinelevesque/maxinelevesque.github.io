@@ -116,11 +116,13 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
       }
       const first = node.children?.[0];
       if (node.type === 'blockquote' && first?.type === 'paragraph' && first.children?.[0]?.type === 'text') {
-        const match = /^\[!(THEOREM|ESTABLISHED)\] (.+)$/.exec(first.children[0].value);
+        // [!DETAILS] is the collapsible box, under whatever label the piece gives it;
+        // [!ESTABLISHED] is its older name, kept so existing sources still build.
+        const match = /^\[!(THEOREM|DETAILS|ESTABLISHED)\] (.+)$/.exec(first.children[0].value);
         if (!match) continue;
         const [, kind, label] = match;
-        const disclosure = kind === 'ESTABLISHED';
-        node.data = { hName: disclosure ? 'details' : 'aside', hProperties: { className: [disclosure ? 'established' : 'theorem'], ...(!disclosure && { ariaLabel: label }) } };
+        const disclosure = kind !== 'THEOREM';
+        node.data = { hName: disclosure ? 'details' : 'aside', hProperties: { className: [disclosure ? 'disclosure' : 'theorem'], ...(!disclosure && { ariaLabel: label }) } };
         first.data = { hName: disclosure ? 'summary' : 'p', hProperties: { className: ['container-lead'] } };
         first.children = [text(disclosure ? label : `Theorem. ${label}`)];
       }
