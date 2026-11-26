@@ -18,10 +18,10 @@
 /* Specific enough to beat the site's `p:first-child` rule: a paragraph with
    notes is still indented like any other. */
 .article-body.essay .noted-block > p { text-indent: 2em; }
-.article-body.essay :is(h2, h3, hr, blockquote, .abstract, figure, .table-wrap) + .noted-block > p,
+.article-body.essay :is(h2, h3, hr, blockquote, .abstract, figure, .table-wrap, .cards) + .noted-block > p,
 .article-body.essay .noted-block:first-child > p,
 .article-body.essay .noted-block > p.continues { text-indent: 0; }
-.article-body.essay :is(.table-wrap, .page-switch) + p { text-indent: 0; }
+.article-body.essay :is(.table-wrap, .page-switch, .cards) + p { text-indent: 0; }
 /* Anchored headings, figures and notes stop below the stuck page switch. */
 .essay :is(h2, h3, h4, [id]) { scroll-margin-top: 3.5rem; }
 .essay .column-notes { padding-left: 1.35rem; margin: 0; }
@@ -100,6 +100,24 @@
 }
 .essay details[open] > summary::before { transform: rotate(90deg); }
 .essay details p { text-indent: 0; margin-top: .6rem; }
+
+/* Cards (<!-- cards --> before a list): each item's picture over its bold
+   heading and text, two to a row where the column allows, one on a phone. */
+.article-body.essay ul.cards {
+  list-style: none;
+  margin: 2rem 0 2.4rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.8rem 1.6rem;
+}
+.article-body.essay .cards > li {
+  margin: 0;
+  font-size: .95rem;
+  line-height: 1.5;
+}
+.article-body.essay .cards > li p { margin: 0 0 .5rem; font-size: inherit; line-height: inherit; text-indent: 0; }
+.article-body.essay .cards .card-picture { width: 100%; margin: 0 0 .7rem; }
 
 /* Figures. Labels inside components are HTML text at a consistent size; only
    the drawing scales with the container. */

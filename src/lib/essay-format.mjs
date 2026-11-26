@@ -15,6 +15,9 @@
 //   <!-- page-switch -->     where the page switch (e.g. the calculus) is
 //                            introduced; it sticks to the top from there on.
 //
+//   <!-- cards -->           before a bulleted list whose items each start with
+//                            a picture and a bold heading: a grid of cards.
+//
 // A paragraph that starts on the line right after a display (math or code),
 // with no blank line between, continues the paragraph before it and is not
 // indented, as in LaTeX. Links to Lean files are proof links.
@@ -76,6 +79,23 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
         if (switchSlot) file.fail('Only one <!-- page-switch --> marker per piece.', node);
         switchSlot = true;
         nodes[i] = { type: 'pageSwitchSlot', data: { hName: 'div', hProperties: { className: ['page-switch-slot'] } } };
+        continue;
+      }
+      if (node.type === 'html' && /^<!--\s*cards\s*-->\s*$/.test(node.value.trim())) {
+        const list = nodes[i + 1];
+        if (list?.type !== 'list' || list.ordered) file.fail('<!-- cards --> must be followed by a bulleted list, one card per item.', node);
+        for (const item of list.children) {
+          const [picture, ...rest] = item.children[0]?.type === 'paragraph' ? item.children[0].children : [];
+          const heading = rest.find((c) => !(c.type === 'text' && !c.value.trim()));
+          if (picture?.type !== 'image' || !picture.alt?.trim() || heading?.type !== 'strong') {
+            file.fail('Each card starts with its picture (an image with alt text), then its bold heading.', item);
+          }
+          picture.data = { ...picture.data, hProperties: { ...picture.data?.hProperties, className: ['card-picture'] } };
+          item.data = { ...item.data, hProperties: { ...item.data?.hProperties, className: ['card'] } };
+        }
+        list.data = { ...list.data, hProperties: { ...list.data?.hProperties, className: ['cards'] } };
+        nodes.splice(i, 1); // the list is next
+        i--;
         continue;
       }
       if (node.type === 'html') {

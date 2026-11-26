@@ -114,7 +114,20 @@ A collapsible box can hold a wide table too. It is closed until opened, and on w
 
 [^lean]: A statement set with a dashed underline, like this one, links to its machine-checked proof in Lean, at a fixed commit.
 
-## 5. Related reading and a companion
+## 5. Cards
+
+Related notions can be set as cards, each with a small picture over its heading and a few sentences. They take no figure number.
+
+<!-- cards -->
+
+- ![A bar of two equal cells, the first filled.](assets/card-half.svg) **Halves: the first split.** *Sharing between two.* One cut gives two equal parts, and either is the other's remainder.
+- ![A bar of three equal cells, the first filled.](assets/card-third.svg) **Thirds: no longer symmetric.** *Recipes; the sample's figure.* The part and its remainder differ, one third against two.
+- ![A bar of four equal cells, the first filled.](assets/card-quarter.svg) **Quarters: halves of halves.** *Clocks and coins.* Two cuts in turn give the same parts as one cut into four.
+- ![A bar of six equal cells, the first filled.](assets/card-sixth.svg) **Sixths: two ways down.** *Halves of thirds, or thirds of halves.* Either order of cuts reaches the same twelfths in the end.
+
+A paragraph after the cards starts flush, as after a figure.
+
+## 6. Related reading and a companion
 
 A future sequence link can remain an ordinary link in Markdown: [Continue to the next piece](#a-placeholder-continuation). An approved semantic relationship could later generate the same navigation.
 
