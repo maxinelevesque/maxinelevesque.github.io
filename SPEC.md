@@ -79,7 +79,11 @@ the `research` collection only; other pieces render exactly as before.
   faint dotted underline and a small ⊢ after it, where the proved claim ends
   (Maxine's choice, 2026-11-26). Screen readers skip the ⊢ and hear
   "machine-checked proof in Lean". In a table the ⊢ is left out, since a table
-  of proofs says so already. Introduce the convention in a note at its first use.
+  of proofs says so already. A Lean link whose title begins `Definition:`
+  (`[the eager table](….lean#L128 "Definition: Ix.TC.eagerTable")`) links a name
+  to its definition instead: it ends in `:=`, as Lean writes a definition, and
+  screen readers hear "definition in Lean" (Maxine's choice, 2026-11-26).
+  Introduce the conventions in a note at their first use.
 - **Tables:** left-aligned headers over a rule. A table wider than the text
   column takes room from the left margin, then from both, on wide screens (the
   page script measures it); otherwise it scrolls sideways.

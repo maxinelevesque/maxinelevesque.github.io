@@ -56,7 +56,8 @@
 
 /* Proof links: the proved statement links to its machine-checked proof. A faint
    dotted line shows what was proved, and a small ⊢ marks where it ends (in a
-   table of proofs the column says so already, so the mark is left out). */
+   table of proofs the column says so already, so the mark is left out). A name
+   linked to its definition ends in := instead. */
 .article-body.essay a.proof-link { /* beats the register's link colour: the statement stays prose */
   color: inherit;
   border-bottom: 0;
@@ -78,6 +79,7 @@
   color: var(--essay-accent);
 }
 .essay td .proof-mark { display: none; }
+.essay a.definition .proof-mark { letter-spacing: -.14em; margin-left: .14em; padding-right: .14em; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;

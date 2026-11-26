@@ -20,7 +20,7 @@
 //
 // A paragraph that starts on the line right after a display (math or code),
 // with no blank line between, continues the paragraph before it and is not
-// indented, as in LaTeX. Links to Lean files are proof links.
+// indented, as in LaTeX. Links to Lean files are proof links (or definition links).
 
 export const ESSAY_COLLECTIONS = ['research'];
 export const LAYOUTS = ['center', 'left', 'full'];
@@ -152,9 +152,12 @@ export function remarkEssayFormat({ collections = ESSAY_COLLECTIONS, always = fa
 
 // Links to Lean source files are proof links: the linked text is the proved
 // statement, shown with a faint dotted underline and closed by a small ⊢ (hidden
-// from screen readers, which hear "machine-checked proof in Lean" instead). Tables get a wrapper so a wide one
-// can take room from the margins (the page script decides) or scroll.
+// from screen readers, which hear "machine-checked proof in Lean" instead). A
+// Lean link whose title begins "Definition:" links a name to its definition and
+// is closed by := instead ("definition in Lean"). Tables get a wrapper so a wide
+// one can take room from the margins (the page script decides) or scroll.
 export const PROOF_LINK = /\.lean(?:#L\d+(?:-L\d+)?)?$/;
+export const DEFINITION_TITLE = /^\s*Definition:/i;
 export function rehypeEssayBlocks({ collections = ESSAY_COLLECTIONS, always = false } = {}) {
   return (tree, file) => {
     if (!always && !inEssayCollection(file, collections)) return;
@@ -165,10 +168,11 @@ export function rehypeEssayBlocks({ collections = ESSAY_COLLECTIONS, always = fa
           return element('div', { className: ['table-wrap'] }, [child]);
         }
         if (child.tagName === 'a' && PROOF_LINK.test(String(child.properties?.href ?? '').split('?')[0])) {
-          child.properties.className = [...(child.properties.className ?? []), 'proof-link'];
+          const definition = DEFINITION_TITLE.test(String(child.properties.title ?? ''));
+          child.properties.className = [...(child.properties.className ?? []), 'proof-link', ...(definition ? ['definition'] : [])];
           child.children = [...child.children,
-            element('span', { className: ['proof-mark'], ariaHidden: 'true' }, [text('⊢')]),
-            element('span', { className: ['visually-hidden'] }, [text(' (machine-checked proof in Lean)')])];
+            element('span', { className: ['proof-mark'], ariaHidden: 'true' }, [text(definition ? ':=' : '⊢')]),
+            element('span', { className: ['visually-hidden'] }, [text(definition ? ' (definition in Lean)' : ' (machine-checked proof in Lean)')])];
         }
         visit(child);
         return child;
