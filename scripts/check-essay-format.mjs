@@ -83,7 +83,7 @@ assert.match(blocksCase, /<div class="page-switch-slot"><\/div>/);
 assert.match(blocksCase, /<p class="continues">and after, continuing\.<\/p>/);
 assert.match(blocksCase, /<p>A new paragraph\.<\/p>/);
 assert.match(blocksCase, /<p class="continues">continuing after code\.<\/p>/);
-assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.lean#L3-L9" class="proof-link">proved<span class="visually-hidden"> \(machine-checked proof in Lean\)<\/span><\/a>/);
+assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.lean#L3-L9" class="proof-link">proved<span class="proof-mark" aria-hidden="true">⊢<\/span><span class="visually-hidden"> \(machine-checked proof in Lean\)<\/span><\/a>/);
 assert.match(blocksCase, /<a href="https:\/\/example\.org\/a\/B\.md">this<\/a>/);
 assert.match(blocksCase, /<div class="table-wrap">\s*<table>/);
 await assert.rejects(render('<!-- page-switch -->\n\nText.\n\n<!-- page-switch -->'), undefined, 'two switches');

@@ -70,8 +70,10 @@ the `research` collection only; other pieces render exactly as before.
   before it and is not indented, as in LaTeX; a blank line starts a new one.
 - **Proof links:** a link to a Lean file (`….lean`, optionally `#L12` or
   `#L12-L20`) is a proof link: the linked text, the proved statement, gets a
-  dashed underline, and screen readers hear "machine-checked proof in Lean".
-  Introduce the convention in a note at its first use.
+  faint dotted underline and a small ⊢ after it, where the proved claim ends
+  (Maxine's choice, 2026-11-26). Screen readers skip the ⊢ and hear
+  "machine-checked proof in Lean". In a table the ⊢ is left out, since a table
+  of proofs says so already. Introduce the convention in a note at its first use.
 - **Tables:** left-aligned headers over a rule. A table wider than the text
   column takes room from the left margin, then from both, on wide screens (the
   page script measures it); otherwise it scrolls sideways.
